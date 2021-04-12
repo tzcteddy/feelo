@@ -1,6 +1,6 @@
-'use strict';
+import {feeloCore} from '@feelo/core'
 
-module.exports = feelo;
+
 
 function feelo() {
     // TODO

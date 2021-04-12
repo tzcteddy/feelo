@@ -1,7 +1,6 @@
-'use strict';
-
-module.exports = feeloCore;
-
-function feeloCore() {
+export {feeloCore} from '@feelo/core'
+export function feeloCore() {
     // TODO
+    return 'fe'
 }
+

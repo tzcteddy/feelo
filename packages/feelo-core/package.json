@@ -1,0 +1,29 @@
+{
+  "name": "@feelo/core",
+  "version": "0.0.1",
+  "description": "> TODO: description",
+  "author": "tzcteddy <1342671790@qq.com>",
+  "homepage": "https://github.com/tzcteddy/feelo/tree/main/packages/feelo-core#readme",
+  "license": "ISC",
+  "main": "lib/feelo-core.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tzcteddy/feelo.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/tzcteddy/feelo/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

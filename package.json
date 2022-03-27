@@ -1,10 +1,11 @@
 {
   "version": "1.0.0",
   "description": "this is feelo project",
-  "private":true,
+  "private": true,
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -19,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/tzcteddy/feelo/issues"
   },
-  "homepage": "https://github.com/tzcteddy/feelo#readme"
+  "homepage": "https://github.com/tzcteddy/feelo#readme",
+  "devDependencies": {
+    "commitlint": "^16.2.3",
+    "husky": "^7.0.4"
+  }
 }

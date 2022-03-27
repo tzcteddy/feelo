@@ -1,5 +1,4 @@
 {
-  "name": "feelo",
   "version": "1.0.0",
   "description": "this is feelo project",
   "main": "index.js",
@@ -19,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/tzcteddy/feelo/issues"
   },
-  "homepage": "https://github.com/tzcteddy/feelo#readme"
+  "homepage": "https://github.com/tzcteddy/feelo#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  }
 }

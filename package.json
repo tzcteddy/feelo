@@ -18,9 +18,5 @@
   "bugs": {
     "url": "https://github.com/tzcteddy/feelo/issues"
   },
-  "homepage": "https://github.com/tzcteddy/feelo#readme",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/",
-    "access": "public"
-  }
+  "homepage": "https://github.com/tzcteddy/feelo#readme"
 }

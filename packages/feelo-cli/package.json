@@ -1,6 +1,7 @@
 {
   "name": "@feelo/cli",
   "version": "1.0.0",
+  "private":true,
   "description": "this is cli",
   "main": "./lib/index.js",
   "bin": {

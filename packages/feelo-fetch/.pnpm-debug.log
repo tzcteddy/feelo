@@ -1,0 +1,15 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1,
+    "workspacePrefix": "D:\\work\\it\\ij-vue"
+  },
+  "1 error pnpm": {
+    "code": "ERR_PNPM_REGISTRIES_MISMATCH",
+    "err": {
+      "name": "pnpm",
+      "message": "This modules directory was created using the following registries configuration: {\"default\":\"http://10.10.134.199:8081/repository/5i5j-npm-hosted/\"}. The current configuration is {\"default\":\"https://registry.npmmirror.com/\"}. To recreate the modules directory using the new settings, run \"pnpm install\".",
+      "code": "ERR_PNPM_REGISTRIES_MISMATCH",
+      "stack": "pnpm: This modules directory was created using the following registries configuration: {\"default\":\"http://10.10.134.199:8081/repository/5i5j-npm-hosted/\"}. The current configuration is {\"default\":\"https://registry.npmmirror.com/\"}. To recreate the modules directory using the new settings, run \"pnpm install\".\n    at validateModules (C:\\Users\\Administrator\\AppData\\Roaming\\npm\\node_modules\\pnpm\\dist\\pnpm.cjs:92101:15)\n    at async getContext (C:\\Users\\Administrator\\AppData\\Roaming\\npm\\node_modules\\pnpm\\dist\\pnpm.cjs:91973:28)\n    at async mutateModules (C:\\Users\\Administrator\\AppData\\Roaming\\npm\\node_modules\\pnpm\\dist\\pnpm.cjs:119629:19)\n    at async recursive (C:\\Users\\Administrator\\AppData\\Roaming\\npm\\node_modules\\pnpm\\dist\\pnpm.cjs:121572:29)\n    at async handler (C:\\Users\\Administrator\\AppData\\Roaming\\npm\\node_modules\\pnpm\\dist\\pnpm.cjs:121876:11)\n    at async C:\\Users\\Administrator\\AppData\\Roaming\\npm\\node_modules\\pnpm\\dist\\pnpm.cjs:182194:21\n    at async run (C:\\Users\\Administrator\\AppData\\Roaming\\npm\\node_modules\\pnpm\\dist\\pnpm.cjs:182168:34)\n    at async runPnpm (C:\\Users\\Administrator\\AppData\\Roaming\\npm\\node_modules\\pnpm\\dist\\pnpm.cjs:182387:5)\n    at async C:\\Users\\Administrator\\AppData\\Roaming\\npm\\node_modules\\pnpm\\dist\\pnpm.cjs:182379:7"
+    }
+  }
+}

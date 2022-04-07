@@ -2,6 +2,7 @@
 declare type Method='post'|'get'|'delete'|'put'
 
 declare interface FetchConfig{
+  signal?:AbortSignal,
   method?:Method,
   headers?:HeadersInit,
   body?:BodyInit,
@@ -25,4 +26,5 @@ declare interface FetchHttpOptions {
   loadingStart: () => void;
   //loading end hook
   loadingEnd: () => void;
+  timeout:number;
 }

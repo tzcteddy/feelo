@@ -15,10 +15,13 @@ declare interface ResponseText{
   msg:string,
   [propName: string]: any;
 }
+declare interface ResponseError{
+  [status:number]:ResponseText
+}
 declare interface BodyParams extends Object {
   [index: string]: any;
 }
-declare interface FetchHttpOptions {
+declare interface FetchRequestOptions {
   //配置共用网关
   geteway: string;
   alert: () => void;

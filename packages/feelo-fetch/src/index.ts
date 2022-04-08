@@ -1,5 +1,5 @@
 import {FetchRequest,} from './fetch'
-export {exceptionError, ResponseData} from './catchError'
-export function createFetchRequest(options: FetchHttpOptions) {
+export {exceptionError} from './catchError'
+export function createFetchRequest(options: FetchRequestOptions) {
   return new FetchRequest(options)
 }

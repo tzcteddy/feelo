@@ -1,11 +1,3 @@
-export interface ResponseData{
-  code:number,
-  msg:string, 
-  [propName:string]:any
-}
-interface ResponseError{
-  [status:number]:ResponseData
-}
 class Exception{
   errorCache:ResponseError={
     204:{
@@ -21,13 +13,13 @@ class Exception{
       msg:'请求超时'
     }
   }
-  setErrorRes(status:number,errorRes:ResponseData):void{
+  setErrorRes(status:number,errorRes:ResponseText):void{
     // if(this.errorCache[status]){
     //   throw new Error(`The current status [${status}] already exists`)
     // }
     this.errorCache[status] = errorRes
   }
-  getErrorRes(status:number):ResponseData{
+  getErrorRes(status:number):ResponseText{
     return this.errorCache[status]
   }
 }

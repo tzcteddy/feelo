@@ -1,22 +1,22 @@
+declare type Method = "post" | "get" | "delete" | "put";
 
-declare type Method='post'|'get'|'delete'|'put'
-
-declare interface FetchConfig{
-  signal?:AbortSignal,
-  method?:Method,
-  headers?:HeadersInit,
-  body?:BodyInit,
-  credentials?:RequestCredentials,
-  cache?:RequestCache
-  mode?:RequestMode,
+declare type FetchInput = USVString | Request;
+declare interface FetchConfig {
+  signal?: AbortSignal;
+  method?: Method;
+  headers?: HeadersInit;
+  body?: BodyInit ;
+  credentials?: RequestCredentials;
+  cache?: RequestCache;
+  mode?: RequestMode;
 }
-declare interface ResponseText{
-  code:number,
-  msg:string,
+declare interface ResponseText {
+  code: number;
+  msg: string;
   [propName: string]: any;
 }
-declare interface ResponseError{
-  [status:number]:ResponseText
+declare interface ResponseError {
+  [status: number]: ResponseText;
 }
 declare interface BodyParams extends Object {
   [index: string]: any;
@@ -29,5 +29,5 @@ declare interface FetchRequestOptions {
   loadingStart: () => void;
   //loading end hook
   loadingEnd: () => void;
-  timeout:number;
+  timeout: number;
 }

@@ -17,4 +17,8 @@ export function padStartApi (geteway='',url:string):string  {
   return geteway + url
 }
 
-export function merge(){}
+export function merge(target:object,source:object){
+  for (let key in target) {
+
+  }
+}

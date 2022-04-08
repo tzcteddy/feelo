@@ -3,15 +3,15 @@ import { parseText, parseBlob } from "./parse";
 import { addParams, padStartApi } from "./share";
 import { exceptionError } from "./catchError";
 
-interface FetchHttpOptionAPi {
+interface FetchHttpOptions {
   timeout: number;
 }
 class FetchHttp {
   timeout: number;
   signal: AbortSignal;
   controller: AbortController;
-  constructor(options: FetchHttpOptionAPi) {
-    this.timeout =  options.timeout || 0;
+  constructor(options: FetchHttpOptions) {
+    this.timeout = options.timeout || 0;
     this.controller = new AbortController();
     this.signal = this.controller.signal;
   }
@@ -21,7 +21,7 @@ class FetchHttp {
       credentials: "same-origin",
       cache: "reload",
     };
-    if (body && body instanceof FormData) return config;
+    if (body && body instanceof FormData) return { ...config, body };
     if (typeof body === "object" && /post|put/i.test(method)) {
       config.body = JSON.stringify(body);
       config.headers = { "Content-Type": "application/json" };
@@ -31,7 +31,7 @@ class FetchHttp {
     }
     return config;
   }
-  private async fetch(url: string, config: FetchConfig) {
+  private async fetch(url: FetchInput, config: FetchConfig) {
     // fetch API: https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch
     let response: Response;
     const configData: FetchConfig = { ...config, signal: this.signal };
@@ -48,22 +48,22 @@ class FetchHttp {
     }
     return response;
   }
-  async get(url: string, body: BodyParams) {
+  async get(url: FetchInput, body: BodyParams) {
     const config: FetchConfig = this.setConfig(body, "get");
     const response = await this.fetch(addParams(url, body), config);
     return response;
   }
-  async post(url: string, body: BodyParams) {
+  async post(url: FetchInput, body: BodyParams) {
     const config: FetchConfig = this.setConfig(body, "post");
     const response = await this.fetch(url, config);
     return response;
   }
-  async put(url: string, body: BodyParams) {
+  async put(url: FetchInput, body: BodyParams) {
     const config: FetchConfig = this.setConfig(body, "put");
     const response = await this.fetch(url, config);
     return response;
   }
-  async delete(url: string, body: BodyParams) {
+  async delete(url: FetchInput, body: BodyParams) {
     const config: FetchConfig = this.setConfig(body, "delete");
     const response = await this.fetch(url, config);
     return response;
@@ -114,7 +114,7 @@ export class FetchRequest {
     this._loadingEnd();
     this.isLoading = false;
   }
-  alert(msg:string){
+  alert(msg: string) {
     typeof this._alert === "function" ? this._alert(msg) : window.alert(msg);
   }
   private async _fetch(url: string, body: BodyParams, method: Method, config?: any) {
@@ -129,7 +129,7 @@ export class FetchRequest {
       return response;
     } catch (responseError) {
       const responseData: ResponseText = exceptionError.getErrorRes((responseError as Response).status);
-      this.alert(responseData.msg)
+      this.alert(responseData.msg);
       this.loadingEnd();
       throw new Error(responseData.msg);
     }

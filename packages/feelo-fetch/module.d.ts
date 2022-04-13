@@ -31,3 +31,21 @@ declare interface FetchRequestOptions {
   loadingEnd: () => void;
   timeout: number;
 }
+
+
+
+declare interface ApiOptions {
+  path: string;
+  name: string;
+  isRoot: boolean;
+  method: Method;
+  loading: boolean;
+  config?: FetchConfig;
+}
+declare interface SymbolCache {
+  [propName: symbol]: number;
+}
+
+declare interface ApiPathMap {
+  [propName: string]: ApiOptions;
+}

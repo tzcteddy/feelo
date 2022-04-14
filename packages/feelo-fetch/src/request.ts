@@ -45,7 +45,7 @@ export class FeeloFetch {
     if (!options.method) {
       options.method = "get";
     }
-    const init = this.request.run(options);
+    const init = await this.request.run(options);
     const fetchRequest = new Fetch();
     const promises = [fetchRequest.fetch(input, init)];
     if (!!options.timeout && options.timeout > 0) {

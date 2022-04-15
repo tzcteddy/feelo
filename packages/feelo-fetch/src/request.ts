@@ -1,4 +1,9 @@
-class Fetch {
+import { addParams } from "./share";
+/**
+ * Fetch
+ * 封装fetch方法。添加控制器
+ * **/
+export class Fetch {
   signal: AbortSignal;
   controller: AbortController;
   constructor() {
@@ -8,11 +13,15 @@ class Fetch {
   fetch(input: RequestInfo, init: RequestInit) {
     return fetch(input, { ...init, signal: this.signal });
   }
+  abort(){
+    this.controller.abort()
+  }
 }
 
-interface OptionsFetch extends RequestInit {
+interface FeeloRequestInit extends RequestInit {
   timeout?: number;
   url: RequestInfo;
+  [propName: string]: any;
 }
 
 function timeoutFn(timeout: number = 0): Promise<Response> {
@@ -24,37 +33,50 @@ function timeoutFn(timeout: number = 0): Promise<Response> {
   });
 }
 
-class InterceptorManager<T> {
+/**拦截器管理类
+ * **/
+ export class InterceptorManager<T> {
   interceptors: Array<any> = [];
-  use(fn:(config:T)=>T) {
-    this.interceptors.push(fn)
+  use(fn: (config: T, fetchRequest?: Fetch) => T) {
+    this.interceptors.push(fn);
   }
-  run(config: T): T {
-   return this.interceptors.reduce(async (config,fn)=>{
-      const result= await fn(config)
-      return result
-    },config)
+  async run(config: T, fetchRequest?: Fetch): Promise<T> {
+    if (!this.interceptors.length) return config;
+    return this.interceptors.reduce(async (config, fn) => {
+      try{
+        const result = await fn(config, fetchRequest);
+      return result;
+      }catch(err){
+        throw err
+      }
+    }, config);
   }
 }
 
 export class FeeloFetch {
   constructor() {}
-  request = new InterceptorManager<OptionsFetch>();
+  request = new InterceptorManager<FeeloRequestInit>();
   response = new InterceptorManager<Response>();
-  async requestFetch(input: RequestInfo, options: OptionsFetch): Promise<Response> {
+  async requestFetch(input: RequestInfo, options: FeeloRequestInit): Promise<Response> {
     if (!options.method) {
       options.method = "get";
     }
-    const init = await this.request.run(options);
+    if (options.method === "get") {
+      input = addParams(input, options.body as BodyParams);
+      options.body = null;
+    }
+    //实例化
     const fetchRequest = new Fetch();
+    //执行请求拦截
+    const init = await this.request.run(options, fetchRequest);
+    //发起请求
     const promises = [fetchRequest.fetch(input, init)];
-    if (!!options.timeout && options.timeout > 0) {
-      promises.push(timeoutFn(options.timeout));
+    if (!!init.timeout && init.timeout > 0) {
+      promises.push(timeoutFn(init.timeout));
     }
     const response = await Promise.race(promises);
-    const result=await this.response.run(response);
-    return result
+    //执行响应拦截
+    const result = await this.response.run(response,fetchRequest);
+    return result;
   }
-  get() {}
-  post() {}
 }

@@ -1,4 +1,4 @@
-export function addParams(url: string, params: BodyParams): string {
+export function addParams(url: RequestInfo, params: BodyParams): RequestInfo {
   if (params) {
     const values: string[] = [];
     Object.keys(params).forEach((name) => {
@@ -6,7 +6,7 @@ export function addParams(url: string, params: BodyParams): string {
         values.push(name + "=" + params[name]);
       }
     });
-    url += (url.includes("?") ? "&" : "?") + values.join("&");
+    url += ((url as string).includes("?") ? "&" : "?") + values.join("&");
   }
   return url;
 }

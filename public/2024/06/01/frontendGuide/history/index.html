@@ -1,0 +1,756 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="trade">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言在前端开发的历史长河中，有一个名字家喻户晓，那就是 JavaScript。今天，我们要回到互联网的远古时代，揭开 JavaScript 的神秘面纱，看看它是如何从一个简单的脚本语言，变成今天不可或缺的存在的。 刀耕火种JavaScript 的起源和早期发展JavaScript 的诞生在 1995 年的某个春天，互联网的世界还很简陋，网页就像是数字报纸，只能显示静态内容。Netscape 公司的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从古至今：前端技术的演变史">
+<meta property="og:url" content="http://example.com/2024/06/01/frontendGuide/history/index.html">
+<meta property="og:site_name" content="知识乐章">
+<meta property="og:description" content="前言在前端开发的历史长河中，有一个名字家喻户晓，那就是 JavaScript。今天，我们要回到互联网的远古时代，揭开 JavaScript 的神秘面纱，看看它是如何从一个简单的脚本语言，变成今天不可或缺的存在的。 刀耕火种JavaScript 的起源和早期发展JavaScript 的诞生在 1995 年的某个春天，互联网的世界还很简陋，网页就像是数字报纸，只能显示静态内容。Netscape 公司的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/frontendGuide/1-1.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/1-2.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/1-3.png">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/en/9/9e/JQuery_logo.svg">
+<meta property="og:image" content="http://example.com/img/frontendGuide/1-4.png">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/c/cf/Angular_full_color_logo.svg">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/f/f1/Vue.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/1-5.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/1-6.png">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/1/1f/WebAssembly_Logo.svg">
+<meta property="og:image" content="http://example.com/img/frontendGuide/1-7.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/1-8.png">
+<meta property="article:published_time" content="2024-06-01T02:07:59.000Z">
+<meta property="article:modified_time" content="2024-07-29T02:12:42.773Z">
+<meta property="article:author" content="trade">
+<meta property="article:tag" content="开发手册">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/frontendGuide/1-1.png">
+  
+  
+  
+  <title>从古至今：前端技术的演变史 - 知识乐章</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>知识乐章</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archivesthe/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="从古至今：前端技术的演变史"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-06-01 10:07" pubdate>
+          2024年6月1日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          45 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">从古至今：前端技术的演变史</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在前端开发的历史长河中，有一个名字家喻户晓，那就是 JavaScript。今天，我们要回到互联网的远古时代，揭开 JavaScript 的神秘面纱，看看它是如何从一个简单的脚本语言，变成今天不可或缺的存在的。</p>
+<h2 id="刀耕火种"><a href="#刀耕火种" class="headerlink" title="刀耕火种"></a>刀耕火种</h2><h3 id="JavaScript-的起源和早期发展"><a href="#JavaScript-的起源和早期发展" class="headerlink" title="JavaScript 的起源和早期发展"></a>JavaScript 的起源和早期发展</h3><h4 id="JavaScript-的诞生"><a href="#JavaScript-的诞生" class="headerlink" title="JavaScript 的诞生"></a>JavaScript 的诞生</h4><p>在 1995 年的某个春天，互联网的世界还很简陋，网页就像是数字报纸，只能显示静态内容。Netscape 公司的布兰登·艾奇（Brendan Eich）觉得：嘿，能不能给网页加点互动呢？于是，JavaScript 就这样诞生了。</p>
+<blockquote>
+<p><strong>示意图：布兰登·艾奇和 JavaScript 的诞生</strong><br><img src="/../../img/frontendGuide/1-1.png" srcset="/img/loading.gif" lazyload alt="布兰登·艾奇"><br><em>图 1：布兰登·艾奇，JavaScript 的创造者</em></p>
+</blockquote>
+<p>布兰登·艾奇只用了10天，就创造了 JavaScript。要知道，很多程序员修一个 Bug 都要10天！这种效率，堪称编程界的奇迹。</p>
+<h4 id="最初的用途和局限"><a href="#最初的用途和局限" class="headerlink" title="最初的用途和局限"></a>最初的用途和局限</h4><p>最初，JavaScript 被称为 Mocha，然后改名为 LiveScript，最后才定名为 JavaScript。这名字听起来高大上，但其实它和 Java 语言几乎没有关系，只是为了蹭 Java 的热度而已。早期的 JavaScript 功能很简单，大概只能做一些表单验证、弹个对话框啥的。</p>
+<blockquote>
+<p><strong>示意图：早期的网页互动</strong><br><img src="/../../img/frontendGuide/1-2.png" srcset="/img/loading.gif" lazyload alt="早期网页"><br><em>图 2：早期的 JavaScript 互动效果</em></p>
+</blockquote>
+<p>当时的 JavaScript，简直是“程序员的噩梦”：没有模块系统，没有类，甚至连 <code>let</code> 和 <code>const</code> 这种声明变量的方法都没有。写 JavaScript 的感觉，就像是拿着锤子在修手表。</p>
+<h4 id="早期浏览器的支持情况"><a href="#早期浏览器的支持情况" class="headerlink" title="早期浏览器的支持情况"></a>早期浏览器的支持情况</h4><p>当 JavaScript 出现后，浏览器界也不甘示弱。Netscape 率先在自家浏览器中支持了 JavaScript。而微软则推出了 JScript（没错，他们还改了个名字），并在 Internet Explorer 中支持。</p>
+<blockquote>
+<p><strong>示意图：早期浏览器大战</strong><br><img src="/../../img/frontendGuide/1-3.png" srcset="/img/loading.gif" lazyload alt="早期浏览器大战"><br><em>图 3：Netscape 与 Internet Explorer 的浏览器大战</em></p>
+</blockquote>
+<p>这段时间，浏览器之间的兼容性问题让开发者们欲哭无泪。同一段代码，在 Netscape 上能跑，到了 IE 上就可能直接跪了。开发者们每天都在浏览器之间切换，修复各种稀奇古怪的 Bug，感觉就像在玩浏览器版的俄罗斯方块。</p>
+<h2 id="万物归一"><a href="#万物归一" class="headerlink" title="万物归一"></a>万物归一</h2><h3 id="jQuery-的崛起"><a href="#jQuery-的崛起" class="headerlink" title="jQuery 的崛起"></a>jQuery 的崛起</h3><p>在前端开发的进化史上，有一个时期可以称之为“万物归一”。这段时间，jQuery 横空出世，成为了前端开发的救世主。它不仅简化了 JavaScript 的编写，还为开发者们带来了前所未有的便利。今天，让我们一起来回顾一下 jQuery 的崛起，看看它是如何在混乱的前端世界中一统江湖的。</p>
+<p>2006 年，约翰·瑞西格（John Resig）发布了 jQuery。这位程序员当时一定是灵光乍现，觉得不能再让大家在 DOM 操作的泥沼中挣扎了。于是，他创造了 jQuery，一个让大家可以“写得更少，做得更多”的库。没错，jQuery 的口号就是这么自信。</p>
+<blockquote>
+<p><strong>示意图：jQuery 的崛起</strong><br><img src="https://upload.wikimedia.org/wikipedia/en/9/9e/JQuery_logo.svg" srcset="/img/loading.gif" lazyload alt="jQuery 标志"><br><em>图 4：jQuery 标志</em></p>
+</blockquote>
+<h4 id="jQuery-的神奇魅力"><a href="#jQuery-的神奇魅力" class="headerlink" title="jQuery 的神奇魅力"></a>jQuery 的神奇魅力</h4><p>jQuery 的魅力在于其简单易用。以往，我们要操作 DOM，代码可能像一篇小作文。但有了 jQuery，一切变得如此简单。比如，我们要隐藏一个元素，从前可能要写一大堆代码，但现在只需一行：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">$(<span class="hljs-string">&quot;#myElement&quot;</span>).<span class="hljs-title function_">hide</span>();<br></code></pre></td></tr></table></figure>
+
+<p>这样简洁的代码，简直是对程序员的最大恩赐。更别提 jQuery 那强大的选择器系统，让你感觉自己像是在用 CSS 而不是写 JavaScript。</p>
+<h4 id="jQuery-插件生态系统"><a href="#jQuery-插件生态系统" class="headerlink" title="jQuery 插件生态系统"></a>jQuery 插件生态系统</h4><p>不仅如此，jQuery 还有一个庞大的插件生态系统。无论你想实现什么功能，总能找到一个现成的 jQuery 插件。想做个幻灯片？没问题，用 <code>slick</code> 插件。想要复杂的表单验证？<code>jQuery Validate</code> 来帮你搞定。可以说，jQuery 的插件让前端开发者感觉自己仿佛拥有了魔法棒，轻轻一点，就能实现各种酷炫效果。</p>
+<blockquote>
+<p><strong>示意图：使用 jQuery 插件</strong><br><img src="/../../img/frontendGuide/1-4.png" srcset="/img/loading.gif" lazyload alt="使用 jQuery 插件"><br><em>图 5：使用 jQuery 插件的效果</em></p>
+</blockquote>
+<h4 id="jQuery-的巅峰时刻"><a href="#jQuery-的巅峰时刻" class="headerlink" title="jQuery 的巅峰时刻"></a>jQuery 的巅峰时刻</h4><p>在 2010 年代初期，jQuery 几乎统治了整个前端开发领域。根据统计数据，超过 70% 的网站都在使用 jQuery。那时候，如果你不懂 jQuery，几乎就无法生存于前端开发的江湖。开发者们日夜苦练 jQuery，掌握了这门技能，就好像拿到了前端开发的通行证。</p>
+<h4 id="jQuery-的挑战"><a href="#jQuery-的挑战" class="headerlink" title="jQuery 的挑战"></a>jQuery 的挑战</h4><p>然而，天下没有不散的筵席。随着时间的推移，前端开发技术不断进步，新的框架如雨后春笋般冒出。React、Vue、Angular 等现代框架的出现，让开发者们有了更多选择。jQuery 的地位开始受到挑战，特别是在大型应用和组件化开发方面，jQuery 显得有些力不从心。</p>
+<h4 id="jQuery-的遗产"><a href="#jQuery-的遗产" class="headerlink" title="jQuery 的遗产"></a>jQuery 的遗产</h4><p>尽管如此，jQuery 的影响力不可否认。它让前端开发变得更加简单和高效，为现代前端框架的出现铺平了道路。即便在今天，jQuery 仍然在许多项目中扮演重要角色，特别是在那些维护性项目和简单网站中。</p>
+<p>jQuery 的崛起和辉煌，就像一部前端开发的传奇剧。它不仅改变了无数开发者的工作方式，还推动了整个前端技术的发展。虽然今天的前端世界百花齐放，但 jQuery 的精神永远存在，它让我们记住了那段“万物归一”的美好时光。</p>
+<h2 id="百家争鸣"><a href="#百家争鸣" class="headerlink" title="百家争鸣"></a>百家争鸣</h2><h3 id="Angular-js、React-和-Vue-的发展"><a href="#Angular-js、React-和-Vue-的发展" class="headerlink" title="Angular.js、React 和 Vue 的发展"></a>Angular.js、React 和 Vue 的发展</h3><p>在前端开发的历史中，有一个时期可以被称为“百家争鸣”。这段时间，各大框架如雨后春笋般冒出，各显神通。在这场激烈的竞争中，Angular.js、React 和 Vue 成为了最具代表性的三大框架。今天，我们就来看看它们是如何在前端世界中争奇斗艳的。</p>
+<h4 id="Angular-js：全能型选手的起伏"><a href="#Angular-js：全能型选手的起伏" class="headerlink" title="Angular.js：全能型选手的起伏"></a>Angular.js：全能型选手的起伏</h4><p>Angular.js 由 Google 在 2010 年推出，是一个全能型的前端框架。Angular.js 的目标是解决单页应用开发中的痛点，通过提供 MVC 架构，使开发者可以更容易地构建复杂的应用。</p>
+<blockquote>
+<p><strong>示意图：Angular.js 标志</strong><br><img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Angular_full_color_logo.svg" srcset="/img/loading.gif" lazyload alt="Angular.js 标志"><br><em>图 6：Angular.js 标志</em></p>
+</blockquote>
+<p>Angular.js 以其双向数据绑定、依赖注入和强大的指令系统迅速赢得了开发者的青睐。双向数据绑定让数据和视图的同步变得前所未有的简单，简直就是开发者的“福音”。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// Angular.js 的双向数据绑定示例</span><br>&lt;input ng-model=<span class="hljs-string">&quot;name&quot;</span>&gt;<br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Hello, &#123;&#123;name&#125;&#125;!<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p>然而，Angular.js 的学习曲线陡峭，复杂的概念和语法让不少新手开发者望而却步。Google 也意识到这个问题，于是在 2016 年推出了完全重写的 Angular（也称为 Angular 2 及后续版本），试图解决这些问题。然而，Angular.js 和新 Angular 之间的巨大差异，让不少开发者感到困惑和不满。</p>
+<h4 id="React：组件化和单向数据流的革新"><a href="#React：组件化和单向数据流的革新" class="headerlink" title="React：组件化和单向数据流的革新"></a>React：组件化和单向数据流的革新</h4><p>2013 年，Facebook 发布了 React，一个革命性的前端库。与 Angular.js 不同，React 并不试图成为一个全能框架，而是专注于视图层，通过组件化的方式，使 UI 的构建变得模块化和可复用。</p>
+<blockquote>
+<p><strong>示意图：React 标志</strong><br><img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" srcset="/img/loading.gif" lazyload alt="React 标志"><br><em>图 7：React 标志</em></p>
+</blockquote>
+<p>React 的核心理念是组件化和单向数据流。组件化让开发者可以将 UI 拆分为独立的小组件，每个组件都有自己的状态和逻辑。单向数据流则通过明确的数据流向，降低了应用的复杂性和调试难度。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 一个简单的 React 组件</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">HelloWorld</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">React.Component</span> &#123;<br>  <span class="hljs-title function_">render</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello, world!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>React 的虚拟 DOM 技术，让页面的更新变得高效而流畅。每次状态改变时，React 会计算出最小的 DOM 变更，然后批量更新，这大大提高了性能。</p>
+<h4 id="Vue：渐进式框架的崛起"><a href="#Vue：渐进式框架的崛起" class="headerlink" title="Vue：渐进式框架的崛起"></a>Vue：渐进式框架的崛起</h4><p>2014 年，尤雨溪（Evan You）发布了 Vue，一个渐进式前端框架。Vue 的设计理念是渐进式，即开发者可以根据需求逐步引入 Vue 的功能，从简单的视图层库，到复杂的单页应用框架，Vue 都能轻松应对。</p>
+<blockquote>
+<p><strong>示意图：Vue 标志</strong><br><img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Vue.png" srcset="/img/loading.gif" lazyload alt="Vue 标志"><br><em>图 8：Vue 标志</em></p>
+</blockquote>
+<p>Vue 的语法简单易学，类似于 HTML 和 JavaScript 的结合，非常适合新手上手。同时，Vue 也借鉴了 Angular.js 和 React 的优点，提供了数据绑定和组件化的能力。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 一个简单的 Vue 组件</span><br><span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Vue</span>(&#123;<br>  <span class="hljs-attr">el</span>: <span class="hljs-string">&#x27;#app&#x27;</span>,<br>  <span class="hljs-attr">data</span>: &#123;<br>    <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;Hello, Vue!&#x27;</span><br>  &#125;<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>Vue 的生态系统也非常完善，从路由管理（Vue Router）到状态管理（Vuex），都有完整的解决方案。其灵活性和易用性，使得 Vue 在短时间内迅速流行，成为前端开发的新宠。</p>
+<h3 id="Angular-js、React-和-Vue-的竞相辉煌"><a href="#Angular-js、React-和-Vue-的竞相辉煌" class="headerlink" title="Angular.js、React 和 Vue 的竞相辉煌"></a>Angular.js、React 和 Vue 的竞相辉煌</h3><p>在前端开发的历史中，Angular.js、React 和 Vue 各自发挥了重要的作用。它们的出现，让前端开发变得更加高效和灵活，推动了整个行业的发展。尽管它们各有优劣，但正是这种百家争鸣的局面，激发了更多的创新和进步。</p>
+<h2 id="未来展望：前端开发的无限可能"><a href="#未来展望：前端开发的无限可能" class="headerlink" title="未来展望：前端开发的无限可能"></a>未来展望：前端开发的无限可能</h2><p>前端开发的世界总是充满了惊喜和创新。从刀耕火种的 JavaScript，到万物归一的 jQuery，再到百家争鸣的 Angular、React 和 Vue，每一阶段都有其独特的魅力。那么，未来的前端开发又会走向何方呢？让我们展开想象的翅膀，幽默风趣地展望一下未来的前端开发吧！</p>
+<h4 id="微前端：大型项目的救星"><a href="#微前端：大型项目的救星" class="headerlink" title="微前端：大型项目的救星"></a>微前端：大型项目的救星</h4><p>微前端的概念就像是前端世界的“分而治之”，它将一个大型的单页应用分解为多个小型的前端应用，每个应用由不同的团队独立开发和部署。这不仅提高了开发效率，还解决了大型项目中的维护和扩展问题。</p>
+<blockquote>
+<p><strong>示意图：微前端架构</strong><br><img src="/../../img/frontendGuide/1-5.png" srcset="/img/loading.gif" lazyload alt="微前端架构"><br><em>图 9：微前端架构</em></p>
+</blockquote>
+<p>想象一下，每个微前端应用就像是一个独立的小岛，开发者们就像是岛上的居民。他们只需要关心自己岛上的建设，而不需要操心其他岛上的事情。这种方式不仅让开发变得更加高效，还能有效地避免“交通堵塞”和“资源争夺”的问题。</p>
+<h4 id="无服务器架构：前端开发的新大陆"><a href="#无服务器架构：前端开发的新大陆" class="headerlink" title="无服务器架构：前端开发的新大陆"></a>无服务器架构：前端开发的新大陆</h4><p>无服务器架构（Serverless）听起来就像是一个程序员的梦想：无需管理服务器，只需编写代码，剩下的交给云服务提供商。无服务器架构让前端开发者可以专注于前端逻辑，而不需要关心后端的运维问题。</p>
+<blockquote>
+<p><strong>示意图：无服务器架构</strong><br><img src="/../../img/frontendGuide/1-6.png" srcset="/img/loading.gif" lazyload alt="无服务器架构"><br><em>图 10：无服务器架构</em></p>
+</blockquote>
+<p>无服务器架构的出现，让开发者们可以像在“前端乐园”中尽情玩耍。只需写几行代码，就能实现复杂的后端功能，比如处理用户请求、存储数据和发送通知。而所有这些，只需要在云端点几下鼠标，就能搞定。</p>
+<h4 id="WebAssembly：前端性能的革命"><a href="#WebAssembly：前端性能的革命" class="headerlink" title="WebAssembly：前端性能的革命"></a>WebAssembly：前端性能的革命</h4><p>WebAssembly（Wasm）是一种新的二进制指令格式，可以在浏览器中高效运行。它允许开发者使用包括 C++、Rust 等多种语言编写代码，并将其编译为 Wasm，在浏览器中执行。WebAssembly 的出现，进一步提升了 Web 应用的性能和可能性。</p>
+<blockquote>
+<p><strong>示意图：WebAssembly 标志</strong><br><img src="https://upload.wikimedia.org/wikipedia/commons/1/1f/WebAssembly_Logo.svg" srcset="/img/loading.gif" lazyload alt="WebAssembly 标志"><br><em>图 11：WebAssembly 标志</em></p>
+</blockquote>
+<p>WebAssembly 就像是前端开发的“超能战士”，它的出现让前端应用的性能达到了前所未有的高度。无论是复杂的 3D 游戏，还是高性能的计算任务，WebAssembly 都能轻松应对。想象一下，你的网页游戏可以像主机游戏一样流畅，这不禁让人热血沸腾。</p>
+<h4 id="前后端交互的新方式"><a href="#前后端交互的新方式" class="headerlink" title="前后端交互的新方式"></a>前后端交互的新方式</h4><p>未来的前后端交互将更加高效和智能。GraphQL 的出现，让前端开发者可以灵活地获取数据，而不再受限于 REST API 的固定结构。前端开发者只需编写一个查询语句，就能获取所需的全部数据。</p>
+<blockquote>
+<p><strong>示意图：GraphQL 查询</strong><br><img src="/../../img/frontendGuide/1-7.png" srcset="/img/loading.gif" lazyload alt="GraphQL 查询"><br><em>图 12：GraphQL 查询</em></p>
+</blockquote>
+<p>再比如，随着 WebSockets 的普及，实时通信将变得更加简单和高效。无论是实时聊天、在线协作还是实时数据更新，前后端的交互将更加顺畅，用户体验也将大大提升。</p>
+<h4 id="AI-和前端开发"><a href="#AI-和前端开发" class="headerlink" title="AI 和前端开发"></a>AI 和前端开发</h4><p>未来，人工智能（AI）将深度融合到前端开发中。智能代码补全、自动化测试、个性化用户体验等，都是 AI 在前端开发中的潜在应用。想象一下，一个智能助手在你编写代码时自动为你补全代码，提醒你潜在的错误，甚至在你犯困时为你递上一杯咖啡。</p>
+<blockquote>
+<p><strong>示意图：AI 辅助编程</strong><br><img src="/../../img/frontendGuide/1-8.png" srcset="/img/loading.gif" lazyload alt="AI 辅助编程"><br><em>图 13：AI 辅助编程</em></p>
+</blockquote>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>前端开发的历史如同一部波澜壮阔的史诗，从“刀耕火种”的 JavaScript 诞生，到“万物归一”的 jQuery 统治，再到“百家争鸣”的 Angular、React 和 Vue 的竞争，每一个阶段都见证了前端技术的飞速发展和革新。在这个过程中，前端开发者们不断探索、创新，推动了整个行业的进步。</p>
+<p>展望未来，前端技术依旧充满无限可能。从微前端架构到无服务器架构，从 WebAssembly 的性能革命到智能前后端交互，再到 AI 在前端开发中的深度融合，每一项新技术都将为前端开发带来新的突破和机遇。</p>
+<p>我们相信，前端开发的未来将更加精彩和充满挑战。无论是新手还是老手，每一位前端开发者都将继续在这条充满创造力和激情的道路上前行，共同书写前端开发的新篇章。让我们一起期待和迎接前端开发的美好未来，迎接新的挑战和机遇！</p>
+<p>希望这段历史和展望能为你带来一些启发和乐趣，激励你在前端开发的世界中不断探索和成长。谢谢阅读！</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/" class="category-chain-item">前端开发手册</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/" class="print-no-link">#开发手册</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>从古至今：前端技术的演变史</div>
+      <div>http://example.com/2024/06/01/frontendGuide/history/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>trade</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年6月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/06/02/frontendGuide/environment/nodeJs/" title="Node.js 安装和使用指南">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Node.js 安装和使用指南</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/06/01/frontendGuide/outline/" title="《前端开发手册》大纲">
+                        <span class="hidden-mobile">《前端开发手册》大纲</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

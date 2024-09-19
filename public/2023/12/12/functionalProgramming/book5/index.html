@@ -1,0 +1,707 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="trade">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="第五章 针对复杂应用的设计模式本章内容 设么是函子(Functor)函子的用途常用的函子  什么是函子(Functor) 在百科里面的定义：在范畴论中，函子是两个范畴之间的一种映射。函子可以看作是范畴论中的态射（morphism）的推广。函子可以将一个范畴A中的对象映射到另一个范畴B中的对象，同时也将A中的态射映射到B中的态射。函子还必须满足一些特定的性质，即保持范畴论中的同一性和复合性。函子在数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《JavaScript函数式编程指南》第五章 针对复杂应用的设计模式">
+<meta property="og:url" content="http://example.com/2023/12/12/functionalProgramming/book5/index.html">
+<meta property="og:site_name" content="知识乐章">
+<meta property="og:description" content="第五章 针对复杂应用的设计模式本章内容 设么是函子(Functor)函子的用途常用的函子  什么是函子(Functor) 在百科里面的定义：在范畴论中，函子是两个范畴之间的一种映射。函子可以看作是范畴论中的态射（morphism）的推广。函子可以将一个范畴A中的对象映射到另一个范畴B中的对象，同时也将A中的态射映射到B中的态射。函子还必须满足一些特定的性质，即保持范畴论中的同一性和复合性。函子在数">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-12-12T04:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-29T02:12:42.781Z">
+<meta property="article:author" content="trade">
+<meta property="article:tag" content="读书分享">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>《JavaScript函数式编程指南》第五章 针对复杂应用的设计模式 - 知识乐章</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>知识乐章</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archivesthe/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="《JavaScript函数式编程指南》第五章 针对复杂应用的设计模式"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-12-12 12:00" pubdate>
+          2023年12月12日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          60 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">《JavaScript函数式编程指南》第五章 针对复杂应用的设计模式</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="第五章-针对复杂应用的设计模式"><a href="#第五章-针对复杂应用的设计模式" class="headerlink" title="第五章 针对复杂应用的设计模式"></a>第五章 针对复杂应用的设计模式</h1><h2 id="本章内容"><a href="#本章内容" class="headerlink" title="本章内容"></a>本章内容</h2><blockquote>
+<p>设么是函子(Functor)<br>函子的用途<br>常用的函子</p>
+</blockquote>
+<h2 id="什么是函子-Functor"><a href="#什么是函子-Functor" class="headerlink" title="什么是函子(Functor)"></a>什么是函子(Functor)</h2><blockquote>
+<p>在百科里面的定义：在范畴论中，函子是两个范畴之间的一种映射。函子可以看作是范畴论中的态射（morphism）的推广。函子可以将一个范畴A中的对象映射到另一个范畴B中的对象，同时也将A中的态射映射到B中的态射。函子还必须满足一些特定的性质，即保持范畴论中的同一性和复合性。函子在数学分析、代数拓扑、微分几何、表示论、数理逻辑、类型理论、编程语言等领域中都有应用。</p>
+</blockquote>
+<blockquote>
+<p>在函数式编程里面：函子是一种受规则约束的数据类型，其中包含值(value)和值的变形关系(函数)。函子可以看作是一个容器，它包含了值，通过变形关系，我们可以在容器里面的值上加一些额外的操作，从而变形成另外一个容器。函子的价值在于，我们可以通过同样的变形关系，对不同的容器进行变形。这里的变形关系就是函数，函子就是函数式编程里面的函数。</p>
+</blockquote>
+<blockquote>
+<p>具体的理解：函子是一种特殊的容器，通过一个普通的对象来实现，该对象具有map方法，map方法可以运行一个函数对值进行处理(变形关系)并返回一个包含新值的函子，该函子包含了处理后的值。</p>
+</blockquote>
+<h2 id="函子的用途"><a href="#函子的用途" class="headerlink" title="函子的用途"></a>函子的用途</h2><blockquote>
+<p>它是一种新的函数组合方式，可以链式调用，可以用于约束传输的数据结构，可以映射适配函数的输出值与下一个函数输入值，可以一定程度上避免函数执行的副作用，当然除了这个之外我们还可以通过函子去控制异常，来进行异步操作等等。</p>
+</blockquote>
+<h2 id="常用的函子"><a href="#常用的函子" class="headerlink" title="常用的函子"></a>常用的函子</h2><h3 id="函子的基础定义"><a href="#函子的基础定义" class="headerlink" title="函子的基础定义"></a>函子的基础定义</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 函子</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Functor</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">val</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span> = val;<br>  &#125;<br>  <span class="hljs-title function_">map</span>(<span class="hljs-params">fn</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Functor</span>(<span class="hljs-title function_">fn</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span>));<br>  &#125;<br>&#125;<br><span class="hljs-keyword">const</span> <span class="hljs-title function_">add</span> = (<span class="hljs-params">x</span>) =&gt; &#123;<br>  <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">value</span>: x + <span class="hljs-number">1</span> &#125;;<br>&#125;;<br><span class="hljs-keyword">const</span> <span class="hljs-title function_">double</span> = (<span class="hljs-params">x</span>) =&gt; &#123;<br>  <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">value</span>: x * <span class="hljs-number">2</span> &#125;;<br>&#125;;<br><span class="hljs-keyword">const</span> <span class="hljs-title function_">square</span> = (<span class="hljs-params">x</span>) =&gt; &#123;<br>  <span class="hljs-keyword">return</span> &#123;<br>    <span class="hljs-attr">value</span>: <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">pow</span>(x, <span class="hljs-number">2</span>),<br>  &#125;;<br>&#125;;<br><br><span class="hljs-keyword">const</span> functor = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Functor</span>(<span class="hljs-number">2</span>);<br><span class="hljs-keyword">const</span> result = functor<br>  .<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">d</span>) =&gt;</span> <span class="hljs-title function_">add</span>(d))<br>  .<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">d</span>) =&gt;</span> <span class="hljs-title function_">double</span>(d.<span class="hljs-property">value</span>))<br>  .<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">d</span>) =&gt;</span> <span class="hljs-title function_">square</span>(d.<span class="hljs-property">value</span>));<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(result.<span class="hljs-property">value</span>); <span class="hljs-comment">// &#123;value: 36&#125;</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>函数式编程的运算不直接操作值，而是由函子来完成。所有函子都有一个map对象。通过map方法访问里面的值，然后返回一个新的函子，这样就可以链式调用map方法了。</p>
+</blockquote>
+<h3 id="Pointed-函子"><a href="#Pointed-函子" class="headerlink" title="Pointed 函子"></a>Pointed 函子</h3><blockquote>
+<p>Pointed 函子是实现了 of 静态方法的函子，of 方法是为了避免使用 new 来创建对象，使用 of 方法来替代 new 来创建对象，生成一个函子，使代码更具有一致性。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Pointed</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Functor</span> &#123;<br>  <span class="hljs-keyword">static</span> <span class="hljs-title function_">of</span>(<span class="hljs-params">val</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Pointed</span>(val);<br>  &#125;<br>&#125;<br><span class="hljs-keyword">const</span> res2 = <span class="hljs-title class_">Pointed</span>.<span class="hljs-title function_">of</span>(<span class="hljs-number">2</span>)<br>  .<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">d</span>) =&gt;</span> <span class="hljs-title function_">add</span>(d))<br>  .<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">d</span>) =&gt;</span> <span class="hljs-title function_">double</span>(d.<span class="hljs-property">value</span>))<br>  .<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">d</span>) =&gt;</span> <span class="hljs-title function_">square</span>(d.<span class="hljs-property">value</span>));<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res2.<span class="hljs-property">value</span>); <span class="hljs-comment">// &#123;value: 36&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="MayBe-函子"><a href="#MayBe-函子" class="headerlink" title="MayBe 函子"></a>MayBe 函子</h3><blockquote>
+<p>MayBe 函子是用来解决空值问题的，它的 of 方法判断传入的值是否为空，如果为空则返回一个空函子，如果不为空则返回一个包含传入值的函子，用来控制因为空值而导致的异常，引起的副作用。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// Maybe 函子 用来解决空值的问题</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Maybe</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Functor</span> &#123;<br>  <span class="hljs-keyword">static</span> <span class="hljs-title function_">of</span>(<span class="hljs-params">val</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Maybe</span>(val);<br>  &#125;<br>  <span class="hljs-title function_">isNothing</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span> === <span class="hljs-literal">null</span> || <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span> === <span class="hljs-literal">undefined</span>;<br>  &#125;<br>  <span class="hljs-title function_">map</span>(<span class="hljs-params">fn</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">isNothing</span>() ? <span class="hljs-variable language_">this</span> : <span class="hljs-title class_">Maybe</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title function_">fn</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span>));<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> res3 = <span class="hljs-title class_">Maybe</span>.<span class="hljs-title function_">of</span>(<span class="hljs-number">2</span>)<br>  .<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">d</span>) =&gt;</span> <span class="hljs-title function_">add</span>(d))<br>  .<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">d</span>) =&gt;</span> <span class="hljs-title function_">double</span>(d.<span class="hljs-property">value</span>))<br>  .<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">d</span>) =&gt;</span> <span class="hljs-title function_">square</span>(d.<span class="hljs-property">value</span>));<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res3.<span class="hljs-property">value</span>); <span class="hljs-comment">// &#123;value: 36&#125;</span><br><br><span class="hljs-keyword">const</span> user = &#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Holmes&quot;</span>,<br>  <span class="hljs-attr">address</span>: &#123;<br>    <span class="hljs-attr">street</span>: <span class="hljs-string">&quot;Baker Street&quot;</span>,<br>    <span class="hljs-attr">number</span>: <span class="hljs-string">&quot;221B&quot;</span>,<br>  &#125;,<br>&#125;;<br><br><span class="hljs-keyword">const</span> street = user &amp;&amp; user.<span class="hljs-property">address</span> &amp;&amp; user.<span class="hljs-property">address</span>.<span class="hljs-property">street</span>;<br><br><span class="hljs-keyword">const</span> res4 = <span class="hljs-title class_">Maybe</span>.<span class="hljs-title function_">of</span>(user)<br>  .<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">user</span>) =&gt;</span> user.<span class="hljs-property">address</span>)<br>  .<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">address</span>) =&gt;</span> address.<span class="hljs-property">street</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res4.<span class="hljs-property">value</span>); <span class="hljs-comment">// Baker Street</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Either-函子"><a href="#Either-函子" class="headerlink" title="Either 函子"></a>Either 函子</h3><blockquote>
+<p>Either 函子是用来解决异常问题的，它的 of 方法判断传入的值是否为异常，如果是异常则返回一个包含异常信息的函子，如果不是异常则返回一个包含传入值的函子，用来控制因异常而导致的副作用。有两个值 left 和 right 用来表示错误和正确的值。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// Either 函子 用来解决异常处理的问题 有两个值 left 和 right 用来表示错误和正确的值</span><br><span class="hljs-comment">// 主要用于两个用途： 代替条件运算(if...else)，提供默认值 代替异常处理(try...catch)，捕捉详细的错误信息</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Either</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Functor</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">left, right</span>) &#123;<br>    <span class="hljs-variable language_">super</span>();<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">left</span> = left;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">right</span> = right;<br>  &#125;<br>  <span class="hljs-keyword">static</span> <span class="hljs-title function_">of</span>(<span class="hljs-params">left, right</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Either</span>(left, right);<br>  &#125;<br>  <span class="hljs-title function_">isNothing</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">right</span> === <span class="hljs-literal">null</span> || <span class="hljs-variable language_">this</span>.<span class="hljs-property">right</span> === <span class="hljs-literal">undefined</span>;<br>  &#125;<br>  <span class="hljs-title function_">map</span>(<span class="hljs-params">fn</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">isNothing</span>()<br>      ? <span class="hljs-title class_">Either</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title function_">fn</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">left</span>), <span class="hljs-variable language_">this</span>.<span class="hljs-property">right</span>)<br>      : <span class="hljs-title class_">Either</span>.<span class="hljs-title function_">of</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">left</span>, <span class="hljs-title function_">fn</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">right</span>));<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> res5 = <span class="hljs-title class_">Either</span>.<span class="hljs-title function_">of</span>(<span class="hljs-number">1</span>, <span class="hljs-number">5</span>).<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">x</span>) =&gt;</span> x * <span class="hljs-number">2</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res5); <span class="hljs-comment">// Either &#123; value: null, left: 2, right: 10 &#125;</span><br><br><span class="hljs-comment">// 解析 JSON 字符串</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">parseJson</span>(<span class="hljs-params">jsonStr</span>) &#123;<br>  <span class="hljs-keyword">let</span> rst = <span class="hljs-literal">null</span>;<br>  <span class="hljs-keyword">let</span> err = <span class="hljs-literal">null</span>;<br>  <span class="hljs-keyword">try</span> &#123;<br>    rst = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(jsonStr);<br>  &#125; <span class="hljs-keyword">catch</span> (e) &#123;<br>    err = e;<br>  &#125;<br><br>  <span class="hljs-keyword">return</span> <span class="hljs-title class_">Either</span>.<span class="hljs-title function_">of</span>(err, rst);<br>&#125;<br><br><span class="hljs-comment">// =&gt; Either &#123; value: null, left: &#x27;SYNTAXERROR&#x27;, right: null &#125;</span><br><span class="hljs-keyword">const</span> res6 = <span class="hljs-title function_">parseJson</span>(<span class="hljs-string">&#x27;&#123;name:&quot;Lucy&quot;&#125;&#x27;</span>).<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">val</span>) =&gt;</span> val.<span class="hljs-property">name</span>.<span class="hljs-title function_">toUpperCase</span>());<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res6); <span class="hljs-comment">// Either &#123; value: null, left: &#x27;SYNTAXERROR&#x27;, right: null &#125;</span><br><span class="hljs-comment">// =&gt; Either &#123; value: null, left: null, right: &#x27;LUCY&#x27; &#125;</span><br><span class="hljs-keyword">const</span> res7 = <span class="hljs-title function_">parseJson</span>(<span class="hljs-string">&#x27;&#123;&quot;name&quot;:&quot;Lucy&quot;&#125;&#x27;</span>).<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">val</span>) =&gt;</span> val.<span class="hljs-property">name</span>.<span class="hljs-title function_">toUpperCase</span>());<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res7); <span class="hljs-comment">// Either &#123; value: null, left: null, right: &#x27;LUCY&#x27; &#125;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Monad-函子"><a href="#Monad-函子" class="headerlink" title="Monad 函子"></a>Monad 函子</h3><blockquote>
+<p>Monad 函子是用来解决函子嵌套问题的，它的 of 方法判断传入的值是否为函子，如果是函子则返回一个包含传入值的函子，如果不是函子则返回一个包含传入值的函子，用来控制因函子嵌套而导致的副作用。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// Monad 函子 用来解决函子嵌套的问题</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Monad</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Functor</span> &#123;<br>  <span class="hljs-keyword">static</span> <span class="hljs-title function_">of</span>(<span class="hljs-params">val</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Monad</span>(val);<br>  &#125;<br><br>  <span class="hljs-title function_">isNothing</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span> === <span class="hljs-literal">null</span> || <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span> === <span class="hljs-literal">undefined</span>;<br>  &#125;<br><br>  <span class="hljs-title function_">map</span>(<span class="hljs-params">fn</span>) &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">isNothing</span>()) <span class="hljs-keyword">return</span> <span class="hljs-title class_">Monad</span>.<span class="hljs-title function_">of</span>(<span class="hljs-literal">null</span>);<br>    <span class="hljs-keyword">let</span> rst = <span class="hljs-title function_">fn</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Monad</span>.<span class="hljs-title function_">of</span>(rst);<br>  &#125;<br><br>  <span class="hljs-title function_">join</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span>;<br>  &#125;<br><br>  <span class="hljs-title function_">flatMap</span>(<span class="hljs-params">fn</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">map</span>(fn).<span class="hljs-title function_">join</span>();<br>  &#125;<br>&#125;<br><span class="hljs-keyword">const</span> res9 = <span class="hljs-title class_">Monad</span>.<span class="hljs-title function_">of</span>(<span class="hljs-number">3</span>).<span class="hljs-title function_">flatMap</span>(<span class="hljs-function">(<span class="hljs-params">n</span>) =&gt;</span> <span class="hljs-title class_">Monad</span>.<span class="hljs-title function_">of</span>(n + <span class="hljs-number">2</span>));<br><span class="hljs-keyword">const</span> res10 = <span class="hljs-title class_">Maybe</span>.<span class="hljs-title function_">of</span>(<span class="hljs-number">3</span>).<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">n</span>) =&gt;</span> <span class="hljs-title class_">Maybe</span>.<span class="hljs-title function_">of</span>(n + <span class="hljs-number">2</span>));<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res9); <span class="hljs-comment">// Monad &#123; value: 5 &#125;</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res10); <span class="hljs-comment">// Maybe &#123; value: &#123; value: 5 &#125; &#125;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="IO-函子"><a href="#IO-函子" class="headerlink" title="IO 函子"></a>IO 函子</h3><blockquote>
+<p>IO 函子是用来控制副作用的，它的 of 方法判断传入的值是否为函数，如果是函数则返回一个包含传入值的函子，如果不是函数则返回一个包含传入值的函子，用来控制因副作用而导致的副作用。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// IO 函子 用来解决副作用的问题</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">IO</span> &#123;<br>  <span class="hljs-keyword">static</span> <span class="hljs-title function_">of</span>(<span class="hljs-params">val</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title function_">IO</span>(<span class="hljs-function">() =&gt;</span> val);<br>  &#125;<br><br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">val</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span> = val;<br>  &#125;<br><br>  <span class="hljs-title function_">map</span>(<span class="hljs-params">fn</span>) &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">isNothing</span>()) <span class="hljs-keyword">return</span> <span class="hljs-variable constant_">IO</span>.<span class="hljs-title function_">of</span>(<span class="hljs-literal">null</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title function_">IO</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">fn</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">value</span>()));<br>  &#125;<br><br>  <span class="hljs-title function_">isNothing</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span> === <span class="hljs-literal">null</span> || <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span> === <span class="hljs-literal">undefined</span>;<br>  &#125;<br><br>  <span class="hljs-title function_">join</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">value</span>();<br>  &#125;<br><br>  <span class="hljs-title function_">flatMap</span>(<span class="hljs-params">fn</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title function_">IO</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">fn</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">value</span>()).<span class="hljs-title function_">join</span>());<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">readFile</span> = (<span class="hljs-params">name</span>) =&gt;<br>  <span class="hljs-keyword">new</span> <span class="hljs-title function_">IO</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;readFile&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">`请求并返回<span class="hljs-subst">$&#123;name&#125;</span>文件内容`</span>;<br>  &#125;);<br><span class="hljs-keyword">const</span> <span class="hljs-title function_">format</span> = (<span class="hljs-params">info</span>) =&gt;<br>  <span class="hljs-keyword">new</span> <span class="hljs-title function_">IO</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;format&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">`格式化内容(&quot;<span class="hljs-subst">$&#123;info&#125;</span>&quot;)`</span>;<br>  &#125;);<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">print</span> = (<span class="hljs-params">info</span>) =&gt;<br>  <span class="hljs-keyword">new</span> <span class="hljs-title function_">IO</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;print&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">`打印格式化后的内容：<span class="hljs-subst">$&#123;info&#125;</span>`</span>;<br>  &#125;);<br><br><span class="hljs-comment">// 并没有执行</span><br><span class="hljs-keyword">const</span> readAndPrint = <span class="hljs-title function_">readFile</span>(<span class="hljs-string">&quot;book.pdf&quot;</span>).<span class="hljs-title function_">flatMap</span>(format).<span class="hljs-title function_">flatMap</span>(print);<br><br>readAndPrint.<span class="hljs-title function_">join</span>();<br></code></pre></td></tr></table></figure>
+
+<h3 id="Task-函子"><a href="#Task-函子" class="headerlink" title="Task 函子"></a>Task 函子</h3><blockquote>
+<p>Task 函子是用来控制异步的，它的 of 方法判断传入的值是否为函数，如果是函数则返回一个包含传入值的函子，如果不是函数则返回一个包含传入值的函子，用来控制因异步而导致的副作用。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// Task 函子 用来解决异步的问题</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Task</span> &#123;<br>  <span class="hljs-keyword">static</span> <span class="hljs-title function_">of</span>(<span class="hljs-params">val</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Task</span>(<span class="hljs-function">(<span class="hljs-params">resolve</span>) =&gt;</span> <span class="hljs-title function_">resolve</span>(val));<br>  &#125;<br><br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">fn</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span> = fn;<br>  &#125;<br><br>  <span class="hljs-title function_">map</span>(<span class="hljs-params">fn</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Task</span>(<span class="hljs-function">(<span class="hljs-params">resolve</span>) =&gt;</span> &#123;<br>      <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">value</span>(<span class="hljs-function">(<span class="hljs-params">val</span>) =&gt;</span> <span class="hljs-title function_">resolve</span>(<span class="hljs-title function_">fn</span>(val)));<br>    &#125;);<br>  &#125;<br><br>  <span class="hljs-title function_">join</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Task</span>(<span class="hljs-function">(<span class="hljs-params">resolve</span>) =&gt;</span> &#123;<br>      <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">value</span>(<span class="hljs-function">(<span class="hljs-params">task</span>) =&gt;</span> task.<span class="hljs-title function_">value</span>(resolve));<br>    &#125;);<br>  &#125;<br><br>  <span class="hljs-title function_">flatMap</span>(<span class="hljs-params">fn</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">map</span>(fn).<span class="hljs-title function_">join</span>();<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">readFile</span> = (<span class="hljs-params">name</span>) =&gt;<br>  <span class="hljs-keyword">new</span> <span class="hljs-title class_">Task</span>(<span class="hljs-function">(<span class="hljs-params">resolve</span>) =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;readFile&quot;</span>);<br>    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>      <span class="hljs-title function_">resolve</span>(<span class="hljs-string">`请求并返回<span class="hljs-subst">$&#123;name&#125;</span>文件内容`</span>);<br>    &#125;, <span class="hljs-number">1000</span>);<br>  &#125;);<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">format</span> = (<span class="hljs-params">info</span>) =&gt;<br>  <span class="hljs-keyword">new</span> <span class="hljs-title class_">Task</span>(<span class="hljs-function">(<span class="hljs-params">resolve</span>) =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;format&quot;</span>);<br>    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>      <span class="hljs-title function_">resolve</span>(<span class="hljs-string">`格式化内容(&quot;<span class="hljs-subst">$&#123;info&#125;</span>&quot;)`</span>);<br>    &#125;, <span class="hljs-number">1000</span>);<br>  &#125;);<br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">print</span> = (<span class="hljs-params">info</span>) =&gt;<br>  <span class="hljs-keyword">new</span> <span class="hljs-title class_">Task</span>(<span class="hljs-function">(<span class="hljs-params">resolve</span>) =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;print&quot;</span>);<br>    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>      <span class="hljs-title function_">resolve</span>(<span class="hljs-string">`打印格式化后的内容：<span class="hljs-subst">$&#123;info&#125;</span>`</span>);<br>    &#125;, <span class="hljs-number">1000</span>);<br>  &#125;);<br>  <br><span class="hljs-comment">// 并没有执行</span><br><span class="hljs-keyword">const</span> readAndPrint = <span class="hljs-title function_">readFile</span>(<span class="hljs-string">&quot;book.pdf&quot;</span>).<span class="hljs-title function_">flatMap</span>(format).<span class="hljs-title function_">flatMap</span>(print);<br><br><span class="hljs-comment">// 执行</span><br>readAndPrint.<span class="hljs-title function_">value</span>(<span class="hljs-function">(<span class="hljs-params">val</span>) =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(val)); <span class="hljs-comment">// 打印格式化后的内容：格式化内容(&quot;请求并返回book.pdf文件内容&quot;)</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><blockquote>
+<p>函子是一种特殊的容器，通过一个普通的对象来实现，该对象具有map方法，map方法可以运行一个函数对值进行处理(变形关系)并返回一个包含新值的函子，该函子包含了处理后的值。它是一种新的函数组合方式，可以链式调用，可以用于约束传输的数据结构，可以映射适配函数的输出值与下一个函数输入值，可以一定程度上避免函数执行的副作用，当然除了这个之外我们还可以通过函子去控制异常，来进行异步操作等等。</p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E6%8C%87%E5%8D%97/" class="category-chain-item">函数式编程指南</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AF%BB%E4%B9%A6%E5%88%86%E4%BA%AB/" class="print-no-link">#读书分享</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>《JavaScript函数式编程指南》第五章 针对复杂应用的设计模式</div>
+      <div>http://example.com/2023/12/12/functionalProgramming/book5/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>trade</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年12月12日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/12/28/functionalProgramming/book6/" title="《JavaScript函数式编程指南》第六章 坚不可摧的代码">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">《JavaScript函数式编程指南》第六章 坚不可摧的代码</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/05/functionalProgramming/book4/" title="《JavaScript函数式编程指南》第四章 模块化且可重⽤的代码">
+                        <span class="hidden-mobile">《JavaScript函数式编程指南》第四章 模块化且可重⽤的代码</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

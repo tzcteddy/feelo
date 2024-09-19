@@ -1,0 +1,845 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="trade">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="概览 Debug : 在源代码面板中可以设置断点来调试 JavaScript ，比 console.log()调试更快速高效 Devtools as IDE : 通过 Workspaces（工作区）连接本地文件来使用开发者工具的实时编辑器   断点类型 行断点：代码运行到当前行之前暂停执行  在源代码添加debugger关键字或者点击Sources面板中的源代码的行号   条件行断点：当满足条件时">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sources面板">
+<meta property="og:url" content="http://example.com/2024/06/01/frontendGuide/browserDebug/chromeDevtools/sourcesPanel/index.html">
+<meta property="og:site_name" content="知识乐章">
+<meta property="og:description" content="概览 Debug : 在源代码面板中可以设置断点来调试 JavaScript ，比 console.log()调试更快速高效 Devtools as IDE : 通过 Workspaces（工作区）连接本地文件来使用开发者工具的实时编辑器   断点类型 行断点：代码运行到当前行之前暂停执行  在源代码添加debugger关键字或者点击Sources面板中的源代码的行号   条件行断点：当满足条件时">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-1.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-2.gif">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-3.gif">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-6.gif">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-4.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-7.gif">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-8.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-9.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-10.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-12.gif">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-13.gif">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-14.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-15.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-16.gif">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-17.gif">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-18.gif">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-19.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-20.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-21.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-22.png">
+<meta property="article:published_time" content="2024-06-01T02:00:52.000Z">
+<meta property="article:modified_time" content="2024-07-29T02:12:42.772Z">
+<meta property="article:author" content="trade">
+<meta property="article:tag" content="浏览器调试,谷歌开发者工具">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-1.png">
+  
+  
+  
+  <title>Sources面板 - 知识乐章</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>知识乐章</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archivesthe/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Sources面板"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-06-01 10:00" pubdate>
+          2024年6月1日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          26 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Sources面板</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><ul>
+<li>Debug : 在源代码面板中可以设置<strong>断点</strong>来调试 JavaScript ，比 console.log()调试更快速高效</li>
+<li>Devtools as IDE : 通过 Workspaces（工作区）连接本地文件来使用开发者工具的<strong>实时编辑器</strong></li>
+</ul>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-1.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="断点类型"><a href="#断点类型" class="headerlink" title="断点类型"></a>断点类型</h2><ol>
+<li><p>行断点：代码运行到当前行之前暂停执行</p>
+<blockquote>
+<p>在源代码添加debugger关键字或者点击Sources面板中的源代码的行号</p>
+</blockquote>
+</li>
+<li><p>条件行断点：当满足条件时才会触发该断点</p>
+<blockquote>
+<p>右击Sources面板中的源代码的行号<br>选择“Add conditional breakpoint</p>
+</blockquote>
+</li>
+</ol>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-2.gif" srcset="/img/loading.gif" lazyload></p>
+<ol start="3">
+<li><p>DOM 断点</p>
+<blockquote>
+<p>即Elements面板提及过的三种DOM断点：</p>
+<ul>
+<li>节点属性断点</li>
+<li>节点删除断点</li>
+<li>子树变更断点</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-3.gif" srcset="/img/loading.gif" lazyload></p>
+<ol start="4">
+<li>XHR&#x2F;Fetch 断点<blockquote>
+<p>在页面发出XHR或Fetch请求前加断点</p>
+</blockquote>
+</li>
+</ol>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-6.gif" srcset="/img/loading.gif" lazyload></p>
+<ol start="5">
+<li>Event Listener 事件监听断点<blockquote>
+<p>可以在所有类型的事件函数被出发前加断点</p>
+</blockquote>
+</li>
+</ol>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-4.png" srcset="/img/loading.gif" lazyload></p>
+<!-- 6. Exception 异常断点 -->
+
+<!-- ![](../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-5.png) -->
+
+<ol start="6">
+<li>Function 函数断点<blockquote>
+<p>把想调试的函数名作为参数，调用debug()函数，可以在每次执行该函数前暂停执行代码<br><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-7.gif" srcset="/img/loading.gif" lazyload></p>
+</blockquote>
+</li>
+</ol>
+<h2 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h2><ul>
+<li>函数调用栈 Call Stack：Call Stack 是 time traveling 的，即点击栈中的任一节点，当前的作用域和局部变量等信息，都会模拟至该节点执行时的状态</li>
+</ul>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-8.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>全局作用域 Global ，局部作用域 Local ，闭包作用域 Closure</li>
+</ul>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-9.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>step over next function<blockquote>
+<p>顾名思义over有跳过的意思，即如果遇到一个函数，它会直接执行完这个函数（注意是直接执行结束返回结果），然后进入下一步，中间不显示细节。</p>
+</blockquote>
+</li>
+<li>step into next function<blockquote>
+<p>顾名思义into是进入的意思，即如果遇到一个函数，它不会一下运行完这个函数，而是进入函数内部，一步一步地执行，这样我们可以更清楚地观察执行过程。</p>
+</blockquote>
+</li>
+<li>step out current function<blockquote>
+<p> step out of current function，顾名思义out是出来的意思，即如果利用 step into已经进入了函数内部，我们可以通过此功能来一下执行完函数内部剩下的代码。</p>
+</blockquote>
+</li>
+<li>step (与 step over&#x2F;into 的区别就是，step 会优先尝试 step into，当没有可步入的代码时，就会执行 step over)</li>
+</ul>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-10.png" srcset="/img/loading.gif" lazyload></p>
+<!-- - long resume：恢复执行，并将断点停用 500ms -->
+
+<!-- ![](../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-11.gif) -->
+
+<ul>
+<li>Continue to here：继续执行至此行</li>
+</ul>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-12.gif" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>Restart Frame：重新执行函数调用堆栈中的某一帧</li>
+</ul>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-13.gif" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>行断点内的多个箭头：行内断点（行内的，可 step into 的 执行点</li>
+</ul>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-14.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Devtools-Nodejs-debug"><a href="#Devtools-Nodejs-debug" class="headerlink" title="Devtools Nodejs debug"></a>Devtools Nodejs debug</h2><ul>
+<li>node 执行 js 文件，文件名前加–inspect 标志，启用浏览器 nodejs 调试</li>
+</ul>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-15.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>点击 devtools 中，左上角的 devices mode 右侧的绿色按钮，即可启用 node 服务端中的脚本调试</li>
+<li><a target="_blank" rel="noopener" href="https://nodejs.org/en/docs/guides/debugging-getting-started/">更多相关</a></li>
+</ul>
+<h2 id="BlackBox-ignore-list"><a href="#BlackBox-ignore-list" class="headerlink" title="BlackBox - ignore list"></a>BlackBox - ignore list</h2><blockquote>
+<p>BlackBox 的用途：“BlackBox Script”可以在调试中忽略某些脚本(此处的 BlackBox 为动词)，在 Call Stack 堆栈中会将该脚本隐藏，单步调试时也不会步入脚本中的任何函数</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">animate</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-title function_">prepare</span>();<br>    lib.<span class="hljs-title function_">doFancyStuff</span>(); <span class="hljs-comment">// A</span><br>    <span class="hljs-title function_">render</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>例如以上代码的 A 行，调用的是第三方库的 doFancyStuff 函数</p>
+<p>如果我确认该第三方库没有 bug</p>
+<p>就可以 BlackBox 整个第三方库的 js 脚本，在调试中跳过这些代码的执行</p>
+<ul>
+<li>三种添加 BlackBox 的方法：</li>
+</ul>
+<ol>
+<li><p>在源代码窗格右键，选择”BlackBox Script”</p>
+<p> <img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-16.gif" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>在 Call Stack 中右键某一帧，选择”BlackBox Script”</p>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-17.gif" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>在设置中的 Blackboxing 面板添加<strong>正则表达式</strong>匹配<strong>文件名</strong></p>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-18.gif" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ol>
+<h2 id="Workspace：Devtools-as-IDE-将更改持久化"><a href="#Workspace：Devtools-as-IDE-将更改持久化" class="headerlink" title="Workspace：Devtools as IDE 将更改持久化"></a>Workspace：Devtools as IDE 将更改持久化</h2><ul>
+<li><p>在 sources 左侧的面板中选择Filesystem，点击Add folder to workspace，将你本地运行的站点的相关源文件添加到 Devtools 的工作区，会自动识别 Page 下和工作区下相对应的文件，在 devtools 更改文件并保存，即持久化保存（目前只支持自动识别，不支持添加映射）</p>
+</li>
+<li><p>绿标文件：成功的映射到本地的文件，在 Styles 和 Sources 中的文件名前，都会添加绿色圆点作为标识</p>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-19.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-20.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>目前 Devtools 已经支持 sass&#x2F;scss、UglifyJS、Grunt、Coffescript、Closure 等等，暂时还不支持 webpack，和其他现代的复杂框架，如 react</p>
+</li>
+<li><p>所有sources面板的文件，都可以右键选择local modifications，查看所有更改</p>
+</li>
+<li><p>对 DOM 树的更改不会持久化至 html 文件：因为 dom 的最终表现，受到 html、css、javascript 的共同影响，DOM 树 !&#x3D;&#x3D; HTML，因此可以在 sources 中直接更改 html 文件并保存</p>
+</li>
+</ul>
+<h2 id="Source-Map"><a href="#Source-Map" class="headerlink" title="Source Map"></a>Source Map</h2><ul>
+<li>组合&#x2F;压缩 css,js 文件是常见的性能优化方案，但是会对开发调试造成困扰</li>
+<li>Source Map 用于将生产代码映射至源代码，Chrome 和 firefox 都内置了对 Source Map 的支持</li>
+<li>在 Chorme devtools 中，settings -&gt; preferen -&gt; sources 中，选中Enable Javascript source maps和Enable CSS source maps</li>
+<li>source map 映射信息存在 json 对象中，保存在 .map 文件中，可以由编译程序添加注释&#x2F;&#x2F;# sourceMappingURL&#x3D;&#x2F;path&#x2F;to&#x2F;script.js.map至生产文件末尾，也可以由服务端在响应头中添加X-SourceMap: &#x2F;path&#x2F;to&#x2F;script.js.map，将 map 文件与生产文件对应。<a target="_blank" rel="noopener" href="https://blog.teamtreehouse.com/introduction-source-maps">更多关于 source map 的介绍</a></li>
+</ul>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-21.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Local-Overrides"><a href="#Local-Overrides" class="headerlink" title="Local Overrides"></a>Local Overrides</h2><ul>
+<li>用于覆盖网络请求: 在source&#x2F;page右键save for override或直接edit，保存的文件都被存储到overrides 指定目录(按照域名建立文件夹). 这种改写是临时的</li>
+<li>在 Sources 面板左侧选择 Overrides，指定 DevTools 应保存更改的目录，当在 DevTools 中进行更改时，DevTools 会将修改后的文件的副本保存到所选的本地目录中，重新加载页面时，DevTools 提供本地修改的文件，而不是请求的网络资源。</li>
+<li>与 Workspace 相似的，不支持保存对 DOM 树的更改，需要直接更改 html 源文件。</li>
+<li>只能指定一个目录</li>
+<li>断点debug 时，实时修改文件，然后保存后会恢复到第一个断点，不用重新刷新</li>
+</ul>
+<h2 id="Snippets-代码片段"><a href="#Snippets-代码片段" class="headerlink" title="Snippets 代码片段"></a>Snippets 代码片段</h2><ul>
+<li>在 Sources 面板左侧选择 Snippets，或crlt shift p输入 snippet 打开 Snippets 面板，可以创建并保存常用的代码片段，和用 gist 类似</li>
+<li>snippets 中，选中代码并ctrl enter，或点击右下角的执行按钮，即可执行代码片段</li>
+</ul>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-8-22.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Content-scripts"><a href="#Content-scripts" class="headerlink" title="Content scripts"></a>Content scripts</h2><ul>
+<li>这部分脚本是浏览器插件的脚本，在特定网页的上下文中运行。（与插件运行在服务端的脚本，页面上引用的脚本，页面上 script 中的内嵌脚本都不同</li>
+<li>插件在服务端的脚本可以访问所有 WebExtension JavaScript API，但它们无法直接访问网页内容。</li>
+<li>Content scripts 只能访问 WebExtension API 的一小部分，但它们可以使用消息传递系统与后台脚本进行通信，从而间接访问 WebExtension API。</li>
+<li>如果有浏览器插件相关的工作，可以更深入<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions">研究</a>，不赘述。</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/" class="category-chain-item">前端开发手册</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/Debug-%E5%A4%A7%E4%BD%9C%E6%88%98%EF%BC%9A%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B0%83%E8%AF%95%E5%85%A8%E6%94%BB%E7%95%A5/" class="category-chain-item">Debug 大作战：浏览器调试全攻略</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B0%83%E8%AF%95-%E8%B0%B7%E6%AD%8C%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7/" class="print-no-link">#浏览器调试,谷歌开发者工具</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Sources面板</div>
+      <div>http://example.com/2024/06/01/frontendGuide/browserDebug/chromeDevtools/sourcesPanel/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>trade</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年6月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/06/01/frontendGuide/browserDebug/chromeDevtools/securityPanel/" title="Security面板">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Security面板</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/04/25/vue/vue6/" title="《Vue.js 设计与实现》第六章 原始值的响应式方案">
+                        <span class="hidden-mobile">《Vue.js 设计与实现》第六章 原始值的响应式方案</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

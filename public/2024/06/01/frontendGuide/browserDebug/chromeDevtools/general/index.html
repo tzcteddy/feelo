@@ -1,0 +1,721 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="trade">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="copying &amp; saving前言在调试的过程中，我们总要对 Dev Tools 里面的数据进行 复制 或者 保存 的操作，所以我们来看看，关于这些，有什么小技巧呢？ 1. copy(…)你可以通过全局的方法 copy() 在 console 里 copy 任何你能拿到的资源，包括我们在后面会提到的那些变量。例如 copy($_) 或 copy($0) 2. Store as globa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通用篇">
+<meta property="og:url" content="http://example.com/2024/06/01/frontendGuide/browserDebug/chromeDevtools/general/index.html">
+<meta property="og:site_name" content="知识乐章">
+<meta property="og:description" content="copying &amp; saving前言在调试的过程中，我们总要对 Dev Tools 里面的数据进行 复制 或者 保存 的操作，所以我们来看看，关于这些，有什么小技巧呢？ 1. copy(…)你可以通过全局的方法 copy() 在 console 里 copy 任何你能拿到的资源，包括我们在后面会提到的那些变量。例如 copy($_) 或 copy($0) 2. Store as globa">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-1.gif">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-2.gif">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-3.gif">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-4.gif">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-5.gif">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-6.gif">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-7.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-8.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-9.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-10.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-11.gif">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-12.gif">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-13.gif">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-14.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-15.gif">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-16.gif">
+<meta property="article:published_time" content="2024-06-01T02:00:58.000Z">
+<meta property="article:modified_time" content="2024-07-29T02:12:42.771Z">
+<meta property="article:author" content="trade">
+<meta property="article:tag" content="浏览器调试,谷歌开发者工具">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-1.gif">
+  
+  
+  
+  <title>通用篇 - 知识乐章</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>知识乐章</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archivesthe/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="通用篇"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-06-01 10:00" pubdate>
+          2024年6月1日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          26 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">通用篇</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="copying-saving"><a href="#copying-saving" class="headerlink" title="copying &amp; saving"></a>copying &amp; saving</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在调试的过程中，我们总要对 Dev Tools 里面的数据进行 <strong>复制</strong> 或者 <strong>保存</strong> 的操作，所以我们来看看，关于这些，有什么小技巧呢？</p>
+<h2 id="1-copy-…"><a href="#1-copy-…" class="headerlink" title="1. copy(…)"></a>1. copy(…)</h2><p>你可以通过全局的方法 copy() 在 console 里 copy 任何你能拿到的资源，包括我们在后面会提到的那些变量。例如 copy($_) 或 copy($0)<br><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-1.gif" srcset="/img/loading.gif" lazyload></p>
+<h2 id="2-Store-as-global-存储为一个全局变量"><a href="#2-Store-as-global-存储为一个全局变量" class="headerlink" title="2. Store as global (存储为一个全局变量)"></a>2. Store as global (存储为一个全局变量)</h2><p>如果你在 console 中打印了一堆数据 (例如你在 App 中计算出来的一个数组) ，然后你想对这些数据做一些额外的操作比如我们刚刚说的 copy (在不影响它原来值的情况下) 。 那就可以将它转换成一个全局变量，只需要 <strong>右击</strong> 它，并选择 “Store as global variable” (保存为全局变量) 选项。<br>第一次使用的话，它会创建一个名为 temp1 的变量，第二次创建 temp2，第三次 … 。通过使用这些变量来操作对应的数据，不用再担心影响到他们原来的值:<br><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-2.gif" srcset="/img/loading.gif" lazyload></p>
+<h2 id="3-保存堆栈信息-Stack-trace"><a href="#3-保存堆栈信息-Stack-trace" class="headerlink" title="3.保存堆栈信息( Stack trace )"></a>3.保存堆栈信息( Stack trace )</h2><p>大多数情况下都不是一个人开发一个项目，而是一个团队协作，那么 <strong>如何准确的描述问题，就成为了沟通的关键</strong> ，这时候 console 打印出来的堆栈跟踪的信息对你和同事来说就起大作用了，可以省去很多沟通成本，所以你可以直接把堆栈跟踪的信息保存为一个文件，而不只是截图发给对方：<br><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-3.gif" srcset="/img/loading.gif" lazyload></p>
+<h2 id="4-直接Copy-HTML"><a href="#4-直接Copy-HTML" class="headerlink" title="4.直接Copy HTML"></a>4.直接Copy HTML</h2><p>几乎所有人都知道，右击或者点击在 HTML 元素边上的省略号 (…) 就可以将它 copy 到剪贴板中<br>，但是你不知道的是：古老的[ctrl] + [c]大法依旧可用！<br><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-4.gif" srcset="/img/loading.gif" lazyload></p>
+<h1 id="快捷键和通用技巧"><a href="#快捷键和通用技巧" class="headerlink" title="快捷键和通用技巧"></a>快捷键和通用技巧</h1><h2 id="前言-1"><a href="#前言-1" class="headerlink" title="前言"></a>前言</h2><p>能直接快速提升开发效率的方式是什么？</p>
+<ul>
+<li>掌握快捷键</li>
+</ul>
+<p>这里是一些我们在日常前端开发中，相当实用的快捷键：</p>
+<h2 id="1-切换-DevTools-窗口的展示布局"><a href="#1-切换-DevTools-窗口的展示布局" class="headerlink" title="1. 切换 DevTools 窗口的展示布局"></a>1. 切换 DevTools 窗口的展示布局</h2><p>一般我在使用 DevTools 时， dock 的展示窗口都在底部 ，但是有时候我想把 dock 的窗口 切换到右边。<br>怎么做呢？<br>这时就可以通过 DevTools 的下拉菜单，或者命令菜单…或者使用一个快捷键 ctrl + shift + D (⌘ + shift + D Mac) 来实现位置的切换（通常是从 开始的位置 到 右边位置， 但是如果一开始就是 右边的位置 那么会切换到 左边的位置）:<br><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-5.gif" srcset="/img/loading.gif" lazyload></p>
+<h2 id="2-切换-DevTools-的面板"><a href="#2-切换-DevTools-的面板" class="headerlink" title="2. 切换 DevTools 的面板"></a>2. 切换 DevTools 的面板</h2><p>如果可以的话，我想成为一个不需要鼠标的开发者，日常开发中，我们常需要从 元素面板 跳转到 资源面板 并返回，这样往返的来调试我们的代码，怎么来节省鼠标点击的时间呢：</p>
+<ul>
+<li>按下 ctrl + [ 和 ctrl + ] 可以从当前面板的分别向左和向右切换面板。</li>
+<li>按下 ctrl + 1 到 &#96;&#96;ctrl + 9可以直接转到编号1…9的面板(ctrl + 1 转到元素面板，ctrl + 4&#96; 转到 网络信息面板等等)</li>
+</ul>
+<p><strong>请注意!</strong> 我们在上面介绍的第二组快捷键默认被禁用了。你可以通过 DevTools&gt;&gt;Settings &gt;&gt;Preferences&gt;&gt;<em>Appearance</em> 打开这个选项：<br><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-6.gif" srcset="/img/loading.gif" lazyload></p>
+<h2 id="3-递增-递减"><a href="#3-递增-递减" class="headerlink" title="3. 递增&#x2F;递减"></a>3. 递增&#x2F;递减</h2><p>接下来这个技巧，对调整样式是最有用的：通过使用 带有 或者 不带有修饰键 的 上 &#x2F; 下 箭头按键， 你可以实现递增和递减 0.1 ， 1 或者 10 这样数值类型的值。<br><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-7.png" srcset="/img/loading.gif" lazyload><br>甚至对颜色都起作用！（虽然没什么卵用，但是真的可以起作用~）</p>
+<h2 id="4-elements，-logs，-sources-network-中的查找"><a href="#4-elements，-logs，-sources-network-中的查找" class="headerlink" title="4. elements， logs， sources &amp; network 中的查找"></a>4. elements， logs， sources &amp; network 中的查找</h2><p>DevTools 中的前4个主要的面板，每一个都支持 [ctrl] + [f] 快捷方式，你可以使用对应的查询方式来查找信息:</p>
+<ul>
+<li>在 Elements 面板中 - 通过 string ，选择器 或者 XPath 来查找</li>
+<li>而在 Console， Network 以及 Source 面板 - 通过区分大小写，或者可以被视为表达式的 strings， 来查找</li>
+</ul>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-8.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="使用-Command"><a href="#使用-Command" class="headerlink" title="使用 Command"></a>使用 Command</h1><h2 id="前言-2"><a href="#前言-2" class="headerlink" title="前言"></a>前言</h2><p>我们直接可以直接看到的 DevTools 的功能，其实只是有限的一部分，怎么去探索更多的功能呢？<br>Command 菜单可以帮助我们快速找到那些被隐藏起来的功能，这也是它本身必不可少的原因。<br>如果你使用过 WebStorm 中的 Find Action (查找动作) 或者 Visual Studio Code 中的 Command Palette 的话，那么在 DevTools 中的 Command 菜单也与之类似：</p>
+<ul>
+<li>在 Chrome 的调试打开的情况下 按下 [ Ctrl] + [Shift] + [P] (Mac： [⌘] + [Shift]+ [P] )</li>
+<li>或者使用 DevTools 的 dropdown 按钮下的这个选项:</li>
+</ul>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-9.png" srcset="/img/loading.gif" lazyload><br>下图中，我整理了可供选择的命令列表，归为几个部分：<br><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-10.png" srcset="/img/loading.gif" lazyload><br>上面这张图同时也证明了 DevTools 有多么强力!</p>
+<h2 id="1-截屏的新姿势"><a href="#1-截屏的新姿势" class="headerlink" title="1.截屏的新姿势"></a>1.截屏的新姿势</h2><p>当你只想对一个特别的 DOM 节点进行截图时，你可能需要使用其他工具弄半天，但现在你直接选中那个节点，打开 Command 菜单并且使用 <strong>节点截图</strong> 的就可以了。<br>不只是这样，你同样可以用这种方式 <strong>全屏截图</strong> - 通过 Capture full size screenshot 命令。请注意，这里说的是全屏，并不是嵌入页面的一部分。一般来说这可是得使用浏览器插件才能做到的事情！<br><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-11.gif" srcset="/img/loading.gif" lazyload><br>注：<strong>节点截图有时会失效</strong>，全屏截图暂时没有遇到问题，建议大家使用后者。</p>
+<h2 id="2-快速切换面板"><a href="#2-快速切换面板" class="headerlink" title="2.快速切换面板"></a>2.快速切换面板</h2><p>DevTools 使用双面板布局，形式一般是：元素面板 + 资源面板 ，它根据屏幕可用的部分，经常将不同面板横向或者纵向的排列，以适合阅读的方式展示出来。但有时候我们并不喜欢默认的布局。<br>你是否想过要重置 DevTools 呢？将 样式面板 从 html预览 的底部移动到右边或者周围其他的位置呢？是的，这就是下面要介绍的 😉<br>打开 Commands 菜单并且输入 layout ，你会看到 2 到 3 个可供选择的项(这里不再显示你已经激活的选项)：</p>
+<ul>
+<li>使用横向面板布局</li>
+<li>使用纵向面板布局</li>
+<li>使用自动面板布局</li>
+</ul>
+<p>试试看：<br><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-12.gif" srcset="/img/loading.gif" lazyload></p>
+<h2 id="3-快速切换主题"><a href="#3-快速切换主题" class="headerlink" title="3.快速切换主题"></a>3.快速切换主题</h2><p>经常在电脑前一坐就是一天，所以我不能忍受一直看着白闪闪的屏幕。而且突然出现的强光也让人讨厌：我们一直都在黑暗的空间中工作，突然太阳出来了，照在你的 DevTools 上，导致你什么都看不到！<br>这个时候 主题 就派上了用场了：在 Commands 菜单中寻找与 theme 相关的选项，实现 明亮 &amp; 暗黑 两种主题之间的切换：<br><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-13.gif" srcset="/img/loading.gif" lazyload></p>
+<h1 id="代码块的使用"><a href="#代码块的使用" class="headerlink" title="代码块的使用"></a>代码块的使用</h1><h2 id="前言-3"><a href="#前言-3" class="headerlink" title="前言"></a>前言</h2><p>我经常使用 JavaScript 作为我的自动化工具，来处理第三方网站和应用程序：<br>比方说，我想看看有多少人在我的所有媒体帖子上鼓掌。 Medium 没有提供这样的总数，所以我把这个小脚本组合在一起：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript">?(<span class="hljs-string">&#x27;td:last-child .sortableTable-number&#x27;</span>)<br>    .<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">el</span> =&gt;</span> <span class="hljs-built_in">parseInt</span>(el.<span class="hljs-property">innerText</span>))<br>    .<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">total, value</span>) =&gt;</span> total + value);<br></code></pre></td></tr></table></figure>
+<p>当我打开状态页并且输入这段脚本到 Console 面板的时候，它将会返回这个数值:<br><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-14.png" srcset="/img/loading.gif" lazyload><br>现在看来，即使这个脚本并没有花费我太多的精力来编写，但也只是偶尔运行一下，所以对于我来说，记住一段这样的脚本会很麻烦：<br>那怎么解决这个问题呢？<br>这就是 Snippets 的用武之地：它允许你存放 JavaScript 代码到 DevTools 中，方便你复用这些 JavaScript 代码块：<br>进入到 Sources 面板，在导航栏里选中 Snippets 这栏，点击 New snippet(新建一个代码块) ，然后输入你的代码之后保存，大功告成！现在你可以通过右击菜单或者快捷键： [ctrl] + [enter] 来运行它了：<br><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-15.gif" srcset="/img/loading.gif" lazyload></p>
+<h2 id="运行其他来源的代码块"><a href="#运行其他来源的代码块" class="headerlink" title="运行其他来源的代码块"></a>运行其他来源的代码块</h2><p>当我在 DevTools 中预设了一组很棒的代码块以后，甚至都不必再通过 Sources 来运行它们。使用 Command Menu 才是最快的方式。只需在它的输入框中输入 ! ，就可以根据名字来筛选预设代码块：<br><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-2-16.gif" srcset="/img/loading.gif" lazyload></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/" class="category-chain-item">前端开发手册</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/Debug-%E5%A4%A7%E4%BD%9C%E6%88%98%EF%BC%9A%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B0%83%E8%AF%95%E5%85%A8%E6%94%BB%E7%95%A5/" class="category-chain-item">Debug 大作战：浏览器调试全攻略</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B0%83%E8%AF%95-%E8%B0%B7%E6%AD%8C%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7/" class="print-no-link">#浏览器调试,谷歌开发者工具</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>通用篇</div>
+      <div>http://example.com/2024/06/01/frontendGuide/browserDebug/chromeDevtools/general/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>trade</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年6月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/06/01/frontendGuide/browserDebug/chromeDevtools/introduction/" title="chrome devtools 介绍">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">chrome devtools 介绍</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/06/01/frontendGuide/browserDebug/chromeDevtools/elementsPanel/" title="Elements面板">
+                        <span class="hidden-mobile">Elements面板</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

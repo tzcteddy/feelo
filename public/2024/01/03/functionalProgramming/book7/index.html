@@ -1,0 +1,782 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="trade">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="第七章 函数式优化本章内容 如何识别高性能的函数式代码JavaScript 函数执行的内部机制嵌套函数的背景和递归通过惰性求值优化函数调用使用记忆化（memoization）加速程序执行使用尾递归函数展开递归调用  97%的时候我们应该忽略效率……过早的优化是一切罪恶的根源。然而,我们决不能错过这关键的 3%的优化机会。 不理解其运行环境就使用新的范式是不明智的函数式编程不会加快单个函数的求值速度">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《JavaScript函数式编程指南》第七章 函数式优化">
+<meta property="og:url" content="http://example.com/2024/01/03/functionalProgramming/book7/index.html">
+<meta property="og:site_name" content="知识乐章">
+<meta property="og:description" content="第七章 函数式优化本章内容 如何识别高性能的函数式代码JavaScript 函数执行的内部机制嵌套函数的背景和递归通过惰性求值优化函数调用使用记忆化（memoization）加速程序执行使用尾递归函数展开递归调用  97%的时候我们应该忽略效率……过早的优化是一切罪恶的根源。然而,我们决不能错过这关键的 3%的优化机会。 不理解其运行环境就使用新的范式是不明智的函数式编程不会加快单个函数的求值速度">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/book7/%E6%A0%88.gif">
+<meta property="og:image" content="http://example.com/img/book7/chrome%E9%80%92%E5%BD%92%E6%9C%80%E5%A4%A7%E9%99%90%E5%BA%A6.gif">
+<meta property="og:image" content="http://example.com/img/book7/%E5%B0%8F%E6%88%BF%E5%AD%90%E7%9A%84%E9%80%92%E5%BD%92%E6%9C%80%E5%A4%A7%E9%99%90%E5%BA%A6.gif">
+<meta property="og:image" content="http://example.com/img/book7/%E6%96%90%E6%B3%A2%E6%8B%89%E5%A5%91%E9%80%92%E5%BD%92%E8%B0%83%E7%94%A8%E6%A0%88.gif">
+<meta property="og:image" content="http://example.com/img/book7/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E9%9D%9E%E9%80%92%E5%BD%92%E6%A0%88.gif">
+<meta property="og:image" content="http://example.com/img/book7/s1.gif">
+<meta property="og:image" content="http://example.com/img/book7/s2.gif">
+<meta property="og:image" content="http://example.com/img/book7/%E9%98%B6%E4%B9%98-%E6%97%A0%E8%AE%B0%E5%BF%86.gif">
+<meta property="og:image" content="http://example.com/img/book7/%E9%98%B6%E4%B9%98-%E6%9C%89%E8%AE%B0%E5%BF%86.gif">
+<meta property="og:image" content="http://example.com/img/book7/%E5%B0%BE%E9%80%92%E5%BD%92%E8%B0%83%E7%94%A8%E6%A8%A1%E5%BC%8F%E5%8F%98%E5%8C%96.png">
+<meta property="article:published_time" content="2024-01-03T04:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-29T02:12:42.782Z">
+<meta property="article:author" content="trade">
+<meta property="article:tag" content="读书分享">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/book7/%E6%A0%88.gif">
+  
+  
+  
+  <title>《JavaScript函数式编程指南》第七章 函数式优化 - 知识乐章</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>知识乐章</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archivesthe/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="《JavaScript函数式编程指南》第七章 函数式优化"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-03 12:00" pubdate>
+          2024年1月3日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          71 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">《JavaScript函数式编程指南》第七章 函数式优化</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="第七章-函数式优化"><a href="#第七章-函数式优化" class="headerlink" title="第七章 函数式优化"></a>第七章 函数式优化</h1><h2 id="本章内容"><a href="#本章内容" class="headerlink" title="本章内容"></a>本章内容</h2><blockquote>
+<p>如何识别高性能的函数式代码<br>JavaScript 函数执行的内部机制<br>嵌套函数的背景和递归<br>通过惰性求值优化函数调用<br>使用记忆化（memoization）加速程序执行<br>使用尾递归函数展开递归调用</p>
+</blockquote>
+<p>97%的时候我们应该忽略效率……过早的优化是一切罪恶的根源。然<br>而,我们决不能错过这关键的 3%的优化机会。</p>
+<p>不理解其运行环境就使用新的范式是不明智的<br>函数式编程不会加快单个函数的求值速度</p>
+<h2 id="7-1-函数执行机制"><a href="#7-1-函数执行机制" class="headerlink" title="7.1 函数执行机制"></a>7.1 函数执行机制</h2><h3 id="函数调用栈"><a href="#函数调用栈" class="headerlink" title="函数调用栈"></a>函数调用栈</h3><h4 id="什么是栈？"><a href="#什么是栈？" class="headerlink" title="什么是栈？"></a>什么是栈？</h4><p>栈是一个基本的数据结构，它的插入和取出顺序是后进先出（LIFO）。可以想象成一个个堆叠在一起的碟子：所有操作都只能从最顶部的碟子开始。<br><img src="/../img/book7/%E6%A0%88.gif" srcset="/img/loading.gif" lazyload alt="栈"></p>
+<h4 id="函数的执行与栈的关系？"><a href="#函数的执行与栈的关系？" class="headerlink" title="函数的执行与栈的关系？"></a>函数的执行与栈的关系？</h4><p>JavaScript 编程模型中的上下文堆栈负责管理函数执行以及关闭变量作用域。堆栈始终从全局执行上下文帧开始，其包含所有全局变量，</p>
+<p>全局上下文帧永远驻留在堆栈的底部。每个函数的上下文帧都占用一定量的内存，实际取决于其中的局部变量的个数。如果没有任何局部变量，一个空帧大约 48 个字节。每个数字或布尔类型的局部变量和参数会占用 8 字节。所以，函数体声明越多的变量，就需要越大的堆栈帧</p>
+<p><strong>注意：函数的作用域链与 JavaScript 对象的原型链不是一回事。虽然两者表现得很类似，但是原型链通过 prototype 属性建立对象继承的链接，而作用域链是指内部函数能访问到外部函数的闭包。</strong></p>
+<h4 id="为什么是栈结构。"><a href="#为什么是栈结构。" class="headerlink" title="为什么是栈结构。"></a>为什么是栈结构。</h4><ul>
+<li>JavaScript 是单线程的，这意味着执行的同步性。</li>
+<li>有且只有一个全局上下文（与所有函数的上下文共享）。</li>
+<li>函数上下文的数量是有限制的（对客户端代码，不同的浏览器可以有不同的限制）。</li>
+<li>每个函数调用会创建一个新的执行上下文，递归调用也是如此</li>
+</ul>
+<h3 id="柯里化的上下文堆栈"><a href="#柯里化的上下文堆栈" class="headerlink" title="柯里化的上下文堆栈"></a>柯里化的上下文堆栈</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> _placeholder = &#123; <span class="hljs-string">&quot;@@functional/placeholder&quot;</span>: <span class="hljs-literal">true</span> &#125;;<br><span class="hljs-keyword">function</span> <span class="hljs-title function_">_isPlaceholder</span>(<span class="hljs-params">a</span>) &#123;<br>  <span class="hljs-keyword">return</span> a === _placeholder;<br>&#125;<br><span class="hljs-keyword">function</span> <span class="hljs-title function_">_curry1</span>(<span class="hljs-params">fn</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">f1</span>(<span class="hljs-params">a</span>) &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">arguments</span>.<span class="hljs-property">length</span> === <span class="hljs-number">0</span> || <span class="hljs-title function_">_isPlaceholder</span>(a)) &#123;<br>      <span class="hljs-keyword">return</span> f1;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-keyword">return</span> fn.<span class="hljs-title function_">apply</span>(<span class="hljs-variable language_">this</span>, <span class="hljs-variable language_">arguments</span>);<br>    &#125;<br>  &#125;;<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">_curry2</span>(<span class="hljs-params">fn</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">f2</span>(<span class="hljs-params">a, b</span>) &#123;<br>    <span class="hljs-keyword">switch</span> (<span class="hljs-variable language_">arguments</span>.<span class="hljs-property">length</span>) &#123;<br>      <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> f2;<br>      <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-title function_">_isPlaceholder</span>(a)<br>          ? f2<br>          : <span class="hljs-title function_">_curry1</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">_b</span>) &#123;<br>              <span class="hljs-keyword">return</span> <span class="hljs-title function_">fn</span>(a, _b);<br>            &#125;);<br>      <span class="hljs-attr">default</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-title function_">_isPlaceholder</span>(a) &amp;&amp; <span class="hljs-title function_">_isPlaceholder</span>(b)<br>          ? f2<br>          : <span class="hljs-title function_">_isPlaceholder</span>(a)<br>          ? <span class="hljs-title function_">_curry1</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">_a</span>) &#123;<br>              <span class="hljs-keyword">return</span> <span class="hljs-title function_">fn</span>(_a, b);<br>            &#125;)<br>          : <span class="hljs-title function_">_isPlaceholder</span>(b)<br>          ? <span class="hljs-title function_">_curry1</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">_b</span>) &#123;<br>              <span class="hljs-keyword">return</span> <span class="hljs-title function_">fn</span>(a, _b);<br>            &#125;)<br>          : <span class="hljs-title function_">fn</span>(a, b);<br>    &#125;<br>  &#125;;<br>&#125;<br><br><span class="hljs-keyword">const</span> add = <span class="hljs-keyword">function</span> (<span class="hljs-params">a, b</span>) &#123;<br>  <span class="hljs-keyword">return</span> a + b;<br>&#125;;<br><span class="hljs-keyword">function</span> <span class="hljs-title function_">addAll</span>(<span class="hljs-params">arr, fn</span>) &#123;<br>  <span class="hljs-keyword">let</span> result = <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; arr.<span class="hljs-property">length</span>; i++) &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>; j &lt; arr.<span class="hljs-property">length</span>; j++) &#123;<br>      result += <span class="hljs-title function_">fn</span>(arr[i], arr[j]);<br>    &#125;<br>  &#125;<br>  <span class="hljs-keyword">return</span> result;<br>&#125;<br><span class="hljs-keyword">const</span> c_add = <span class="hljs-title function_">_curry2</span>(add);<br><span class="hljs-comment">//柯里化执行</span><br><span class="hljs-title function_">addAll</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>], c_add);<br><span class="hljs-comment">//非柯里化执行</span><br><span class="hljs-title function_">addAll</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>], add);<br></code></pre></td></tr></table></figure>
+
+<h3 id="递归的弱点"><a href="#递归的弱点" class="headerlink" title="递归的弱点"></a>递归的弱点</h3><h4 id="递归导致的栈溢出"><a href="#递归导致的栈溢出" class="headerlink" title="递归导致的栈溢出"></a>递归导致的栈溢出</h4><p>函数调用自己时也会创建新的函数上下文。</p>
+<p>永远无法满足结束条件，很容易导致堆栈溢出<br>如果你⻅过错误<code>Range Error: Maximum Call Stack Exceeded or toomuch recursion</code>，就会知道递归有问题了。</p>
+<p>可执行 demo</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">increment</span>(<span class="hljs-params">i</span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(i);<br>  <span class="hljs-title function_">increment</span>(++i);<br>&#125;<br><span class="hljs-title function_">increment</span>(<span class="hljs-number">1</span>);<br></code></pre></td></tr></table></figure>
+
+<p>chrome 最大执行次数： 10438<br><img src="/../img/book7/chrome%E9%80%92%E5%BD%92%E6%9C%80%E5%A4%A7%E9%99%90%E5%BA%A6.gif" srcset="/img/loading.gif" lazyload alt="chrome递归最大限度"></p>
+<p>小房子 最大执行次数： 25160，但是 5000 以上就很慢了<br><img src="/../img/book7/%E5%B0%8F%E6%88%BF%E5%AD%90%E7%9A%84%E9%80%92%E5%BD%92%E6%9C%80%E5%A4%A7%E9%99%90%E5%BA%A6.gif" srcset="/img/loading.gif" lazyload alt="小房子的递归最大限度"></p>
+<p>这些数字只是为了说明递归是有限制的。代码预设应该要远远低于这些阈值，否则递归肯定是有问题的。</p>
+<p><strong>vue 的优化</strong> RECURSION_LIMIT:100 次<br>依赖的响应性状态不断地触发改变,从而递归地触发自身渲染。例如：<br>组件模板、渲染函数、更新的钩子或 watch 源函数</p>
+<h4 id="案例：斐波那契"><a href="#案例：斐波那契" class="headerlink" title="案例：斐波那契"></a>案例：斐波那契</h4><p>递归实现</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">fib</span>(<span class="hljs-params">n</span>) &#123;<br>  <span class="hljs-keyword">if</span> (n === <span class="hljs-number">1</span> || n === <span class="hljs-number">2</span>) <span class="hljs-keyword">return</span> n - <span class="hljs-number">1</span>;<br>  <span class="hljs-keyword">return</span> <span class="hljs-title function_">fib</span>(n - <span class="hljs-number">1</span>) + <span class="hljs-title function_">fib</span>(n - <span class="hljs-number">2</span>);<br>&#125;<br><span class="hljs-title function_">fib</span>(<span class="hljs-number">6</span>);<br></code></pre></td></tr></table></figure>
+
+<p><img src="/../img/book7/%E6%96%90%E6%B3%A2%E6%8B%89%E5%A5%91%E9%80%92%E5%BD%92%E8%B0%83%E7%94%A8%E6%A0%88.gif" srcset="/img/loading.gif" lazyload alt="斐波拉契递归调用栈"></p>
+<p>非递归实现</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">fib</span>(<span class="hljs-params">n</span>) &#123;<br>  <span class="hljs-keyword">let</span> a = <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">let</span> b = <span class="hljs-number">1</span>;<br>  <span class="hljs-keyword">let</span> c = a + b;<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">3</span>; i &lt; n; i++) &#123;<br>    a = b;<br>    b = c;<br>    c = a + b;<br>  &#125;<br>  <span class="hljs-keyword">return</span> c;<br>&#125;<br><span class="hljs-title function_">fib</span>(<span class="hljs-number">6</span>);<br></code></pre></td></tr></table></figure>
+
+<p><img src="/../img/book7/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E9%9D%9E%E9%80%92%E5%BD%92%E6%A0%88.gif" srcset="/img/loading.gif" lazyload alt="斐波那契"></p>
+<p>虽然柯里化和递归导致更多的内存占用，但是鉴于它们带来的灵活性和复用性以及递归解决方案固有的正确性，又感觉这些额外的内存花费是值得的。</p>
+<p>函数式编程还提供了其他范式没有的优化。大量函数推入堆栈会增加程序的内存占用，那么为什么不避免不必要的调用？</p>
+<h2 id="7-2-使用惰性求值推迟执行"><a href="#7-2-使用惰性求值推迟执行" class="headerlink" title="7.2 使用惰性求值推迟执行"></a>7.2 使用惰性求值推迟执行</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><blockquote>
+<p>惰性求值：只会在需要结果的时候才执行<br>贪婪求值：表达式绑定到变量时求值，不管结果是否会被用到</p>
+</blockquote>
+<p>当输入很大但只有一个小的子集有效时，避免不必要的函数调用可以体现出许多性能优势</p>
+<ul>
+<li>避免不必要的计算。</li>
+<li>使用函数式类库</li>
+</ul>
+<h3 id="使用函数式组合子避免重复计算"><a href="#使用函数式组合子避免重复计算" class="headerlink" title="使用函数式组合子避免重复计算"></a>使用函数式组合子避免重复计算</h3><p>在最简单的情况下，可以通过只传递函数引用（或名称），然后有条件地选择调用或不调用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> alt = R.<span class="hljs-title function_">curry</span>(<span class="hljs-function">(<span class="hljs-params">func1, func2, val</span>) =&gt;</span> <span class="hljs-title function_">func1</span>(val) || <span class="hljs-title function_">func2</span>(val));<br><span class="hljs-keyword">const</span> showStudent = R.<span class="hljs-title function_">compose</span>(<span class="hljs-title function_">append</span>(<span class="hljs-string">&quot;#student-info&quot;</span>), <span class="hljs-title function_">alt</span>(findStudent, createNewStudent));<br><span class="hljs-comment">//没有函数会过早地调用，因为组合子使用的只是它们的函数引用</span><br><span class="hljs-title function_">showStudent</span>(<span class="hljs-string">&quot;444-44-4444&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>以上案例是避免不必要计算的简单方法之一</p>
+<p>如果在运行前就定义好程序，就可以使用函数式库的 shortcut fusion 技术来优化</p>
+<h3 id="利用-shortcut-fusion-快捷方式融合"><a href="#利用-shortcut-fusion-快捷方式融合" class="headerlink" title="利用 shortcut fusion(快捷方式融合)"></a>利用 shortcut fusion(快捷方式融合)</h3><blockquote>
+<p>shortcut fusion 是一种合并迭代调用的优化策略;这有助于避免创建中间数据结构，并大大减少迭代执行的次数</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">pricelt</span>(<span class="hljs-params">x</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params">item</span>) &#123;<br>    <span class="hljs-keyword">return</span> item.<span class="hljs-property">price</span> &lt; x;<br>  &#125;;<br>&#125;<br><br><span class="hljs-keyword">var</span> gems = [<br>  &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Sunstone&quot;</span>, <span class="hljs-attr">price</span>: <span class="hljs-number">4</span> &#125;,<br>  &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Amethyst&quot;</span>, <span class="hljs-attr">price</span>: <span class="hljs-number">15</span> &#125;,<br>  &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Prehnite&quot;</span>, <span class="hljs-attr">price</span>: <span class="hljs-number">20</span> &#125;,<br>  &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Sugilite&quot;</span>, <span class="hljs-attr">prrice</span>: <span class="hljs-number">7</span> &#125;,<br>  &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Diopside&quot;</span>, <span class="hljs-attr">price</span>: <span class="hljs-number">3</span> &#125;,<br><br>  &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Feldspar&quot;</span>, <span class="hljs-attr">price</span>: <span class="hljs-number">13</span> &#125;,<br>  &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Dioptase&quot;</span>, <span class="hljs-attr">price</span>: <span class="hljs-number">2</span> &#125;,<br>  &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;Sapphire&quot;</span>, <span class="hljs-attr">price</span>: <span class="hljs-number">20</span> &#125;,<br>];<br><br><span class="hljs-keyword">var</span> chosen = <span class="hljs-title function_">_</span>(gems).<span class="hljs-title function_">filter</span>(<span class="hljs-title function_">pricelt</span>(<span class="hljs-number">10</span>)).<span class="hljs-title function_">take</span>(<span class="hljs-number">3</span>).<span class="hljs-title function_">value</span>();<br></code></pre></td></tr></table></figure>
+
+<p><img src="/../img/book7/s1.gif" srcset="/img/loading.gif" lazyload alt="常规执行"><br><img src="/../img/book7/s2.gif" srcset="/img/loading.gif" lazyload alt="shortcut fusion"></p>
+<ul>
+<li><code>_(gems)</code>拿到数据集，缓存起来</li>
+<li>遇到 <code>filter</code> 方法，先记下来</li>
+<li>遇到 <code>take</code> 方法，先记下来</li>
+<li>遇到 <code>value</code> 方法，说明时机到了</li>
+<li>把小本本拿出来，看下要求：要取出 3 个数，<code>price&lt;10</code></li>
+<li>使用 <code>filter</code> 方法里的判断方法 priceLt 对数据进行逐个裁决</li>
+</ul>
+<h4 id="lodash-的-shortcut-fusion"><a href="#lodash-的-shortcut-fusion" class="headerlink" title="lodash 的 shortcut fusion"></a>lodash 的 shortcut fusion</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> <span class="hljs-variable constant_">MAX_ARRAY_LENGTH</span> = <span class="hljs-number">4294967295</span>; <span class="hljs-comment">// 最大的数组长度</span><br><br><span class="hljs-comment">// 缓存数据结构体</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">LazyWrapper</span>(<span class="hljs-params">value</span>) &#123;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">__wrapped__</span> = value;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">__iteratees__</span> = [];<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">__takeCount__</span> = <span class="hljs-variable constant_">MAX_ARRAY_LENGTH</span>;<br>&#125;<br><br><span class="hljs-comment">// 惰性求值的入口</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">lazy</span>(<span class="hljs-params">value</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LazyWrapper</span>(value);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>实现 filter</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js">ar <span class="hljs-variable constant_">LAZY_FILTER_FLAG</span> = <span class="hljs-number">1</span>; <span class="hljs-comment">// filter方法的标记</span><br><br><span class="hljs-comment">// 根据 筛选方法iteratee 筛选数据</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">filter</span>(<span class="hljs-params">iteratee</span>)&#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">__iteratees__</span>.<span class="hljs-title function_">push</span>(&#123;<br>        <span class="hljs-string">&#x27;iteratee&#x27;</span>: iteratee,<br>        <span class="hljs-string">&#x27;type&#x27;</span>: <span class="hljs-variable constant_">LAZY_FILTER_FLAG</span><br>    &#125;);<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;<br>&#125;<br><br><span class="hljs-comment">// 绑定方法到原型链上</span><br><span class="hljs-title class_">LazyWrapper</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">filter</span> = filter;<br></code></pre></td></tr></table></figure>
+
+<p>take 方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 截取n个数据</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">take</span>(<span class="hljs-params">n</span>) &#123;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">__takeCount__</span> = n;<br>  <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;<br>&#125;<br><br><span class="hljs-title class_">LazyWrapper</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">take</span> = take;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 惰性求值</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">lazyValue</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">var</span> array = <span class="hljs-variable language_">this</span>.<span class="hljs-property">__wrapped__</span>;<br>  <span class="hljs-keyword">var</span> length = array.<span class="hljs-property">length</span>;<br>  <span class="hljs-keyword">var</span> resIndex = <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">var</span> takeCount = <span class="hljs-variable language_">this</span>.<span class="hljs-property">__takeCount__</span>;<br>  <span class="hljs-keyword">var</span> iteratees = <span class="hljs-variable language_">this</span>.<span class="hljs-property">__iteratees__</span>;<br>  <span class="hljs-keyword">var</span> iterLength = iteratees.<span class="hljs-property">length</span>;<br>  <span class="hljs-keyword">var</span> index = -<span class="hljs-number">1</span>;<br>  <span class="hljs-keyword">var</span> dir = <span class="hljs-number">1</span>;<br>  <span class="hljs-keyword">var</span> result = [];<br><br>  <span class="hljs-comment">// 标签语句</span><br>  <span class="hljs-attr">outer</span>: <span class="hljs-keyword">while</span> (length-- &amp;&amp; resIndex &lt; takeCount) &#123;<br>    <span class="hljs-comment">// 外层循环待处理的数组</span><br>    index += dir;<br><br>    <span class="hljs-keyword">var</span> iterIndex = -<span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">var</span> value = array[index];<br><br>    <span class="hljs-keyword">while</span> (++iterIndex &lt; iterLength) &#123;<br>      <span class="hljs-comment">// 内层循环处理链上的方法</span><br>      <span class="hljs-keyword">var</span> data = iteratees[iterIndex];<br>      <span class="hljs-keyword">var</span> iteratee = data.<span class="hljs-property">iteratee</span>;<br>      <span class="hljs-keyword">var</span> type = data.<span class="hljs-property">type</span>;<br>      <span class="hljs-keyword">var</span> computed = <span class="hljs-title function_">iteratee</span>(value);<br><br>      <span class="hljs-comment">// 处理数据不符合要求的情况</span><br>      <span class="hljs-keyword">if</span> (!computed) &#123;<br>        <span class="hljs-keyword">if</span> (type == <span class="hljs-variable constant_">LAZY_FILTER_FLAG</span>) &#123;<br>          <span class="hljs-keyword">continue</span> outer;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>          <span class="hljs-keyword">break</span> outer;<br>        &#125;<br>      &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// 经过内层循环，符合要求的数据</span><br>    result[resIndex++] = value;<br>  &#125;<br><br>  <span class="hljs-keyword">return</span> result;<br>&#125;<br><br><span class="hljs-title class_">LazyWrapper</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">value</span> = lazyValue;<br></code></pre></td></tr></table></figure>
+
+<p>Lodash 还有一些其他带有 shortcut fusion 优化的函数，如<code>_.drop</code>、<code>_.dropRight</code>、<code>_.dropRightWhile</code>、<code>_.dropWhile</code>、<code>_.first</code>、<code>_.initial</code>、<code>_.last</code>、<code>_.pluck</code>、<code>_.reject</code>、<code>_.rest</code>、<code>_.reverse</code>、<code>_.slice</code>、<code>_.takeRight</code>、<code>_.takeRightWhile</code>、<code>_.takeWhile</code>和<code>_.where</code>。</p>
+<p>除此之外，函数式还有另一种避免重复计算的技术：记忆化（memorization）。</p>
+<h2 id="7-3-实现需要时调用的策略"><a href="#7-3-实现需要时调用的策略" class="headerlink" title="7.3 实现需要时调用的策略"></a>7.3 实现需要时调用的策略</h2><p>加快应用程序执行的方法之一是避免计算重复值，特别是当这些计算的代价昂贵时。在传统的面向对象系统中，这可以通过在函数调用前检查高速缓存或代理层来实现。在返回时，给函数的结果赋予唯一的键值并持久化到缓存中。缓存作为耗时操作之前查询的中介或记忆体。</p>
+<p>记忆化的方案与缓存类似。它就像以前的代码中，基于函数的参数创建与之对应的唯一的键，并将结果值存储到对应的键上，当再次遇到相同参数的函数时，立即返回存储的结果。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title class_">Function</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">memoized</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-comment">//内部的工具方法负责为当前函数实例创建缓存逻辑</span><br>  <span class="hljs-keyword">let</span> key = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(<span class="hljs-variable language_">arguments</span>); <span class="hljs-comment">//将参数字符串化以获得对当前函数调用的键值。可以通过检测输入类型来创建更加鲁棒的键值生成方法。这只是一个简单的例子</span><br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">_cache</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">_cache</span> || &#123;&#125;; <span class="hljs-comment">//为当前函数实例创建一个内部的缓存</span><br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">_cache</span>[key] = <span class="hljs-variable language_">this</span>.<span class="hljs-property">_cache</span>[key] || <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">apply</span>(<span class="hljs-variable language_">this</span>, <span class="hljs-variable language_">arguments</span>); <span class="hljs-comment">//先试图读取缓存，通过输入来判断是否计算过。如果找到对应的值，则跳过函数调用直接返回；否则，执行计算</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">_cache</span>[key];<br>&#125;;<br><span class="hljs-title class_">Function</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">memoize</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-comment">//激活函数的记忆化</span><br>  <span class="hljs-keyword">let</span> fn = <span class="hljs-variable language_">this</span>;<br>  <span class="hljs-keyword">if</span> (fn.<span class="hljs-property">length</span> === <span class="hljs-number">0</span> || fn.<span class="hljs-property">length</span> &gt; <span class="hljs-number">1</span>) &#123;<br>    <span class="hljs-keyword">return</span> fn; <span class="hljs-comment">//只尝试记忆化一元函数</span><br>  &#125;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> fn.<span class="hljs-property">memoized</span>.<span class="hljs-title function_">apply</span>(fn, <span class="hljs-variable language_">arguments</span>); <span class="hljs-comment">//将函数实体包裹在记忆化函数中</span><br>  &#125;;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="案例阶乘"><a href="#案例阶乘" class="headerlink" title="案例阶乘"></a>案例阶乘</h3><p><code>n! = n* (n– 1) * (n– 2) * ... * 3 * 2 * 1</code></p>
+<p><strong>注意：阶乘数是可以通过更小的阶乘数递归定义的，比如 <code>4!=4*3!</code></strong></p>
+<p>无记忆的阶乘</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">jc</span>(<span class="hljs-params">n</span>) &#123;<br>  <span class="hljs-keyword">return</span> n === <span class="hljs-number">0</span> ? <span class="hljs-number">1</span> : n * <span class="hljs-title function_">jc</span>(n - <span class="hljs-number">1</span>);<br>&#125;<br><span class="hljs-title function_">jc</span>(<span class="hljs-number">2</span>);<br><span class="hljs-title function_">jc</span>(<span class="hljs-number">3</span>);<br></code></pre></td></tr></table></figure>
+
+<p><img src="/../img/book7/%E9%98%B6%E4%B9%98-%E6%97%A0%E8%AE%B0%E5%BF%86.gif" srcset="/img/loading.gif" lazyload alt="阶乘-无记忆"></p>
+<p>有记忆的阶乘</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title class_">Function</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">memoized</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">let</span> key = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(<span class="hljs-variable language_">arguments</span>);<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">_cache</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">_cache</span> || &#123;&#125;;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">_cache</span>[key] = <span class="hljs-variable language_">this</span>.<span class="hljs-property">_cache</span>[key] || <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">apply</span>(<span class="hljs-variable language_">this</span>, <span class="hljs-variable language_">arguments</span>);<br>  <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">_cache</span>[key];<br>&#125;;<br><span class="hljs-title class_">Function</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">memoize</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">let</span> fn = <span class="hljs-variable language_">this</span>;<br>  <span class="hljs-keyword">if</span> (fn.<span class="hljs-property">length</span> === <span class="hljs-number">0</span> || fn.<span class="hljs-property">length</span> &gt; <span class="hljs-number">1</span>) &#123;<br>    <span class="hljs-keyword">return</span> fn;<br>  &#125;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> fn.<span class="hljs-property">memoized</span>.<span class="hljs-title function_">apply</span>(fn, <span class="hljs-variable language_">arguments</span>);<br>  &#125;;<br>&#125;;<br><span class="hljs-keyword">const</span> factorial = <span class="hljs-keyword">function</span> <span class="hljs-title function_">jc</span>(<span class="hljs-params">n</span>) &#123;<br>  <span class="hljs-keyword">return</span> n === <span class="hljs-number">0</span> ? <span class="hljs-number">1</span> : n * <span class="hljs-title function_">factorial</span>(n - <span class="hljs-number">1</span>);<br>&#125;.<span class="hljs-title function_">memoize</span>();<br><span class="hljs-title function_">factorial</span>(<span class="hljs-number">2</span>);<br><span class="hljs-title function_">factorial</span>(<span class="hljs-number">3</span>);<br></code></pre></td></tr></table></figure>
+
+<p><img src="/../img/book7/%E9%98%B6%E4%B9%98-%E6%9C%89%E8%AE%B0%E5%BF%86.gif" srcset="/img/loading.gif" lazyload alt="阶乘-有记忆"></p>
+<p>第二次运行的速度比第一次快</p>
+<h2 id="7-4-递归和尾递归优化"><a href="#7-4-递归和尾递归优化" class="headerlink" title="7.4 递归和尾递归优化"></a>7.4 递归和尾递归优化</h2><h3 id="尾部调用优化"><a href="#尾部调用优化" class="headerlink" title="尾部调用优化"></a>尾部调用优化</h3><blockquote>
+<p>尾部调用优化（TCO）也称为尾部调用消除,是 ES6 添加的编译器增强功能。同时，在最后的位置调用别的函数也可以优化（虽然通常是本身），该调用位置称为尾部位置（尾递归因此而得名）</p>
+</blockquote>
+<p>这为什么算是一种优化？函数的最后一件事情如果是递归的函数调用，那么运行时会认为不必要保持当前的栈帧，因为所有工作已经完成，完全可以抛弃当前帧。在大多数情况下，只有将函数的上下文状态作为参数传递给下一个函数调用（正如在递归阶乘函数处看到的），才能使递归调用不需要依赖当前帧。通过这种方式，递归每次都会创建一个新的帧，回收旧的帧，而不是将新的帧叠在旧的上。</p>
+<p><img src="/../img/book7/%E5%B0%BE%E9%80%92%E5%BD%92%E8%B0%83%E7%94%A8%E6%A8%A1%E5%BC%8F%E5%8F%98%E5%8C%96.png" srcset="/img/loading.gif" lazyload alt="尾递归调用模式变化"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">jc</span>(<span class="hljs-params">n, current = <span class="hljs-number">1</span></span>) &#123;<br>  <span class="hljs-keyword">return</span> n === <span class="hljs-number">1</span> ? current : <span class="hljs-title function_">jc</span>(n - <span class="hljs-number">1</span>, n * current); <span class="hljs-comment">// 函数最后一条语句是下一次递归（即处于尾部）</span><br>&#125;<br><span class="hljs-title function_">jc</span>(<span class="hljs-number">2</span>);<br><span class="hljs-title function_">jc</span>(<span class="hljs-number">3</span>);<br></code></pre></td></tr></table></figure>
+
+<h3 id="将非尾递归转换成尾递归"><a href="#将非尾递归转换成尾递归" class="headerlink" title="将非尾递归转换成尾递归"></a>将非尾递归转换成尾递归</h3><p>这是尾递归吗？</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">factorial</span> = (<span class="hljs-params">n</span>) =&gt; (n === <span class="hljs-number">1</span> ? <span class="hljs-number">1</span> : n * <span class="hljs-title function_">factorial</span>(n - <span class="hljs-number">1</span>));<br></code></pre></td></tr></table></figure>
+
+<p>递归调用并没有发生在尾部，因为最后返回的表达式是<code>n *factorial(n - 1)</code>。切记，<strong>最后一个步骤一定要是递归</strong>，这样才会在运行时 TCO 将 factorial 转换成一个循环。改成尾递归只需要两步。</p>
+<ul>
+<li>1）将当前乘法结果当作参数传入递归函数。</li>
+<li>2）使用 ES6 的默认参数给定一个默认值（也可以部分地应用它们，但默认参数会让代码更整洁）</li>
+</ul>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">ES5 中模仿尾递归调用<br><br>目前主流的 <span class="hljs-keyword">JavaScript </span>实现 ES5 并不具备尾调用优化支持。ES6 将其加<br>入被称为适当尾调用的提案（在 ECMA<span class="hljs-number">-262</span> 规范的 <span class="hljs-number">14</span>.<span class="hljs-number">6</span> 部分）。还记得第 <span class="hljs-number">2</span><br>章中使用的 <span class="hljs-keyword">Babel </span>转译器（源代码到源代码的编译器）吗？那是用来测<br>试语言新特性的绝佳方式。<br><br>还有一种解决方式是使用 trampolining。trampolining 可以用迭代的方式模拟尾递归，<br>所以可以非常理想、容易地控制<span class="hljs-keyword">JavaScript </span>的堆栈。<br><br>trampoline 是一个接受函数的函数，它会多次调用函数，直到满足一<br>定的条件。一个可反弹或者重复的函数被封装在 thunk 结构中。thunk 只不<br>过是多了一层函数包裹。在函数式 <span class="hljs-keyword">JavaScript </span>背景下，可以用 thunk 及简单<br>的匿名函数包裹期望惰性求值的值。<br><br>thunk 和 trampolining 的话题已经超出了本书的范围，如果读者非常希<br>望用这些技术来优化递归函数，可以从这个概念开始展开研究<br></code></pre></td></tr></table></figure>
+
+<p>如果需要一个图形渲染一个大型的数据，那么性能就成为一项关键要求。在这种情况下，开发者就可能需要做出取舍，即可能不需要编写优雅、可扩展的代码，而需要快速地完成工作。</p>
+<h2 id="7-5-总结"><a href="#7-5-总结" class="headerlink" title="7.5 总结"></a>7.5 总结</h2><ul>
+<li>在某些情况下，函数式代码可能比与其等效的命令式代码更慢或消耗的内存更多。</li>
+<li>可以利用交替组合子以及函数式库（如 Lodash）中提供的支持来实施延迟策略。</li>
+<li>memoization（内部函数级缓存策略）可用于避免重复对潜在费时函数进行求值。</li>
+<li>将程序分解成简单的函数不仅可以创建可扩展代码，还可以通过记忆化来使其更高效。</li>
+<li>递归可以通过分解把问题化为更简单的自相似问题，继而充分利用记忆化优化上下文堆栈的使用。</li>
+<li>将函数转换为尾递归形式，就可以借助编译器优化消除尾调用。</li>
+</ul>
+<h2 id="推荐工具"><a href="#推荐工具" class="headerlink" title="推荐工具"></a>推荐工具</h2><p><a target="_blank" rel="noopener" href="https://www.jsv9000.app/">事件循环可视化工具：https://www.jsv9000.app/</a><br><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/memoize">记忆函数：https://www.npmjs.com/package/memoize</a><br><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/promise-memoize">异步缓存：https://www.npmjs.com/package/promise-memoize</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E6%8C%87%E5%8D%97/" class="category-chain-item">函数式编程指南</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AF%BB%E4%B9%A6%E5%88%86%E4%BA%AB/" class="print-no-link">#读书分享</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>《JavaScript函数式编程指南》第七章 函数式优化</div>
+      <div>http://example.com/2024/01/03/functionalProgramming/book7/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>trade</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年1月3日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/01/14/functionalProgramming/book8/" title="《JavaScript函数式编程指南》第八章 走管理异步事件以及数据">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">《JavaScript函数式编程指南》第八章 走管理异步事件以及数据</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/28/functionalProgramming/book6/" title="《JavaScript函数式编程指南》第六章 坚不可摧的代码">
+                        <span class="hidden-mobile">《JavaScript函数式编程指南》第六章 坚不可摧的代码</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

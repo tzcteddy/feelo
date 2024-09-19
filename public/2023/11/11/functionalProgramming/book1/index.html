@@ -1,0 +1,745 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="trade">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="第一章 走进函数式分享之前为什么选择这本书在当前 JavaScript 的发展趋势中，函数式编程逐渐成为主流。值得注意的是，目前流行的前端框架几乎都是基于函数式编程的理念。React 框架是典型的函数式编程范例，其核心思想是一切皆为纯函数。在 React 框架中，所有组件和操作都被视为纯函数，使得整个框架更符合 JavaScript 的本质，将 JavaScript 分割成一个个独立的纯函数模块。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《JavaScript函数式编程指南》第一章 走进函数式">
+<meta property="og:url" content="http://example.com/2023/11/11/functionalProgramming/book1/index.html">
+<meta property="og:site_name" content="知识乐章">
+<meta property="og:description" content="第一章 走进函数式分享之前为什么选择这本书在当前 JavaScript 的发展趋势中，函数式编程逐渐成为主流。值得注意的是，目前流行的前端框架几乎都是基于函数式编程的理念。React 框架是典型的函数式编程范例，其核心思想是一切皆为纯函数。在 React 框架中，所有组件和操作都被视为纯函数，使得整个框架更符合 JavaScript 的本质，将 JavaScript 分割成一个个独立的纯函数模块。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/learn-too-much.png">
+<meta property="og:image" content="http://example.com/img/forget.png">
+<meta property="og:image" content="http://example.com/img/hammer.jpg">
+<meta property="og:image" content="http://example.com/img/mind/function1.png">
+<meta property="article:published_time" content="2023-11-11T13:07:59.000Z">
+<meta property="article:modified_time" content="2024-07-29T02:12:42.780Z">
+<meta property="article:author" content="trade">
+<meta property="article:tag" content="读书分享">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/learn-too-much.png">
+  
+  
+  
+  <title>《JavaScript函数式编程指南》第一章 走进函数式 - 知识乐章</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>知识乐章</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archivesthe/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="《JavaScript函数式编程指南》第一章 走进函数式"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-11-11 21:07" pubdate>
+          2023年11月11日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          57 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">《JavaScript函数式编程指南》第一章 走进函数式</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="第一章-走进函数式"><a href="#第一章-走进函数式" class="headerlink" title="第一章 走进函数式"></a>第一章 走进函数式</h1><h2 id="分享之前"><a href="#分享之前" class="headerlink" title="分享之前"></a>分享之前</h2><h3 id="为什么选择这本书"><a href="#为什么选择这本书" class="headerlink" title="为什么选择这本书"></a>为什么选择这本书</h3><p>在当前 JavaScript 的发展趋势中，函数式编程逐渐成为主流。值得注意的是，目前流行的前端框架几乎都是基于函数式编程的理念。React 框架是典型的函数式编程范例，其核心思想是一切皆为纯函数。在 React 框架中，所有组件和操作都被视为纯函数，使得整个框架更符合 JavaScript 的本质，将 JavaScript 分割成一个个独立的纯函数模块。</p>
+<p>Vue 框架在其 3.x 版本中也逐渐向 React 靠拢，引入了类似 React 中的 Hooks 思想。同时，Vue 框架中的双向绑定机制本质上也是一个纯函数，它是函数式编程中重要的一环。在我们的学习过程中，将逐渐发现 Vue 中双向绑定的设计也是受到函数式编程影响的。</p>
+<p>选择这本书的原因在于，它概括了当前前端框架的核心思想，通过学习函数式编程的理念，我们能更好地理解大前端框架的设计哲学。本书不仅注重理论，还将实际示例贯穿其中，帮助我们更好地应用所学知识。通过深入学习本书，我们能够更高效地使用和理解现代前端框架，提升自己的前端开发技能。</p>
+<h3 id="希望大家从中学到什么"><a href="#希望大家从中学到什么" class="headerlink" title="希望大家从中学到什么"></a>希望大家从中学到什么</h3><p>随着前端框架的不断更新，我们应该关注它们之间的相似之处，因为这些相似之处很可能代表未来相当长一段时间内的发展趋势。我们迫切需要掌握框架的思维方式，而不仅仅是学会使用它们。<br><img src="/../img/learn-too-much.png" srcset="/img/loading.gif" lazyload alt="学不动了"></p>
+<p>个人认为，函数式编程思想将成为未来一段时间内前端框架发展的关键趋势。因此，我们不仅仅要追求框架的使用技巧，更要通过学习本书深入理解函数式编程的思维方式。希望通过共同学习，我们能够在编程思维上从命令式、面向对象的范式逐渐过渡到更为灵活和强大的函数式编程。</p>
+<p><img src="/../img/forget.png" srcset="/img/loading.gif" lazyload alt="忘记"></p>
+<h2 id="前沿"><a href="#前沿" class="headerlink" title="前沿"></a>前沿</h2><h4 id="web-应用的重要性"><a href="#web-应用的重要性" class="headerlink" title="web 应用的重要性"></a>web 应用的重要性</h4><p>人们对 web 应用的期待和要求促使着我们前端开发人员不断的去思考各种解决方案，并适时地采用那些可能提供最优解决方案的编程范式和最佳实践。特别是对于我们 B 端应用，往往面对着复杂的表单设计，复杂的数据交互场景，如果没有一个好的编程方式，代码很快就会变得不可维护。</p>
+<h4 id="面向对象和函数式编程的区别"><a href="#面向对象和函数式编程的区别" class="headerlink" title="面向对象和函数式编程的区别"></a>面向对象和函数式编程的区别</h4><p>面向对象编程和函数式编程在 JavaScript 中有一些显著的区别。首先，JavaScript 最初被设计为一种用于浏览器脚本的语言，目的是实现简单的交互。由于想要迅速推广，JavaScript 的设计从 Java 中获得了一些灵感，但由于其弱类型的本质，也带来了一些固有的缺陷。</p>
+<p>在 ES5 版本中，JavaScript 并不支持类，因此在努力实现面向对象编程时，我们不得不通过使用函数来模拟类。这种方式虽然勉强能够实现面向对象的概念，但在继承和封装方面存在一些潜在的问题。</p>
+<p>随着 JavaScript 的重要性逐渐上升，ES6 引入了类的概念，使我们可以直接使用 class 关键字来实现面向对象编程。这为开发者提供了更直观、清晰的面向对象的编码方式。</p>
+<p>然而，尽管我们已经掌握了面向对象编程的技巧，为什么现在又需要转向函数式编程呢？这是因为 JavaScript 的灵活性导致代码在一段时间后可能变得庞大且难以维护。尽管面向对象编程能够缓解一些问题，但这并不足够。函数式编程的出现为我们提供了一种更为灵活和可维护的编码方式。在接下来的章节中，我们将深入探讨函数式编程是如何使代码更易于维护的。</p>
+<h4 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a>设计原则</h4><p>要想做一个完善的技术方案设计，让我们的代码变得更加优雅和便于维护，在做应用设计时，应该遵从以下设计原则</p>
+<ul>
+<li>可扩展性</li>
+<li>易模块性</li>
+<li>可重用性</li>
+<li>可测性</li>
+<li>易推理性</li>
+</ul>
+<h2 id="函数式编程有用吗"><a href="#函数式编程有用吗" class="headerlink" title="函数式编程有用吗"></a>函数式编程有用吗</h2><p>因为 javascript 动态语言的灵活性，导致了我们的状态管理原生结构的缺乏，当然我们现在的前端框架通过了封装第三方的库改进了这些弊端。但函数式编程可以让我们编写干净的、模块化的、可测性的并且简洁的代码，开发过程更加高效。</p>
+<blockquote>
+<p>因为函数式编程是一种编写代码的方式，而不是一种框架或工具，函数式的思维方式与面向对象的思维方式完全不同。但如何迈向函数式呢？如何开始使用函数式去思考呢？一旦你掌握了它的本质，函数式编程将是直观的。摒弃旧习是最难的部分，对于一个有面向对象背景的人来说，将是一个巨大的编程范式转变。在学习如何使用函数式思考之前，首先你必须知道函数式编程到底是什么。</p>
+</blockquote>
+<h2 id="什么是函数式编程"><a href="#什么是函数式编程" class="headerlink" title="什么是函数式编程"></a>什么是函数式编程</h2><h3 id="函数式和非函数式比较"><a href="#函数式和非函数式比较" class="headerlink" title="函数式和非函数式比较"></a>函数式和非函数式比较</h3><h4 id="非函数式编程"><a href="#非函数式编程" class="headerlink" title="非函数式编程"></a>非函数式编程</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">printMessage</span>(<span class="hljs-params">elementId, format, message</span>) &#123;<br>  <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<br>    <span class="hljs-string">`#<span class="hljs-subst">$&#123;elementId&#125;</span>`</span><br>  ).<span class="hljs-property">innerHTML</span> = <span class="hljs-string">`&lt;<span class="hljs-subst">$&#123;format&#125;</span>&gt;<span class="hljs-subst">$&#123;message&#125;</span>&lt;/<span class="hljs-subst">$&#123;format&#125;</span>&gt;`</span><br>&#125;<br><span class="hljs-title function_">printMessage</span>(<span class="hljs-string">&#x27;msg&#x27;</span>, <span class="hljs-string">&#x27;h1&#x27;</span>, <span class="hljs-string">&#x27;Hello World&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<h4 id="函数式编程"><a href="#函数式编程" class="headerlink" title="函数式编程"></a>函数式编程</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> printMessage = <span class="hljs-title function_">run</span>(<span class="hljs-title function_">addToDom</span>(<span class="hljs-string">&#x27;msg&#x27;</span>), h1, echo)<br><span class="hljs-title function_">printMessage</span>(<span class="hljs-string">&#x27;Hello World&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> printMessage = <span class="hljs-title function_">run</span>(<span class="hljs-variable language_">console</span>.<span class="hljs-property">log</span>, <span class="hljs-title function_">repeat</span>(<span class="hljs-number">3</span>), h2, echo)<br><span class="hljs-title function_">printMessage</span>(<span class="hljs-string">&#x27;Get Functional&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>我们能看到函数式编程其实是将代码分解为一些更可重用、更可靠且更易于理解的部分，再将它们组合起来，形成一个更易推理的程序整体。所有的函数式程序都遵循这一基本原则。</p>
+<h3 id="声明式"><a href="#声明式" class="headerlink" title="声明式"></a>声明式</h3><h4 id="命令式编程"><a href="#命令式编程" class="headerlink" title="命令式编程"></a>命令式编程</h4><p>命令式编程将计算机程序视为一系列自上而下的断言，通过修改系统的各个状态来计算最终的结果。我们在日常开发过程中从上到下的实现页面功能过程就是一个具体的实例，在 vue2 或者 angularJs 中我们如果不加注意，代码就很容易形成一个从上到下的命令式编程或者过程式的编程形式。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> array = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>]<br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; array.<span class="hljs-property">length</span>; i++) &#123;<br>  array[i] = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">pow</span>(array[i], <span class="hljs-number">2</span>)<br>&#125;<br>array <span class="hljs-comment">//-&gt; [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]”</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="声明式编程"><a href="#声明式编程" class="headerlink" title="声明式编程"></a>声明式编程</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js">[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>].<span class="hljs-title function_">map</span>(<br><span class="hljs-keyword">function</span>(<span class="hljs-params">num</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">pow</span>(num, <span class="hljs-number">2</span>);  <span class="language-xml">&lt;--- map接收一个计算平方的函数</span><br><span class="language-xml">&#125;);</span><br><span class="language-xml">//-&gt;</span> [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">9</span>, <span class="hljs-number">16</span>, <span class="hljs-number">25</span>, <span class="hljs-number">36</span>, <span class="hljs-number">49</span>, <span class="hljs-number">64</span>, <span class="hljs-number">81</span>]<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js">;[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>].<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">num</span>) =&gt;</span> <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">pow</span>(num, <span class="hljs-number">2</span>))<br><span class="hljs-comment">//-&gt; [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]</span><br></code></pre></td></tr></table></figure>
+
+<p>我们可以从上面的例子中很容易的看出，使用 for 循环的过程是一个很明显的命令式编程的例子，我们不仅要关注循环里我们真正要做的事情，还要维护好代码循环的逻辑。而在 map 函数中我们只需要关注我们真正要处理的核心逻辑，将循环的逻辑交给函数自己来处理。类似这样的函数我们还有 filter，reduce 等。</p>
+<blockquote>
+<p>“循环是一种重要的命令控制结构，但很难重用，并且很难插入其他操作中。”</p>
+</blockquote>
+<blockquote>
+<p>lambda 表达式提供了一种比常规函数更具语法优势的特性，因为它简化了常规函数的结构，使人关注于函数的那些真正重要的部分</p>
+</blockquote>
+<h3 id="纯函数"><a href="#纯函数" class="headerlink" title="纯函数"></a>纯函数</h3><p>纯函数是指没有副作用和状态变化的函数。它具有以下几个特点：</p>
+<ul>
+<li>不可变性</li>
+<li>仅取决于提供的输入</li>
+<li>不会造成超出其作用域的变化</li>
+</ul>
+<p>我们从书中的例子来理解下纯函数的定义，下面这个例子就能很明显的看出函数内部的逻辑对全局的影响，例如依赖外部的元素，对全局 html 内容的写入等。这个就依赖了很多外部资源，代码很不灵活，很难测试和维护。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">showStudent</span>(<span class="hljs-params">ssn</span>) &#123;<br>    <span class="hljs-keyword">var</span> student = db.<span class="hljs-title function_">get</span>(ssn);  &lt;---在对象存储中通过SSN查找学生。请假设这个操作现在是同步的，之后我会处理异步的情况<br>    if(student !== null) &#123;<br>       document.querySelector(`#$&#123;elementId&#125;`).innerHTML =  &lt;---读取函数外的elementId变量<br>          `$&#123;student.ssn&#125;,<br>           $&#123;student.firstname&#125;,<br>           $&#123;student.lastname&#125;`;<br>    &#125;<br>    else &#123;<br>        throw new Error(&#x27;Student not found!&#x27;);  &lt;---当学生信息错误时抛出异常<br>    &#125;<br>&#125;<br>showStudent(&#x27;444-44-4444&#x27;);  &lt;---使用SSN号444-44-4444作为参数执行函数，结果会显示在页面上<br></code></pre></td></tr></table></figure>
+
+<p>我们可以将函数拆解成一个个具有单一职责的短函数，减少副作用的数量，使得代码变得更加灵活和容易维护。有了可以重用的组件，增加了代码的可读性。</p>
+<p>分解后的代码我们会涉及到柯里化的概念，柯里化可以允许部分地传递函数参数，以便将函数的参数减少为一个。在此不做过多展开，后续章节会涉及。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> find = <span class="hljs-title function_">curry</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">db, id</span>) &#123;<br>    <span class="hljs-keyword">var</span> obj = db.<span class="hljs-title function_">get</span>(id);<br>    <span class="hljs-keyword">if</span>(obj === <span class="hljs-literal">null</span>) &#123;<br>       <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;Object not found!&#x27;</span>);<br>    &#125;<br>    <span class="hljs-keyword">return</span> obj;<br>&#125;);<br><br><span class="hljs-keyword">var</span> csv = (student) &#123;<br>   <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">$&#123;student.ssn&#125;</span>, <span class="hljs-subst">$&#123;student.firstname&#125;</span>, <span class="hljs-subst">$&#123;student.lastname&#125;</span>`</span>;<br>&#125;;<br><br><span class="hljs-keyword">var</span> append = <span class="hljs-title function_">curry</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">elementId, info</span>) &#123;<br>   <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(elementId).<span class="hljs-property">innerHTML</span> = info;<br>&#125;);<br><br><span class="hljs-keyword">var</span> showStudent = <span class="hljs-title function_">run</span>(<br>   <span class="hljs-title function_">append</span>(<span class="hljs-string">&#x27;#student-info&#x27;</span>),  &lt;---部分设置HTML元素的ID<br>   csv,<br>   find(db));  &lt;---部分设置查找对象为学生表<br><br>showStudent(&#x27;444-44-4444&#x27;);<br></code></pre></td></tr></table></figure>
+
+<p>其实 javascript 中还有一个很容易带来副作用的用法 this，这个会导致我们函数作用域的变化，大家在开发过程中要注意。例如以下的例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs js"> <span class="hljs-keyword">var</span> x = <span class="hljs-number">2</span>;<br><span class="hljs-keyword">var</span> y = <br>   &#123; <br>     <span class="hljs-attr">x</span>: <span class="hljs-number">3</span>, <br>     <span class="hljs-attr">z</span>: (<span class="hljs-keyword">function</span> (<span class="hljs-params">x</span>) &#123; <br>       <span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> *= x; <br>       <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params">n</span>) &#123;<br>         <span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> *= n; <br>         x += <span class="hljs-number">3</span>; <br>         <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(x); <br>       &#125; <br>     &#125;)(x),<br>   &#125;<br>  <span class="hljs-keyword">var</span> m = y.<span class="hljs-property">z</span>;<br>  <span class="hljs-title function_">m</span>(<span class="hljs-number">4</span>);<br>  y.<span class="hljs-title function_">z</span>(<span class="hljs-number">5</span>);<br>   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(x, y.<span class="hljs-property">z</span>);<br></code></pre></td></tr></table></figure>
+
+<h3 id="引用透明"><a href="#引用透明" class="headerlink" title="引用透明"></a>引用透明</h3><p>一个函数对于相同的输入始终产生的相同的结果，那么这个函数就是引用透明的。下面就是一个最简单最直观的例子，能说明我们函数的引用透明性。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> counter = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">function</span> <span class="hljs-title function_">increment</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> ++counter;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> <span class="hljs-title function_">increment</span> = counter =&gt; counter + <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
+<p>通过这个例子能够很好的解释引用透明的概念，但是我们在开发中还是要注意引用类型的入参，在对引用类型的参数操作时一定要谨慎，不要在不经意间改变他们。</p>
+<blockquote>
+<p>纯度: 一个函数的参数和返回值之间映射的纯的关系</p>
+</blockquote>
+<blockquote>
+<p>状态系统的模型”： Program &#x3D; [Input] + [func1, func2, func3, …] -&gt; Output</p>
+</blockquote>
+<h3 id="不可变性"><a href="#不可变性" class="headerlink" title="不可变性"></a>不可变性</h3><p>不可变性是指创建后不能更改的数据，我们在开发中运用的很多会改变原有数据的函数，一定要特别注意。<br>例如，sort,splice等</p>
+<p>强迫自己去思考纯的操作，将函数看作永不会修改数据的闭合功能单元，必然可以减少这种潜在bug的可能性。理解这些核心的原则非常重要，它可以让代码发挥出函数式的诸多优势，从而引导你走向克服复杂性的函数式编程之路。</p>
+<blockquote>
+<p>函数式编程是指为创建不可变的程序，通过消除外部可见的副作用，来对纯函数的声明式的求值过程。</p>
+</blockquote>
+<h2 id="函数式编程的优点"><a href="#函数式编程的优点" class="headerlink" title="函数式编程的优点"></a>函数式编程的优点</h2><p>函数式编程能给我们在开发过程中带来诸多好处，我们下面分几步来讲解函数式编程的优点</p>
+<h3 id="鼓励复杂任务的分解"><a href="#鼓励复杂任务的分解" class="headerlink" title="鼓励复杂任务的分解"></a>鼓励复杂任务的分解</h3><p>我们在处理复杂的功能逻辑的时候，更好的是将我们复杂的逻辑不断的分解成单一功能、相互独立的函数，然后再通过组合将各个函数关联起来。这样的函数式编程可以让我们的代码变得更加高效和模块化。</p>
+<h4 id="compose-和-pipe-函数的使用"><a href="#compose-和-pipe-函数的使用" class="headerlink" title="compose 和 pipe 函数的使用"></a>compose 和 pipe 函数的使用</h4><p>组合和管道是我们函数式编程中至关重要的两个概念。函数的组合和管道提高了函数的抽象层次，可以让我们在代码中清晰地勾勒所有步骤，但又不暴露然后底层细节。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">compose</span> = (<span class="hljs-params">...fns</span>)=&gt;<span class="hljs-function"><span class="hljs-params">val</span>=&gt;</span>fns.<span class="hljs-title function_">reverse</span>().<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">acc,fn</span>)=&gt;</span><span class="hljs-title function_">fn</span>(acc),val);<br><span class="hljs-keyword">const</span> <span class="hljs-title function_">pipe</span> = (<span class="hljs-params">...fns</span>)=&gt;<span class="hljs-function"><span class="hljs-params">val</span>=&gt;</span>fns.<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">acc,fn</span>)=&gt;</span><span class="hljs-title function_">fn</span>(acc),val);<br></code></pre></td></tr></table></figure>
+
+<h3 id="使用流式链来处理数据"><a href="#使用流式链来处理数据" class="headerlink" title="使用流式链来处理数据"></a>使用流式链来处理数据</h3><p>我们最开始接触链式操作是通过jquery的链式操作，我们可以方便的通过链式来处理一条完整的逻辑，在jquery中实现链式操作的底层原理是通过返回this来实现的。而对于我们在函数式编程中实现链式操作跟其也有相似性，但是实现的过程要谨记我们上文提到的纯函数等概念。</p>
+<p>以下是命令式编程和链式操作的一个对比</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// bad </span><br><span class="hljs-keyword">var</span> totalGrades = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">var</span> totalStudentsFound = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; enrollment.<span class="hljs-property">length</span>; i++) &#123;<br>    <span class="hljs-keyword">let</span> student = enrollment [i];<br>    <span class="hljs-keyword">if</span>(student !== <span class="hljs-literal">null</span>) &#123;<br>       <span class="hljs-keyword">if</span>(student.<span class="hljs-property">enrolled</span> &gt; <span class="hljs-number">1</span>) &#123;<br>          totalGrades+= student.<span class="hljs-property">grade</span>;<br>          totalStudentsFound++;<br>       &#125;<br>    &#125;<br>&#125;<br><span class="hljs-keyword">var</span> average = totalGrades / totalStudentsFound; <span class="hljs-comment">//-&gt; 90”</span><br><br><span class="hljs-comment">// good </span><br>_.<span class="hljs-title function_">chain</span>(enrollment)<br>  .<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">student</span> =&gt;</span> student.<span class="hljs-property">enrolled</span> &gt; <span class="hljs-number">1</span>)<br>  .<span class="hljs-title function_">pluck</span>(<span class="hljs-string">&#x27;grade&#x27;</span>)<br>  .<span class="hljs-title function_">average</span>()<br>  .<span class="hljs-title function_">value</span>(); <span class="hljs-comment">//-&gt; 90  &lt;---调用 _.value() 会触发整个链上的所有操作</span><br></code></pre></td></tr></table></figure>
+
+<p>虽然链式操作能给我们带来足够的方便和可读性，但是如果不考虑整体，一味的使用链式操作也会给我们带来一些副作用，比如链式操作中异常的处理，又比如对于复杂的数据处理，在一系列的链式操作中没有办法打断点去调试中间数据，这就要求我们在使用链式操作的时候要更加的谨慎，需要我们考虑的更加全面。任何的技术都不是银弹，不要手里有了一把锤子，看什么都像钉子。</p>
+<h3 id="复杂异步应用中的响应"><a href="#复杂异步应用中的响应" class="headerlink" title="复杂异步应用中的响应"></a>复杂异步应用中的响应</h3><p>响应式编程应该是我们当下热门前端框架都应用的编程概念。从anjularJs中的脏检查，到react中使用虚拟DOM和协调算法实现高效的响应式更新，再到vue中通过劫持对象来实现对数据的监听和更新，无一不在用响应式编程的来实现底层机制。</p>
+<p>对于三大框架对于Observable的实现原理，也是我们前端开发人员必备的知识技能，至少是面试中不可避免的一道大题。</p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>函数式编程对于我们现在的开发中并不是一个全有或全无的方案，我们现有阶段没有必要完全的面向函数式编程，在我们现有的框架体系内，比如一些采用jquery,angularJs的项目，我们也可以逐步的采用函数式编程，借鉴其中的优点让我们的代码变得更加可读，更好的维护，更加的优雅。</p>
+<p>对于我们新的框架，比如我们的Rhino，应该完全的面向函数式编程，让我们的代码变得更加模块化和通用。当然，任何技术的使用都要考虑其最终实现的场景，我们要谨慎，我们不能矫枉过正。记住我我们的锤子！</p>
+<p><img src="/../img/hammer.jpg" srcset="/img/loading.gif" lazyload alt="锤子"></p>
+<h2 id="附件"><a href="#附件" class="headerlink" title="附件"></a>附件</h2><p><img src="/../img/mind/function1.png" srcset="/img/loading.gif" lazyload alt="锤子"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E6%8C%87%E5%8D%97/" class="category-chain-item">函数式编程指南</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AF%BB%E4%B9%A6%E5%88%86%E4%BA%AB/" class="print-no-link">#读书分享</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>《JavaScript函数式编程指南》第一章 走进函数式</div>
+      <div>http://example.com/2023/11/11/functionalProgramming/book1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>trade</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年11月11日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/11/19/functionalProgramming/book2/" title="《JavaScript函数式编程指南》第二章 ⾼阶JavaScript">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">《JavaScript函数式编程指南》第二章 ⾼阶JavaScript</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

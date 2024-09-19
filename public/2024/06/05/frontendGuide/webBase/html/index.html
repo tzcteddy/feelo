@@ -1,0 +1,993 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="trade">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1. HTML 的基本结构HTML（Hyper Text Markup Language，即超文本标记语言）的基本结构分为四大部分：  **文档声明 (Document Type Declaration, DOCTYPE)**：  这是一个指令，告诉浏览器文档遵循的 HTML 规范版本。对于 HTML5，声明如下：&lt;!DOCTYPE html&gt;。这行代码位于 HTML 文件的第一行，它">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网页的骨架：HTML 奇幻之旅">
+<meta property="og:url" content="http://example.com/2024/06/05/frontendGuide/webBase/html/index.html">
+<meta property="og:site_name" content="知识乐章">
+<meta property="og:description" content="1. HTML 的基本结构HTML（Hyper Text Markup Language，即超文本标记语言）的基本结构分为四大部分：  **文档声明 (Document Type Declaration, DOCTYPE)**：  这是一个指令，告诉浏览器文档遵循的 HTML 规范版本。对于 HTML5，声明如下：&lt;!DOCTYPE html&gt;。这行代码位于 HTML 文件的第一行，它">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-06-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-29T02:12:42.779Z">
+<meta property="article:author" content="trade">
+<meta property="article:tag" content="开发手册">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>网页的骨架：HTML 奇幻之旅 - 知识乐章</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>知识乐章</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archivesthe/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="网页的骨架：HTML 奇幻之旅"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-06-05 00:00" pubdate>
+          2024年6月5日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          81 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">网页的骨架：HTML 奇幻之旅</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h4 id="1-HTML-的基本结构"><a href="#1-HTML-的基本结构" class="headerlink" title="1. HTML 的基本结构"></a>1. HTML 的基本结构</h4><p>HTML（Hyper Text Markup Language，即超文本标记语言）的基本结构分为四大部分：</p>
+<ol>
+<li><p>**文档声明 (Document Type Declaration, DOCTYPE)**：</p>
+<ul>
+<li>这是一个指令，告诉浏览器文档遵循的 HTML 规范版本。对于 HTML5，声明如下：<code>&lt;!DOCTYPE html&gt;</code>。这行代码位于 HTML 文件的第一行，它不是 HTML 标签，而是 XML 声明的一部分。</li>
+</ul>
+</li>
+<li><p><strong>HTML 根元素</strong>：</p>
+<ul>
+<li><code>&lt;html&gt;</code> 标签是整个 HTML 文档的根元素，它包含所有其他 HTML 元素。</li>
+</ul>
+</li>
+<li><p><strong>头部元素</strong>：</p>
+<ul>
+<li><code>&lt;head&gt;</code> 标签包含有关文档的信息，比如标题、字符集设置、样式表（CSS）引用、脚本（JS）引用等。其中脚本引用也可以放在 <code>&lt;body&gt;</code> 里。</li>
+</ul>
+</li>
+<li><p><strong>主体元素</strong>：</p>
+<ul>
+<li><code>&lt;body&gt;</code> 标签包含网页的主体部分，比如文本、图像、表格、列表、链接等。</li>
+</ul>
+</li>
+</ol>
+<p>下面是一个完整的 HTML 文档的例子：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;description&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;HTML 技术教程。&quot;</span> /&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;keywords&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;HTML, CSS&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>我的HTML页面<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span>CSS 样式<span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span>script 脚本<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>欢迎来到我的网站！<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>这是一个段落。<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="2-常用标签"><a href="#2-常用标签" class="headerlink" title="2. 常用标签"></a>2. 常用标签</h4><p>HTML 的常用标签主要分为以下几类（HTML5 新增的标签会在后面 HTML5 新特性一章介绍）：</p>
+<h5 id="2-1-文档结构标签"><a href="#2-1-文档结构标签" class="headerlink" title="2.1. 文档结构标签"></a>2.1. 文档结构标签</h5><ul>
+<li><code>html</code>：文档的根元素</li>
+<li><code>head</code>：文档的头部，包含文档的标题、字符集、CSS 样式表、JS 脚本等。</li>
+<li><code>body</code>：文档的主体部分，包含文档的文本、图片、表格、列表等。</li>
+</ul>
+<h5 id="2-2-文本内容标签"><a href="#2-2-文本内容标签" class="headerlink" title="2.2. 文本内容标签"></a>2.2. 文本内容标签</h5><ul>
+<li><code>h1</code> 到 <code>h6</code>：标题。</li>
+<li><code>p</code>：段落。</li>
+<li><code>a</code>：超链接。</li>
+<li><code>br</code>：换行。</li>
+<li><code>div</code>：块级元素，用于定义一个区域。</li>
+<li><code>span</code>：行内元素，用于定义一个区域。</li>
+</ul>
+<h5 id="2-3-列表标签"><a href="#2-3-列表标签" class="headerlink" title="2.3. 列表标签"></a>2.3. 列表标签</h5><ul>
+<li><code>ul</code>：无序列表。</li>
+<li><code>ol</code>：有序列表。</li>
+<li><code>li</code>：列表项。</li>
+</ul>
+<h5 id="2-4-图片和多媒体标签"><a href="#2-4-图片和多媒体标签" class="headerlink" title="2.4. 图片和多媒体标签"></a>2.4. 图片和多媒体标签</h5><ul>
+<li><code>img</code>：图片。</li>
+<li><code>audio</code>：音频。</li>
+<li><code>video</code>：视频。</li>
+<li><code>iframe</code>：内嵌网页，可以加载另一个 HTML 文档。</li>
+</ul>
+<h5 id="2-5-表格标签"><a href="#2-5-表格标签" class="headerlink" title="2.5. 表格标签"></a>2.5. 表格标签</h5><ul>
+<li><code>table</code>：表格。</li>
+<li><code>tr</code>：表格行。</li>
+<li><code>th</code>：表头单元格。</li>
+<li><code>td</code>：数据单元格。</li>
+</ul>
+<h5 id="2-6-表单标签"><a href="#2-6-表单标签" class="headerlink" title="2.6. 表单标签"></a>2.6. 表单标签</h5><ul>
+<li><code>form</code>：表单。</li>
+<li><code>input</code>：输入框。</li>
+<li><code>button</code>：按钮。</li>
+<li><code>select</code>：下拉框。</li>
+<li><code>textarea</code>：文本域。</li>
+<li><code>label</code>：标签。</li>
+<li><code>radio</code>：单选按钮。</li>
+<li><code>checkbox</code>：复选框。</li>
+</ul>
+<h5 id="2-7-布局和样式控制"><a href="#2-7-布局和样式控制" class="headerlink" title="2.7. 布局和样式控制"></a>2.7. 布局和样式控制</h5><ul>
+<li><code>div</code>：块级元素，用于定义一个区域。</li>
+<li><code>span</code>：行内元素，用于定义一个区域。</li>
+<li><code>link</code>：链接的 CSS 样式表文件。</li>
+<li><code>style</code>：在文件内写的样式。</li>
+</ul>
+<h4 id="3-表单元素"><a href="#3-表单元素" class="headerlink" title="3. 表单元素"></a>3. 表单元素</h4><p>HTML 的表单元素用于收集用户输入的数据，并将其提交给服务器进行处理的关键组成部分。以下是表单的一些核心元素和属性：</p>
+<h5 id="3-1-表单容器"><a href="#3-1-表单容器" class="headerlink" title="3.1. 表单容器"></a>3.1. 表单容器</h5><ul>
+<li><code>form</code>：所有表单元素都应包含在这个标签内。</li>
+</ul>
+<h5 id="3-2-文本输入框"><a href="#3-2-文本输入框" class="headerlink" title="3.2. 文本输入框"></a>3.2. 文本输入框</h5><ul>
+<li><code>input</code> 是最常用的表单元素之一。通过 <code>type</code> 属性定义不同的输入类型，如文本、密码、日期等。</li>
+<li><code>type=&quot;text&quot;</code>：文本输入框。</li>
+<li><code>type=&quot;password&quot;</code>：密码输入框。</li>
+<li><code>type=&quot;email&quot;</code>：邮箱输入框。</li>
+<li><code>type=&quot;number&quot;</code>：数字输入框。</li>
+<li><code>type=&quot;file&quot;</code>：文件上传框。</li>
+<li><code>type=&quot;submit&quot;</code>：提交按钮。</li>
+<li><code>type=&quot;reset&quot;</code>：重置按钮。</li>
+<li><code>type=&quot;button&quot;</code>：按钮。</li>
+<li><code>type=&quot;image&quot;</code>：图片按钮。</li>
+<li><code>type=&quot;hidden&quot;</code>：隐藏域。</li>
+<li><code>type=&quot;checkbox&quot;</code>：复选框。</li>
+<li><code>type=&quot;radio&quot;</code>：单选按钮。</li>
+<li><code>type=&quot;range&quot;</code>：滑块输入框。</li>
+<li><code>type=&quot;color&quot;</code>：颜色选择框。</li>
+<li><code>type=&quot;tel&quot;</code>：电话号码输入框。</li>
+<li><code>type=&quot;url&quot;</code>：URL 输入框。</li>
+<li><code>type=&quot;search&quot;</code>：搜索框。</li>
+<li><code>type=&quot;date&quot;</code>：日期输入框。</li>
+<li><code>type=&quot;time&quot;</code>：时间输入框。</li>
+<li><code>type=&quot;week&quot;</code>：周选择框。</li>
+<li><code>type=&quot;month&quot;</code>：月选择框。</li>
+<li><code>type=&quot;datetime-local&quot;</code>：日期和时间选择框。</li>
+</ul>
+<h5 id="3-3-多行文本输入"><a href="#3-3-多行文本输入" class="headerlink" title="3.3. 多行文本输入"></a>3.3. 多行文本输入</h5><ul>
+<li><code>textarea</code>：多行文本，可通过 <code>rows</code> 和 <code>cols</code> 属性设置行数和列数。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;feedback&quot;</span> <span class="hljs-attr">rows</span>=<span class="hljs-string">&quot;4&quot;</span> <span class="hljs-attr">cols</span>=<span class="hljs-string">&quot;50&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="3-4-单选按钮-radio"><a href="#3-4-单选按钮-radio" class="headerlink" title="3.4. 单选按钮 (radio)"></a>3.4. 单选按钮 (radio)</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;gender&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;male&quot;</span>&gt;</span>男<br><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;gender&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;female&quot;</span>&gt;</span>女<br></code></pre></td></tr></table></figure>
+
+<h5 id="3-5-复选框-checkbox"><a href="#3-5-复选框-checkbox" class="headerlink" title="3.5. 复选框 (checkbox)"></a>3.5. 复选框 (checkbox)</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;checkbox&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;gender&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;male&quot;</span>&gt;</span>男<br><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;checkbox&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;gender&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;female&quot;</span>&gt;</span>女<br></code></pre></td></tr></table></figure>
+
+<h5 id="3-6-下拉框-select"><a href="#3-6-下拉框-select" class="headerlink" title="3.6. 下拉框 (select)"></a>3.6. 下拉框 (select)</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;country&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;country&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;cn&quot;</span>&gt;</span>CN<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;usa&quot;</span>&gt;</span>USA<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;uk&quot;</span>&gt;</span>UK<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="3-7-按钮-button"><a href="#3-7-按钮-button" class="headerlink" title="3.7. 按钮 (button)"></a>3.7. 按钮 (button)</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>保存<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>下面是一个完整的 form 表单的例子：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;/&quot;</span> <span class="hljs-attr">method</span>=<span class="hljs-string">&quot;post&quot;</span>&gt;</span><br>    <span class="hljs-comment">&lt;!-- 文本输入框 --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>用户名:<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;name&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;name&quot;</span> <span class="hljs-attr">required</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br><br>    <span class="hljs-comment">&lt;!-- 密码输入框 --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;password&quot;</span>&gt;</span>密码:<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;password&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;password&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;password&quot;</span> <span class="hljs-attr">required</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br><br>    <span class="hljs-comment">&lt;!-- 单选按钮 --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>性别:<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;male&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;gender&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;male&quot;</span> <span class="hljs-attr">checked</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;male&quot;</span>&gt;</span>男<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;female&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;gender&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;female&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;female&quot;</span>&gt;</span>女<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br><br>    <span class="hljs-comment">&lt;!-- 复选框 --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;checkbox&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;subscribe&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;subscribe&quot;</span> <span class="hljs-attr">checked</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;subscribe&quot;</span>&gt;</span>订阅推送信息<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br><br>    <span class="hljs-comment">&lt;!-- 下拉列表 --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">&quot;country&quot;</span>&gt;</span>国家:<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;country&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;country&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;cn&quot;</span>&gt;</span>CN<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;usa&quot;</span>&gt;</span>USA<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;uk&quot;</span>&gt;</span>UK<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br><br>    <span class="hljs-comment">&lt;!-- 提交按钮 --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;提交&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="4-语义化标签的使用"><a href="#4-语义化标签的使用" class="headerlink" title="4. 语义化标签的使用"></a>4. 语义化标签的使用</h4><p>HTML 的语义化标签，简而言之就是让特定的标签去做特定的事。语义化标签的使用使得页面结构更加清晰，便于开发者阅读和维护，同时也有助于搜索引擎和辅助技术（如屏幕阅读器）更好地识别页面内容。</p>
+<h5 id="常见的语义化标签及其用途："><a href="#常见的语义化标签及其用途：" class="headerlink" title="常见的语义化标签及其用途："></a>常见的语义化标签及其用途：</h5><ul>
+<li><code>header</code>：用于表示页面或节的标题。</li>
+<li><code>nav</code>：用于表示导航链接。</li>
+<li><code>main</code>：用于表示页面的主要内容。</li>
+<li><code>article</code>：用于表示独立的文章或内容块。</li>
+<li><code>section</code>：用于表示页面的一部分。</li>
+<li><code>aside</code>：用于表示页面的附加信息。</li>
+<li><code>footer</code>：用于表示页面或节的页脚。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>标签名</th>
+<th>英文全称</th>
+<th>中文说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>h1~h6</td>
+<td>Header 1 to 6</td>
+<td>标题 1 到 标题 6</td>
+</tr>
+<tr>
+<td>iframe</td>
+<td>Inline frame</td>
+<td>定义内联框架</td>
+</tr>
+<tr>
+<td>ul</td>
+<td>Unordered List</td>
+<td>不排序列表</td>
+</tr>
+<tr>
+<td>li</td>
+<td>List Item</td>
+<td>列表项目</td>
+</tr>
+<tr>
+<td>ol</td>
+<td>Ordered List</td>
+<td>排序列表</td>
+</tr>
+</tbody></table>
+<h4 id="5-HTML5-的新特性"><a href="#5-HTML5-的新特性" class="headerlink" title="5. HTML5 的新特性"></a>5. HTML5 的新特性</h4><ul>
+<li>HTML5 技术结合了 HTML4.01 的相关标准并革新，符合现代网络发展要求，在 2008 年正式发布。主要包括以下几方面：</li>
+</ul>
+<h5 id="5-1-语义化标签"><a href="#5-1-语义化标签" class="headerlink" title="5.1 语义化标签"></a>5.1 语义化标签</h5><p>新增几个语义化标签：</p>
+<ul>
+<li><code>section</code>：代表文档中的一段或者一节；</li>
+<li><code>nav</code>：用于构建导航；</li>
+<li><code>article</code>：表示文档、页面、应用程序或网站中一体化的内容；</li>
+<li><code>aside</code>：代表与页面内容相关、有别于主要内容的部分；</li>
+<li><code>hgroup</code>：代表段或者节的标题；</li>
+<li><code>header</code>：页面的页眉；</li>
+<li><code>footer</code>：页面的页脚；</li>
+<li><code>time</code>：表示日期和时间；</li>
+<li><code>mark</code>：文档中需要突出的文字。</li>
+</ul>
+<h5 id="5-2-表单增强"><a href="#5-2-表单增强" class="headerlink" title="5.2 表单增强"></a>5.2 表单增强</h5><p>引入新的表单元素和属性：</p>
+<ul>
+<li>日期选择器：<code>&lt;input type=&quot;date&quot;&gt;</code></li>
+<li>其他新类型：<code>email</code>、<code>password</code>、<code>time</code>、<code>range</code>（滑块）、<code>color</code>（选择颜色的控件）、<code>search</code></li>
+<li><code>placeholder</code> 属性：简短的提示在用户输入值前会显示在输入域上。</li>
+<li><code>required</code> 属性：要求填写的输入域不能为空。</li>
+<li><code>pattern</code> 属性：描述一个正则表达式用于验证 <code>&lt;input&gt;</code> 元素的值。</li>
+<li><code>min</code> 和 <code>max</code> 属性：设置元素最小值与最大值。</li>
+<li><code>step</code> 属性：为输入域规定合法的数字间隔。</li>
+<li><code>autofocus</code> 属性：规定在页面加载时，域自动地获得焦点。</li>
+<li><code>multiple</code> 属性：规定 <code>&lt;input&gt;</code> 元素中可选择多个值。</li>
+</ul>
+<h5 id="5-3-绘图画布-Canvas-和-SVG"><a href="#5-3-绘图画布-Canvas-和-SVG" class="headerlink" title="5.3 绘图画布 Canvas 和 SVG"></a>5.3 绘图画布 Canvas 和 SVG</h5><p>Canvas 和 SVG 都是 HTML5 中的图形渲染技术，用于在网页中呈现动态或静态图形。</p>
+<ul>
+<li><p><strong>Canvas</strong>：</p>
+<ul>
+<li>使用 JavaScript 来绘制图形。</li>
+<li>提供一个位图渲染环境，可以直接操作像素，适合处理图像、视频和游戏等需要高性能的场景。</li>
+<li>可以通过绘制形状、图像和文本来创建图形，使用各种绘图方法和属性来控制线条、填充和阴影等效果。</li>
+</ul>
+</li>
+<li><p><strong>SVG</strong>：</p>
+<ul>
+<li>使用 XML 描述 2D 图形的格式。</li>
+<li>可以缩放到任意大小而不失真，并且可以在不同的平台和设备上以相同的方式呈现。</li>
+<li>使用矢量图形而不是像素，可以轻松地编辑和修改，并支持更多的交互性和动画效果，常用于页面中一些小图标。</li>
+</ul>
+</li>
+</ul>
+<h5 id="5-4-多媒体"><a href="#5-4-多媒体" class="headerlink" title="5.4 多媒体"></a>5.4 多媒体</h5><p>支持音频和视频播放，无需依赖第三方插件 Flash：</p>
+<ul>
+<li><strong>视频播放</strong>：<code>&lt;video&gt;</code></li>
+<li><strong>音频播放</strong>：<code>&lt;audio&gt;</code></li>
+<li><code>src</code>：音视频的地址</li>
+<li><code>controls</code>：音频播放控制器</li>
+<li><code>autoplay</code>：自动播放</li>
+<li><code>loop</code>：循环播放</li>
+<li><code>poster</code>：指定视频封面图的 URL</li>
+</ul>
+<h5 id="5-5-地理定位"><a href="#5-5-地理定位" class="headerlink" title="5.5 地理定位"></a>5.5 地理定位</h5><p>在 HTML5 中有一个 <code>navigator.geolocation</code> 的特性来判断是否支持获取地理位置。地理位置的定位有 GPS，IP 地址，WiFi，GSM&#x2F;CDMA 几种方法。</p>
+<ul>
+<li><code>navigator.geolocation</code> 有三个方法：<ol>
+<li><code>getCurrentPosition()</code>：获取当前位置。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">navigator.<span class="hljs-property">geolocation</span>.<span class="hljs-title function_">getCurrentPosition</span>(onSuccess, onError, options);<br></code></pre></td></tr></table></figure></li>
+<li><code>watchPosition()</code>：定期轮询设备的位置。</li>
+<li><code>clearWatch()</code>：停止 <code>watchPosition()</code> 轮询。</li>
+</ol>
+</li>
+</ul>
+<h5 id="5-6-数据存储"><a href="#5-6-数据存储" class="headerlink" title="5.6 数据存储"></a>5.6 数据存储</h5><p>HTML5 提供的数据持久化技术（离线存储）：</p>
+<ul>
+<li><p><strong>Application Cache</strong>：本地缓存应用所需的文件</p>
+</li>
+<li><p><strong>LocalStorage 和 SessionStorage</strong>：以键值对（JSON 串）格式存储数据</p>
+</li>
+<li><p><strong>Web SQL</strong>：关系数据库，通过 SQL 语句访问</p>
+</li>
+<li><p><strong>IndexDB</strong>：索引数据库</p>
+</li>
+<li><p><strong>localStorage</strong>：</p>
+<ul>
+<li>永久级别的存储。再次访问同一个域名中的任何页面，都可以提取到数据。只要浏览器不卸载，数据就会一直存在。可以手动删除数据。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 存储数据</span><br><span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">setItem</span>(<span class="hljs-string">&#x27;key&#x27;</span>, <span class="hljs-string">&#x27;value&#x27;</span>);<br><span class="hljs-comment">// 获取数据</span><br><span class="hljs-keyword">let</span> value = <span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">getItem</span>(<span class="hljs-string">&#x27;key&#x27;</span>);<br><span class="hljs-comment">// 删除数据</span><br><span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">removeItem</span>(<span class="hljs-string">&#x27;key&#x27;</span>);<br><span class="hljs-comment">// 清空所有数据</span><br><span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">clear</span>();<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>sessionStorage</strong>：</p>
+<ul>
+<li>会话级别的存储。仅在当前页面中有效，页面关闭数据销毁，页面之间不可以互相访问。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 存储数据</span><br><span class="hljs-variable language_">sessionStorage</span>.<span class="hljs-title function_">setItem</span>(<span class="hljs-string">&#x27;key&#x27;</span>, <span class="hljs-string">&#x27;value&#x27;</span>);<br><span class="hljs-comment">// 获取数据</span><br><span class="hljs-keyword">let</span> value = <span class="hljs-variable language_">sessionStorage</span>.<span class="hljs-title function_">getItem</span>(<span class="hljs-string">&#x27;key&#x27;</span>);<br><span class="hljs-comment">// 删除数据</span><br><span class="hljs-variable language_">sessionStorage</span>.<span class="hljs-title function_">removeItem</span>(<span class="hljs-string">&#x27;key&#x27;</span>);<br><span class="hljs-comment">// 清空所有数据</span><br><span class="hljs-variable language_">sessionStorage</span>.<span class="hljs-title function_">clear</span>();<br></code></pre></td></tr></table></figure></li>
+</ul>
+<p><em>注：</em></p>
+<ol>
+<li><code>localStorage</code> 和 <code>sessionStorage</code> 从名字可以辨认出二者的区别。前者是一直存在本地的，后者只是伴随着会话，窗口一旦关闭就没了。使用上完全相同，具有相同的 API。</li>
+<li>本地存储数据的格式是 JSON 串（key-value 形式）。</li>
+<li>存储数据大小限制：每个域名 5M。</li>
+</ol>
+<h5 id="5-7-多线程"><a href="#5-7-多线程" class="headerlink" title="5.7 多线程"></a>5.7 多线程</h5><p>JavaScript 语言的一大特点就是单线程，同一时间只能做一件事。单线程始终是一个痛点。为了利用多核 CPU 的计算能力，HTML5 提出 Web Worker 标准，允许 JavaScript 脚本创建多个线程。但子线程完全受主线程控制，且不得操作 DOM，所以这个新标准并没有改变 JavaScript 单线程的本质。</p>
+<p>Web Workers 是现代浏览器提供的一个 JavaScript 多线程解决方案，使用场景包括：</p>
+<ol>
+<li>进行大计算量的操作；</li>
+<li>实现轮询，改变某些状态；</li>
+<li>页头消息状态更新，如页头的消息个数通知；</li>
+<li>高频用户交互，如拼写检查；</li>
+<li>加密，如发往服务器前加密数据；</li>
+<li>预取数据，为优化网站或网络应用及提升数据加载时间提前加载部分数据。</li>
+</ol>
+<h4 id="6-本地存储"><a href="#6-本地存储" class="headerlink" title="6. 本地存储"></a>6. 本地存储</h4><h5 id="6-1-localStorage"><a href="#6-1-localStorage" class="headerlink" title="6.1 localStorage:"></a>6.1 localStorage:</h5><p>提供了在浏览器关闭后仍然保持数据的能力，数据存储在客户端，并没有过期时间，但有大小限制 5M。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 存储数据</span><br><span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">setItem</span>(<span class="hljs-string">&#x27;key&#x27;</span>, <span class="hljs-string">&#x27;value&#x27;</span>);<br><br><span class="hljs-comment">// 获取数据</span><br><span class="hljs-keyword">let</span> value = <span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">getItem</span>(<span class="hljs-string">&#x27;key&#x27;</span>);<br><br><span class="hljs-comment">// 删除数据</span><br><span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">removeItem</span>(<span class="hljs-string">&#x27;key&#x27;</span>);<br><br><span class="hljs-comment">// 清空所有数据</span><br><span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">clear</span>();<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li><p><strong>作用域</strong>：localStorage 只要在相同的协议（如 http）、相同的主机名（host）、相同的端口下（如 8080），就能读取&#x2F;修改到同一份 localStorage 数据。</p>
+</li>
+<li><p><strong>生存期</strong>：localStorage 理论上来说是永久有效的，即不主动清空的话就不会消失，即使保存的数据超出了浏览器所规定的大小，也不会把旧数据清空而只会报错。</p>
+</li>
+<li><p><strong>数据结构</strong>：localStorage 为标准的键值对（Key-Value, 简称 KV）数据类型，简单但也易扩展，只要以某种编码方式把想要存储进 localStorage 的对象转化成字符串，就能轻松支持。</p>
+<p> 可以使用 JSON.stringify() 和 JSON.parse() 方法来转换。</p>
+<p> 举个例子：把对象转换成 JSON 字符串，就能让存储对象了；把图片转换成 DataUrl（base64），就可以存储图片了。</p>
+<p> 另外对于键值对数据类型来说，“键是唯一的”这个特性也是相当重要的，重复以同一个键来赋值的话，会覆盖上次的值。</p>
+</li>
+<li><p><strong>过期时间</strong>：localStorage 是不支持设置过期时间的。但是可以通过自己设置时间和 removeItem、clear 方法结合来实现。</p>
+</li>
+<li><p><strong>大小限制</strong>：5M。</p>
+</li>
+</ol>
+<h5 id="6-2-sessionStorage"><a href="#6-2-sessionStorage" class="headerlink" title="6.2 sessionStorage:"></a>6.2 sessionStorage:</h5><p>用于临时保存同一窗口（或标签页）的数据，在关闭窗口或标签页后将会删除这些数据。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 存储数据</span><br><span class="hljs-variable language_">sessionStorage</span>.<span class="hljs-title function_">setItem</span>(<span class="hljs-string">&#x27;key&#x27;</span>, <span class="hljs-string">&#x27;value&#x27;</span>);<br><br><span class="hljs-comment">// 获取数据</span><br><span class="hljs-keyword">let</span> value = <span class="hljs-variable language_">sessionStorage</span>.<span class="hljs-title function_">getItem</span>(<span class="hljs-string">&#x27;key&#x27;</span>);<br><br><span class="hljs-comment">// 删除数据</span><br><span class="hljs-variable language_">sessionStorage</span>.<span class="hljs-title function_">removeItem</span>(<span class="hljs-string">&#x27;key&#x27;</span>);<br><br><span class="hljs-comment">// 清空所有数据</span><br><span class="hljs-variable language_">sessionStorage</span>.<span class="hljs-title function_">clear</span>();<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li><p><strong>作用域</strong>：sessionStorage 操作限制在单个标签页中，在此标签页中进行同源页面访问都可以共享 sessionStorage 数据。同源策略限制，若想在不同页面之间对同一个 sessionStorage 对象进行操作，这些页面必须在同一个协议、同一个主机名和同一个端口下。</p>
+</li>
+<li><p><strong>生存期</strong>：sessionStorage 理论上来说是永久有效的，即不主动清空的话就不会消失，即使保存的数据超出了浏览器所规定的大小，也不会把旧数据清空而只会报错。</p>
+</li>
+<li><p><strong>数据结构</strong>：sessionStorage 为标准的键值对（Key-Value, 简称 KV）数据类型，简单但也易扩展，只要以某种编码方式把想要存储进 sessionStorage 的对象转化成字符串，就能轻松支持。</p>
+<p> 可以使用 JSON.stringify() 和 JSON.parse() 方法来转换。</p>
+<p> 举个例子：把对象转换成 JSON 字符串，就能让存储对象了；把图片转换成 DataUrl（base64），就可以存储图片了。</p>
+<p> 另外对于键值对数据类型来说，“键是唯一的”这个特性也是相当重要的，重复以同一个键来赋值的话，会覆盖上次的值。</p>
+</li>
+<li><p><strong>过期时间</strong>：sessionStorage 是不支持设置过期时间的。但是可以通过自己设置时间和 removeItem、clear 方法结合来实现。</p>
+</li>
+<li><p><strong>大小限制</strong>：5M。</p>
+</li>
+</ol>
+<h5 id="6-3-cookie"><a href="#6-3-cookie" class="headerlink" title="6.3 cookie"></a>6.3 cookie</h5><p>HTTP 协议本身是无状态的，这和 HTTP 最初的设计是相符的，每次请求都是创建一个短连接，发送请求，得到数据后就关闭连接。即每次连接都是独立的一次连接。</p>
+<p>这样的话，导致的问题就是当我在一个页面登陆了账号之后，点击连接打开的新界面或者关闭后再打开我都需要再次登陆账号，所以我们需要借助 Cookie 和 Session 来记录网页的状态。</p>
+<p>Cookie，有时也用其复数形式 Cookies。可以简单地理解为存储在浏览器的文本数据。</p>
+<p>Cookie 按域名来进行存储，不同的域名存储的 Cookie 互相之间不能访问，是隔绝的。而在当前域名存在 Cookie 时，每次向服务端进行请求时都会在 HTTP 请求头中，把当前域名下的所有 Cookie 都一起进行提交。这样服务端就可以获取当前网站存储的所有 Cookie 数据。</p>
+<ol>
+<li><p><strong>Cookie 的作用</strong>就是用于解决 “如何记录客户端的用户信息”，存储于用户电脑上的文本文件中。当用户访问 web 页面时，他的名字可以记录在 cookie 中。在用户下一次访问该页面时，可以在 cookie 中读取用户访问记录。</p>
+</li>
+<li><p><strong>Cookie 以 key-value 对形式存储</strong>，如：<code>username=John Doe</code></p>
+</li>
+<li><p>当浏览器从服务器上请求 web 页面时，属于该页面的 cookie 会被添加到该请求中（cookie 会在同源的 http 请求携带），服务端通过这种方式来获取用户的信息。</p>
+</li>
+<li><p>前端、后端都可以单独的操作 Cookie，对其进行增删改查。</p>
+</li>
+<li><p>JavaScript 可以使用 <code>document.cookie</code> 属性来创建、读取及删除 cookie。</p>
+</li>
+</ol>
+<p>Cookie 可以保存数据一段时间，只需要设置过期时间，过期时间到了，数据才会被删除；也可以是临时 cookie&#x2F;会话 cookie，关闭浏览器，数据就会被删除。</p>
+<p>一些需要注意的地方：</p>
+<ul>
+<li><strong>可能会被用户禁用</strong>：Cookie 是保存在浏览器端的，所以用户有权利选择关闭 Cookie。</li>
+<li><strong>存储大小有限制</strong>：不同的浏览器都对 Cookie 的存储大小有限制，Cookie 不宜存储过多的数据，不超过 4k。</li>
+<li><strong>容易被删除</strong>：用户可以随时清空 Cookie。</li>
+<li><strong>安全性不够高</strong>：Cookie 是用明文的方式存储的，不适合保存敏感的数据。</li>
+</ul>
+<ol start="6">
+<li><strong>Cookie 与 Session 的区别</strong>：</li>
+</ol>
+<ul>
+<li>Cookie 是客户端信息，Session 是服务端信息；</li>
+<li>Session 在客户端中，通过 Cookie 记录；</li>
+<li>非 Session 的 Cookie 不会随着浏览器关闭而消失，Session 会消失；</li>
+<li>Session 过期，导致回话过期，网站重新登录等等。</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/" class="category-chain-item">前端开发手册</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/%E7%BD%91%E9%A1%B5%E5%9F%BA%E7%9F%B3%EF%BC%9AHTML-CSS-%E7%9A%84%E7%A5%9E%E5%A5%87%E7%BB%84%E5%90%88/" class="category-chain-item">网页基石：HTML &amp; CSS 的神奇组合</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/" class="print-no-link">#开发手册</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>网页的骨架：HTML 奇幻之旅</div>
+      <div>http://example.com/2024/06/05/frontendGuide/webBase/html/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>trade</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年6月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/06/05/frontendGuide/typescript/" title="TypeScript 探险记：类型安全的奥秘">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">TypeScript 探险记：类型安全的奥秘</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/06/02/frontendGuide/environment/vite/" title="Vite：快速构建现代前端项目的利器">
+                        <span class="hidden-mobile">Vite：快速构建现代前端项目的利器</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

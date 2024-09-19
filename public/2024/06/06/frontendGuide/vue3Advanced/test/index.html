@@ -1,0 +1,708 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="trade">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Vue 3 测试指南：从单元测试到端到端测试前言测试是确保代码质量和应用稳定性的重要环节。在 Vue 3 开发中，测试同样扮演着至关重要的角色。今天，我们将详细探讨 Vue 3 的测试方法，包括单元测试、组件测试、以及端到端测试（E2E），并介绍如何使用 Jest 和 Vue Test Utils 进行测试。 单元测试与组件测试单元测试单元测试是针对代码中最小的可测试单元进行测试，通常是一个函数或">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue3 测试指南：从单元测试到端到端测试">
+<meta property="og:url" content="http://example.com/2024/06/06/frontendGuide/vue3Advanced/test/index.html">
+<meta property="og:site_name" content="知识乐章">
+<meta property="og:description" content="Vue 3 测试指南：从单元测试到端到端测试前言测试是确保代码质量和应用稳定性的重要环节。在 Vue 3 开发中，测试同样扮演着至关重要的角色。今天，我们将详细探讨 Vue 3 的测试方法，包括单元测试、组件测试、以及端到端测试（E2E），并介绍如何使用 Jest 和 Vue Test Utils 进行测试。 单元测试与组件测试单元测试单元测试是针对代码中最小的可测试单元进行测试，通常是一个函数或">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-06-06T04:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-29T02:12:42.779Z">
+<meta property="article:author" content="trade">
+<meta property="article:tag" content="vue">
+<meta property="article:tag" content="vue3">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Vue3 测试指南：从单元测试到端到端测试 - 知识乐章</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>知识乐章</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archivesthe/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Vue3 测试指南：从单元测试到端到端测试"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-06-06 12:00" pubdate>
+          2024年6月6日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          26 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Vue3 测试指南：从单元测试到端到端测试</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="Vue-3-测试指南：从单元测试到端到端测试"><a href="#Vue-3-测试指南：从单元测试到端到端测试" class="headerlink" title="Vue 3 测试指南：从单元测试到端到端测试"></a>Vue 3 测试指南：从单元测试到端到端测试</h3><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>测试是确保代码质量和应用稳定性的重要环节。在 Vue 3 开发中，测试同样扮演着至关重要的角色。今天，我们将详细探讨 Vue 3 的测试方法，包括单元测试、组件测试、以及端到端测试（E2E），并介绍如何使用 Jest 和 Vue Test Utils 进行测试。</p>
+<h4 id="单元测试与组件测试"><a href="#单元测试与组件测试" class="headerlink" title="单元测试与组件测试"></a>单元测试与组件测试</h4><h5 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h5><p>单元测试是针对代码中最小的可测试单元进行测试，通常是一个函数或一个方法。单元测试的目标是确保每个单独的单元都能按预期工作。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 示例单元测试</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">a, b</span>) &#123;<br>  <span class="hljs-keyword">return</span> a + b;<br>&#125;<br><br><span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;adds 1 + 2 to equal 3&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">add</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)).<span class="hljs-title function_">toBe</span>(<span class="hljs-number">3</span>);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h5 id="组件测试"><a href="#组件测试" class="headerlink" title="组件测试"></a>组件测试</h5><p>组件测试是针对 Vue 组件的测试。与单元测试不同，组件测试会涉及到组件的模板、样式以及组件之间的交互。Vue Test Utils 是 Vue 官方提供的测试实用工具，用于方便地测试 Vue 组件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 示例组件测试</span><br><span class="hljs-keyword">import</span> &#123; mount &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@vue/test-utils&#x27;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-title class_">MyComponent</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/components/MyComponent.vue&#x27;</span>;<br><br><span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;renders a message&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> wrapper = <span class="hljs-title function_">mount</span>(<span class="hljs-title class_">MyComponent</span>, &#123;<br>    <span class="hljs-attr">props</span>: &#123;<br>      <span class="hljs-attr">msg</span>: <span class="hljs-string">&#x27;Hello Vue 3&#x27;</span><br>    &#125;<br>  &#125;);<br>  <span class="hljs-title function_">expect</span>(wrapper.<span class="hljs-title function_">text</span>()).<span class="hljs-title function_">toContain</span>(<span class="hljs-string">&#x27;Hello Vue 3&#x27;</span>);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h4 id="使用-Jest-和-Vue-Test-Utils"><a href="#使用-Jest-和-Vue-Test-Utils" class="headerlink" title="使用 Jest 和 Vue Test Utils"></a>使用 Jest 和 Vue Test Utils</h4><h5 id="安装-Jest-和-Vue-Test-Utils"><a href="#安装-Jest-和-Vue-Test-Utils" class="headerlink" title="安装 Jest 和 Vue Test Utils"></a>安装 Jest 和 Vue Test Utils</h5><p>首先，安装 Jest 和 Vue Test Utils：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install --save-dev jest @vue/test-utils vue-jest<br></code></pre></td></tr></table></figure>
+
+<h5 id="配置-Jest"><a href="#配置-Jest" class="headerlink" title="配置 Jest"></a>配置 Jest</h5><p>创建或更新 <code>jest.config.js</code> 文件，以配置 Jest 以支持 Vue 文件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;<br>  <span class="hljs-attr">moduleFileExtensions</span>: [<span class="hljs-string">&#x27;js&#x27;</span>, <span class="hljs-string">&#x27;json&#x27;</span>, <span class="hljs-string">&#x27;vue&#x27;</span>],<br>  <span class="hljs-attr">transform</span>: &#123;<br>    <span class="hljs-string">&#x27;^.+\\.vue$&#x27;</span>: <span class="hljs-string">&#x27;vue-jest&#x27;</span>,<br>    <span class="hljs-string">&#x27;^.+\\.js$&#x27;</span>: <span class="hljs-string">&#x27;babel-jest&#x27;</span><br>  &#125;,<br>  <span class="hljs-attr">testEnvironment</span>: <span class="hljs-string">&#x27;jsdom&#x27;</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h5 id="编写测试"><a href="#编写测试" class="headerlink" title="编写测试"></a>编写测试</h5><p>使用 Jest 和 Vue Test Utils 编写和运行测试：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// MyComponent.spec.js</span><br><span class="hljs-keyword">import</span> &#123; mount &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@vue/test-utils&#x27;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-title class_">MyComponent</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/components/MyComponent.vue&#x27;</span>;<br><br><span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;renders a message&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> wrapper = <span class="hljs-title function_">mount</span>(<span class="hljs-title class_">MyComponent</span>, &#123;<br>    <span class="hljs-attr">props</span>: &#123;<br>      <span class="hljs-attr">msg</span>: <span class="hljs-string">&#x27;Hello Vue 3&#x27;</span><br>    &#125;<br>  &#125;);<br>  <span class="hljs-title function_">expect</span>(wrapper.<span class="hljs-title function_">text</span>()).<span class="hljs-title function_">toContain</span>(<span class="hljs-string">&#x27;Hello Vue 3&#x27;</span>);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>运行测试：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm run <span class="hljs-built_in">test</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="端到端测试（E2E）"><a href="#端到端测试（E2E）" class="headerlink" title="端到端测试（E2E）"></a>端到端测试（E2E）</h4><p>端到端测试（E2E）是从用户的角度对应用进行测试。它们通常覆盖从前端到后端的整个应用流程，以确保应用的各个部分协同工作。Cypress 是一个流行的 E2E 测试框架，简单易用且功能强大。</p>
+<h5 id="什么是端到端测试（E2E）"><a href="#什么是端到端测试（E2E）" class="headerlink" title="什么是端到端测试（E2E）"></a>什么是端到端测试（E2E）</h5><p>端到端测试（E2E）是指对应用程序的整个流程进行测试，从用户的输入开始，到后端处理、数据库存储，再到最终的输出结果。E2E 测试的目标是模拟用户行为，确保应用程序的各个部分能够协同工作。</p>
+<h5 id="为什么选择-Cypress-进行-E2E-测试"><a href="#为什么选择-Cypress-进行-E2E-测试" class="headerlink" title="为什么选择 Cypress 进行 E2E 测试"></a>为什么选择 Cypress 进行 E2E 测试</h5><p>Cypress 是一个功能强大的 E2E 测试工具，具有以下优点：</p>
+<ol>
+<li><strong>易于使用</strong>：Cypress 提供了直观的 API 和友好的界面，使得编写和运行测试变得简单。</li>
+<li><strong>快速反馈</strong>：Cypress 具有快速的测试运行速度和实时重载功能，可以立即看到测试结果。</li>
+<li><strong>自动截图和录制视频</strong>：在测试失败时，Cypress 会自动截取失败时的屏幕截图，并录制测试过程的视频，便于调试。</li>
+<li><strong>丰富的插件和扩展</strong>：Cypress 提供了许多插件和扩展，可以集成到各种 CI&#x2F;CD 工具中。</li>
+</ol>
+<h5 id="安装-Cypress"><a href="#安装-Cypress" class="headerlink" title="安装 Cypress"></a>安装 Cypress</h5><p>首先，安装 Cypress：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install --save-dev cypress<br></code></pre></td></tr></table></figure>
+
+<h5 id="编写-E2E-测试"><a href="#编写-E2E-测试" class="headerlink" title="编写 E2E 测试"></a>编写 E2E 测试</h5><p>创建一个 E2E 测试文件，例如 <code>cypress/integration/sample_spec.js</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;My First Test&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;Visits the app root url&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>    cy.<span class="hljs-title function_">visit</span>(<span class="hljs-string">&#x27;/&#x27;</span>);<br>    cy.<span class="hljs-title function_">contains</span>(<span class="hljs-string">&#x27;h1&#x27;</span>, <span class="hljs-string">&#x27;Welcome to Your Vue.js App&#x27;</span>);<br>  &#125;);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>在这个示例中，我们定义了一个基本的测试用例，验证是否能够访问应用的根 URL，并检查页面中是否包含特定文本。</p>
+<h5 id="运行-Cypress"><a href="#运行-Cypress" class="headerlink" title="运行 Cypress"></a>运行 Cypress</h5><p>启动 Cypress 测试运行器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npx cypress open<br></code></pre></td></tr></table></figure>
+
+<p>然后选择要运行的测试文件，Cypress 会打开一个新的浏览器窗口并运行测试。</p>
+<h5 id="编写更多复杂的-E2E-测试"><a href="#编写更多复杂的-E2E-测试" class="headerlink" title="编写更多复杂的 E2E 测试"></a>编写更多复杂的 E2E 测试</h5><p>除了基本的页面访问测试，Cypress 还可以编写更复杂的 E2E 测试。例如，测试用户登录、表单提交和数据交互等。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;User Login Test&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;Logs in the user&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>    cy.<span class="hljs-title function_">visit</span>(<span class="hljs-string">&#x27;/login&#x27;</span>);<br>    cy.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;input[name=username]&#x27;</span>).<span class="hljs-title function_">type</span>(<span class="hljs-string">&#x27;myusername&#x27;</span>);<br>    cy.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;input[name=password]&#x27;</span>).<span class="hljs-title function_">type</span>(<span class="hljs-string">&#x27;mypassword&#x27;</span>);<br>    cy.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;button[type=submit]&#x27;</span>).<span class="hljs-title function_">click</span>();<br>    cy.<span class="hljs-title function_">url</span>().<span class="hljs-title function_">should</span>(<span class="hljs-string">&#x27;include&#x27;</span>, <span class="hljs-string">&#x27;/dashboard&#x27;</span>);<br>  &#125;);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>在这个示例中，我们测试了用户登录功能，包括访问登录页面、输入用户名和密码、点击登录按钮，并验证重定向到仪表板页面。</p>
+<h4 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h4><p>通过这篇文章，我们详细介绍了 Vue 3 的测试方法，包括单元测试、组件测试、以及端到端测试（E2E）。使用 Jest 和 Vue Test Utils 进行单元和组件测试，可以有效确保代码的质量和稳定性。而使用 Cypress 进行端到端测试，则可以从整体上验证应用的功能和用户体验。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/" class="category-chain-item">前端开发手册</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/%E8%BF%9B%E9%98%B6%E5%A5%87%E5%A6%99%E6%97%85%E7%A8%8B%EF%BC%9A%E8%A7%A3%E9%94%81-Vue3-%E7%9A%84%E9%AB%98%E7%BA%A7%E9%AD%94%E6%B3%95/" class="category-chain-item">进阶奇妙旅程：解锁 Vue3 的高级魔法</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/vue/" class="print-no-link">#vue</a>
+      
+        <a href="/tags/vue3/" class="print-no-link">#vue3</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Vue3 测试指南：从单元测试到端到端测试</div>
+      <div>http://example.com/2024/06/06/frontendGuide/vue3Advanced/test/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>trade</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年6月6日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/06/06/frontendGuide/vue3Advanced/staticWeb/" title="解锁服务器端渲染 (SSR) 和静态网站生成 (SSG)">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">解锁服务器端渲染 (SSR) 和静态网站生成 (SSG)</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/06/06/frontendGuide/vue3/router/" title="路由管理">
+                        <span class="hidden-mobile">路由管理</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

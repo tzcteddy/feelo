@@ -1,0 +1,823 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="trade">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="macOS 中安装 Node.js什么是 Node.jsNode.js 是一个基于 Chrome V8 引擎的 JavaScript 运行时环境。最早发布于 2009 年 5 月，由 Ryan Dahl 开发。它使用了一个事件驱动、非阻塞式 I&#x2F;O 模型，让 JavaScript 运行在服务端的开发平台，能让 JavaScript 成为 PHP、Python、Perl、Ruby 等服务端语言的脚本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js 安装和使用指南">
+<meta property="og:url" content="http://example.com/2024/06/02/frontendGuide/environment/nodeJs/index.html">
+<meta property="og:site_name" content="知识乐章">
+<meta property="og:description" content="macOS 中安装 Node.js什么是 Node.jsNode.js 是一个基于 Chrome V8 引擎的 JavaScript 运行时环境。最早发布于 2009 年 5 月，由 Ryan Dahl 开发。它使用了一个事件驱动、非阻塞式 I&#x2F;O 模型，让 JavaScript 运行在服务端的开发平台，能让 JavaScript 成为 PHP、Python、Perl、Ruby 等服务端语言的脚本">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/frontendGuide/node-mac-1.webp">
+<meta property="og:image" content="http://example.com/img/frontendGuide/node-mac-2.webp">
+<meta property="og:image" content="http://example.com/img/frontendGuide/node-mac-3.webp">
+<meta property="og:image" content="http://example.com/img/frontendGuide/node-mac-4.webp">
+<meta property="og:image" content="http://example.com/img/frontendGuide/node-mac-5.webp">
+<meta property="og:image" content="http://example.com/img/frontendGuide/node-mac-6.webp">
+<meta property="og:image" content="http://example.com/img/frontendGuide/node-mac-7.webp">
+<meta property="og:image" content="http://example.com/img/frontendGuide/node-mac-8.webp">
+<meta property="og:image" content="http://example.com/img/frontendGuide/node-mac-9.webp">
+<meta property="og:image" content="http://example.com/img/frontendGuide/node-mac-10.webp">
+<meta property="og:image" content="http://example.com/img/frontendGuide/node-win-1.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/node-win-2.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/node-win-3.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/node-win-4.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/node-win-5.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/node-win-6.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/node-win-7.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/node-win-8.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/node-win-9.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/node-win-10.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/node-win-11.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/nvm-1.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/nvm-2.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/nvm-3.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/nvm-4.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/nvm-5.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/nvm-6.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/nvm-7.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/nvm-8.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/nvm-9.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/nvm-10.png">
+<meta property="article:published_time" content="2024-06-02T02:07:59.000Z">
+<meta property="article:modified_time" content="2024-07-29T02:12:42.772Z">
+<meta property="article:author" content="trade">
+<meta property="article:tag" content="开发手册">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/frontendGuide/node-mac-1.webp">
+  
+  
+  
+  <title>Node.js 安装和使用指南 - 知识乐章</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>知识乐章</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archivesthe/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Node.js 安装和使用指南"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-06-02 10:07" pubdate>
+          2024年6月2日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          24 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Node.js 安装和使用指南</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="macOS-中安装-Node-js"><a href="#macOS-中安装-Node-js" class="headerlink" title="macOS 中安装 Node.js"></a>macOS 中安装 Node.js</h1><h2 id="什么是-Node-js"><a href="#什么是-Node-js" class="headerlink" title="什么是 Node.js"></a>什么是 Node.js</h2><p><code>Node.js</code> 是一个基于 <code>Chrome V8</code> 引擎的 <code>JavaScript</code> 运行时环境。最早发布于 2009 年 5 月，由 <code>Ryan Dahl</code> 开发。它使用了一个事件驱动、非阻塞式 <code>I/O</code> 模型，让 <code>JavaScript</code> 运行在服务端的开发平台，能让 <code>JavaScript</code> 成为 <code>PHP</code>、<code>Python</code>、<code>Perl</code>、<code>Ruby</code> 等服务端语言的脚本语言。</p>
+<h2 id="下载-Node-js"><a href="#下载-Node-js" class="headerlink" title="下载 Node.js"></a>下载 Node.js</h2><blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/">下载地址</a></li>
+</ul>
+</blockquote>
+<p><img src="/../../img/frontendGuide/node-mac-1.webp" srcset="/img/loading.gif" lazyload></p>
+<p>其中 <code>LTS</code> 表示长期维护版本，也更加推荐安装这个版本。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
+<li>下载好安装包之后，双击后缀名为 <code>.pkg</code> 的安装包，会弹出以下的弹窗。弹窗中会提示欢迎语，然后提示 <code>Node.js</code> 和 <code>npm</code> 会安装到硬盘中的地址。</li>
+</ol>
+<ul>
+<li><p><code>Node.js</code>：安装在硬盘中的 <code>/usr/local/bin/node</code> 目录。</p>
+</li>
+<li><p><code>npm</code>：安装在硬盘中的 <code>/usr/local/bin/npm</code> 目录。</p>
+</li>
+</ul>
+<p>这里注意和 <code>Windows</code> 区分一下，因为 <code>macOS</code> 是基于 <code>Unix</code> 开发而来的，所以它的目录结构和 <code>Linux</code> 类似，是在总的根目录 <code>/</code> 下存在子目录。<br><img src="/../../img/frontendGuide/node-mac-2.webp" srcset="/img/loading.gif" lazyload><br>2. 点击<strong>继续</strong>，会提示软件的相关许可协议。</p>
+<p><img src="/../../img/frontendGuide/node-mac-3.webp" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>如果点击<strong>打印</strong>，而你的电脑也连接了打印机，那么这时候就能够将协议打印出来。</li>
+</ul>
+<p><img src="/../../img/frontendGuide/node-mac-4.webp" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>如果点击<strong>存储</strong>，此时会将协议保存为 <code>pdf</code>，由自己选择存放的路径。</li>
+</ul>
+<p><img src="/../../img/frontendGuide/node-mac-5.webp" srcset="/img/loading.gif" lazyload></p>
+<ol start="3">
+<li>再次点击继续，会弹窗提示必须同意相关协议条款才能走下一步。</li>
+</ol>
+<p><img src="/../../img/frontendGuide/node-mac-6.webp" srcset="/img/loading.gif" lazyload></p>
+<ol start="4">
+<li>选择软件安装的目的盘，一般来讲，<code>macOS</code> 中没有什么盘之分的，但如果你外接了硬盘，而你需要安装的软件也刚好要放在外接盘中，那么此时就可以选择另一个硬盘。</li>
+</ol>
+<p><img src="/../../img/frontendGuide/node-mac-7.webp" srcset="/img/loading.gif" lazyload><br><img src="/../../img/frontendGuide/node-mac-8.webp" srcset="/img/loading.gif" lazyload></p>
+<ol start="5">
+<li>下一步，此时会提示让输入电脑的密码来开始安装。</li>
+</ol>
+<p><img src="/../../img/frontendGuide/node-mac-9.webp" srcset="/img/loading.gif" lazyload></p>
+<ol start="6">
+<li>安装成功，关闭安装窗口即可。</li>
+</ol>
+<p><img src="/../../img/frontendGuide/node-mac-10.webp" srcset="/img/loading.gif" lazyload></p>
+<h1 id="Windows-安装-Node-js-图文教程"><a href="#Windows-安装-Node-js-图文教程" class="headerlink" title="Windows 安装 Node.js 图文教程"></a>Windows 安装 Node.js 图文教程</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本教程所有操作基于<code>Window 10</code>操作系统 + <code>Node.js v12.16.1-x64</code>，原则上适用于所有<code>Windows</code>操作系统，细节不同请根据自己需要自行判断。</p>
+<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>要安装<code>Node.js</code>，首先需要去下载对应系统安装包，<a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/download/">下载地址</a>；</p>
+<p><img src="/../../img/frontendGuide/node-win-1.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h2><ol>
+<li><p>双击下载好的安装包；</p>
+<p> <img src="/../../img/frontendGuide/node-win-2.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>直接下一步；</p>
+<p> <img src="/../../img/frontendGuide/node-win-3.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>勾选同意相关使用协议，同时下一步；</p>
+<p> <img src="/../../img/frontendGuide/node-win-4.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>修改成你要安装的路径（默认也可以），然后下一步；</p>
+<p> <img src="/../../img/frontendGuide/node-win-5.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>建议不作修改，直接下一步，当然你也可以对里边所需服务进行勾选；</p>
+<p> <img src="/../../img/frontendGuide/node-win-6.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>所需工具自己需要就勾选，不需要就直接下一步；</p>
+<p> <img src="/../../img/frontendGuide/node-win-7.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>直接安装，开始安装；</p>
+<p> <img src="/../../img/frontendGuide/node-win-8.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>完成安装后，点击 Finish 完成安装；</p>
+<p> <img src="/../../img/frontendGuide/node-win-9.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ol>
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><p>安装后，我们怎样知道自己是否安装成功呢？可以使用如下命令查看，若成功则会返回下图类似结果；</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">node -v<br></code></pre></td></tr></table></figure>
+
+<p><img src="/../../img/frontendGuide/node-win-10.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="环境变量配置"><a href="#环境变量配置" class="headerlink" title="环境变量配置"></a>环境变量配置</h2><p>默认情况下，我们利用 <code>npm</code> 包管理器用来安装依赖包时，包会默认存放在 <code>C:\Users\用户名\AppData\Roaming\npm\node_modules</code> 目录下，如果你不确定你的包存放路径在哪儿，那么可以通过如下命令来进行查看：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm root -g<br></code></pre></td></tr></table></figure>
+
+<p>但这样就存在一个问题，如果我们的依赖包很多的情况下，就会占用我们系统盘大量的空间，这时候我们如果不想让全局包放在这里，那么就可以自定义存放目录。修改的方式也很简单，只需要在控制台中执行如下两条命令即可：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm config <span class="hljs-built_in">set</span> prefix <span class="hljs-string">&quot;D:\node\node_global&quot;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm config <span class="hljs-built_in">set</span> cache <span class="hljs-string">&quot;D:\node\node_cache&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>当然，我们也可以打开配置文件 <code>.npmrc</code>，然后修改如下两条记录：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs xml">prefix = D:\node\node_global<br>cache = D:\node\node_cache<br></code></pre></td></tr></table></figure>
+
+<p><img src="/../../img/frontendGuide/node-win-11.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="nvm的安装和使用"><a href="#nvm的安装和使用" class="headerlink" title="nvm的安装和使用"></a>nvm的安装和使用</h1><h2 id="nvm是什么"><a href="#nvm是什么" class="headerlink" title="nvm是什么"></a>nvm是什么</h2><p>nvm全英文也叫node.js version management，是一个nodejs的版本管理工具。nvm和n都是node.js版本管理工具，为了解决node.js各种版本存在不兼容现象可以通过它可以安装和切换不同版本的node.js。</p>
+<h2 id="nvm下载"><a href="#nvm下载" class="headerlink" title="nvm下载"></a>nvm下载</h2><p>可在点此在<a target="_blank" rel="noopener" href="https://github.com/coreybutler/nvm-windows/releases">github</a> 上下载最新版本,本次下载安装的是windows版本。打开网址我们可以看到有两个版本：</p>
+<ul>
+<li>nvm 1.1.7-setup.zip：安装版，推荐使用</li>
+<li>nvm 1.1.7-noinstall.zip: 绿色免安装版，但使用时需进行配置。</li>
+</ul>
+<h2 id="nvm安装"><a href="#nvm安装" class="headerlink" title="nvm安装"></a>nvm安装</h2><h3 id="windows安装"><a href="#windows安装" class="headerlink" title="windows安装"></a>windows安装</h3><ol>
+<li><p>卸载之前的node后安装nvm, nvm-setup.exe安装版，直接运行nvm-setup.exe<br><img src="/../../img/frontendGuide/nvm-1.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>选择nvm安装路径<br><img src="/../../img/frontendGuide/nvm-2.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>选择nodejs路径<br><img src="/../../img/frontendGuide/nvm-3.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>确认安装即可<br><img src="/../../img/frontendGuide/nvm-4.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>安装完确认<br><img src="/../../img/frontendGuide/nvm-5.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ol>
+<p>打开CMD，输入命令 nvm ，安装成功则如下显示。可以看到里面列出了各种命令，本节最后会列出这些命令的中文示意。</p>
+<h3 id="mac安装"><a href="#mac安装" class="headerlink" title="mac安装"></a>mac安装</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk">curl -o- https:<span class="hljs-regexp">//</span>raw.githubusercontent.com<span class="hljs-regexp">/nvm-sh/</span>nvm<span class="hljs-regexp">/v0.39.1/i</span>nstall.sh | bash<br><br><span class="hljs-comment"># or</span><br><br>wget -qO- https:<span class="hljs-regexp">//</span>raw.githubusercontent.com<span class="hljs-regexp">/nvm-sh/</span>nvm<span class="hljs-regexp">/v0.39.1/i</span>nstall.sh | bash <br></code></pre></td></tr></table></figure>
+
+<h2 id="nvm命令提示"><a href="#nvm命令提示" class="headerlink" title="nvm命令提示"></a>nvm命令提示</h2><blockquote>
+<ul>
+<li>nvm arch：显示node是运行在32位还是64位。</li>
+<li>nvm install <version> [arch] ：安装node， version是特定版本也可以是最新稳定版本latest。可选参数arch指定安装32位还是64位版本，默认是系统位数。可以添加–insecure绕过远程服务器的SSL。</li>
+<li>nvm list [available] ：显示已安装的列表。可选参数available，显示可安装的所有版本。list可简化为ls。</li>
+<li>nvm on ：开启node.js版本管理。</li>
+<li>nvm off ：关闭node.js版本管理。</li>
+<li>nvm proxy [url] ：设置下载代理。不加可选参数url，显示当前代理。将url设置为none则移除代理。</li>
+<li>nvm node_mirror [url] ：设置node镜像。默认是nodejs.org&#x2F;dist&#x2F;。如果不写u…</li>
+<li>nvm npm_mirror [url] ：设置npm镜像。github.com&#x2F;npm&#x2F;cli&#x2F;arc…</li>
+<li>nvm uninstall <version> ：卸载指定版本node。</li>
+<li>nvm use [version] [arch] ：使用制定版本node。可指定32&#x2F;64位。</li>
+<li>nvm root [path] ：设置存储不同版本node的目录。如果未设置，默认使用当前目录。</li>
+<li>nvm version ：显示nvm版本。version可简化为v。</li>
+</ul>
+</blockquote>
+<h2 id="安装node-js版本"><a href="#安装node-js版本" class="headerlink" title="安装node.js版本"></a>安装node.js版本</h2><p><code>nvm list available</code> 显示可下载版本的部分列表<br><img src="/../../img/frontendGuide/nvm-6.png" srcset="/img/loading.gif" lazyload></p>
+<p><code>nvm install latest</code> 安装最新版本 ( 安装时可以在上面看到 node.js 、 npm 相应的版本号 ，不建议安装最新版本)<br><img src="/../../img/frontendGuide/nvm-7.png" srcset="/img/loading.gif" lazyload></p>
+<p><code>nvm install</code> 版本号 安装指定的版本的nodejs<br><img src="/../../img/frontendGuide/nvm-8.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="查看已安装版本"><a href="#查看已安装版本" class="headerlink" title="查看已安装版本"></a>查看已安装版本</h2><p><code>nvm list</code>或 <code>nvm ls</code> 查看目前已经安装的版本 （ 当前版本号前面没有 * ， 此时还没有使用任何一个版本，这时使用 node.js 时会报错 ）<br><img src="/../../img/frontendGuide/nvm-9.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="切换node版本"><a href="#切换node版本" class="headerlink" title="切换node版本"></a>切换node版本</h2><p><code>nvm use</code> 版本号 使用指定版本的nodejs （ 这时会发现在启用的 node 版本前面有 * 标记，这时就可以使用 node.js ）<br><img src="/../../img/frontendGuide/nvm-10.png" srcset="/img/loading.gif" lazyload></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/" class="category-chain-item">前端开发手册</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/%E5%89%8D%E7%AB%AF%E6%96%B0%E6%89%8B%E6%9D%91%EF%BC%9A%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%BD%BB%E6%9D%BE%E4%B8%8A%E6%89%8B/" class="category-chain-item">前端新手村：环境配置轻松上手</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/" class="print-no-link">#开发手册</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Node.js 安装和使用指南</div>
+      <div>http://example.com/2024/06/02/frontendGuide/environment/nodeJs/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>trade</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年6月2日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/06/02/frontendGuide/environment/npm/" title="npm 介绍：Node.js 项目管理的利器">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">npm 介绍：Node.js 项目管理的利器</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/06/01/frontendGuide/history/" title="从古至今：前端技术的演变史">
+                        <span class="hidden-mobile">从古至今：前端技术的演变史</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

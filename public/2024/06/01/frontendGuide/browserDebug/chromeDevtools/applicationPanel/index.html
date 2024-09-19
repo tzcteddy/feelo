@@ -1,0 +1,737 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="trade">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="面板概览 使用 Application 面板可以检查、修改和调试 Web 应用的许多方面，包括其清单、Service Worker、存储和缓存数据。  Application（应用）面板分为四个部分，其中包含子菜单。  Application：包含有关应用的整体信息，包括其清单、Service Worker 和存储空间。 Storage 存储：查看和修改 Web 应用使用的不同存储方法。 借助本地">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Application面板">
+<meta property="og:url" content="http://example.com/2024/06/01/frontendGuide/browserDebug/chromeDevtools/applicationPanel/index.html">
+<meta property="og:site_name" content="知识乐章">
+<meta property="og:description" content="面板概览 使用 Application 面板可以检查、修改和调试 Web 应用的许多方面，包括其清单、Service Worker、存储和缓存数据。  Application（应用）面板分为四个部分，其中包含子菜单。  Application：包含有关应用的整体信息，包括其清单、Service Worker 和存储空间。 Storage 存储：查看和修改 Web 应用使用的不同存储方法。 借助本地">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-7-1.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-7-2.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-7-3.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-7-4.gif">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-7-5.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-7-6.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-7-7.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-7-8.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-7-9.png">
+<meta property="og:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-7-10.png">
+<meta property="article:published_time" content="2024-06-01T02:00:53.000Z">
+<meta property="article:modified_time" content="2024-07-29T02:12:42.770Z">
+<meta property="article:author" content="trade">
+<meta property="article:tag" content="浏览器调试,谷歌开发者工具">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/frontendGuide/actualCombat/browserDebug/chrome-devtools-7-1.png">
+  
+  
+  
+  <title>Application面板 - 知识乐章</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>知识乐章</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archivesthe/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Application面板"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-06-01 10:00" pubdate>
+          2024年6月1日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          15 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Application面板</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="面板概览"><a href="#面板概览" class="headerlink" title="面板概览"></a>面板概览</h2><blockquote>
+<p>使用 Application 面板可以检查、修改和调试 Web 应用的许多方面，包括其清单、Service Worker、存储和缓存数据。</p>
+</blockquote>
+<p>Application（应用）面板分为四个部分，其中包含子菜单。</p>
+<ul>
+<li>Application：包含有关应用的整体信息，包括其清单、Service Worker 和存储空间。</li>
+<li>Storage 存储：查看和修改 Web 应用使用的不同存储方法。<ul>
+<li>借助本地和会话存储列表，您可以选择来源并修改关联存储方法的键值对。</li>
+<li>IndexedDB 列表包含数据库，可让您通过浏览器检查对象存储。</li>
+<li>通过 Cookie 列表，您可以选择来源并修改键值对。</li>
+<li>借助私密状态令牌和兴趣群体，您可以检查相应的令牌和群组（如果有）。</li>
+<li>通过共享存储空间列表，您可以选择源站，并检查和修改关联的键值对。</li>
+<li>Cache storage 列表包含可用的缓存，可让您检查、过滤和删除其资源。</li>
+</ul>
+</li>
+<li>Background services： 检查、测试和调试后台服务。</li>
+<li>Frames：将网页和资源划分为多个视图，并显示相关信息，例如安全与隔离、内容安全政策、API 可用性等。</li>
+</ul>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-7-1.png" srcset="/img/loading.gif" lazyload alt="面板截图"></p>
+<h2 id="存储的查看、添加、修改和删除"><a href="#存储的查看、添加、修改和删除" class="headerlink" title="存储的查看、添加、修改和删除"></a>存储的查看、添加、修改和删除</h2><blockquote>
+<p>以下以Cookie为例，其他localStorage、sessionStorage、IndexedDB、Web SQL等类似。</p>
+</blockquote>
+<h3 id="打开“Cookies”窗格"><a href="#打开“Cookies”窗格" class="headerlink" title="打开“Cookies”窗格"></a>打开“Cookies”窗格</h3><ol>
+<li><a target="_blank" rel="noopener" href="https://developer.chrome.com/docs/devtools/open?hl=zh-cn">打开 Chrome 开发者工具</a>。</li>
+<li>依次打开 <strong>Application</strong> &gt; <strong>Storage</strong> &gt; <strong>Cookies</strong>，然后选择一个来源。</li>
+</ol>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-7-2.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="字段"><a href="#字段" class="headerlink" title="字段"></a>字段</h3><p><strong>Cookies</strong> 表包含以下字段：</p>
+<ul>
+<li><strong>名称</strong>：Cookie 的名称。</li>
+<li><strong>值</strong>。Cookie 的值。</li>
+<li><strong>网域</strong>。获准接收 Cookie 的主机。</li>
+<li><strong>Path</strong>。所请求网址中必须存在的网址才能发送 Cookie 标头。</li>
+<li><strong>到期时间 &#x2F; Max-Age</strong>。Cookie 的失效日期或最长存在时间。 对于<a target="_blank" rel="noopener" href="https://developer.mozilla.org/docs/Web/HTTP/Cookies#define_the_lifetime_of_a_cookie">会话 Cookie</a>，此值始终为 Session。</li>
+<li><strong>大小</strong>。Cookie 的大小（以字节为单位）。</li>
+<li><strong>HttpOnly</strong>。如果为 true，此字段表示 Cookie 应仅通过 HTTP 使用，并且不允许修改 JavaScript。</li>
+<li><strong>安全</strong>。如果为 true，此字段表示只能通过安全的 HTTPS 连接将 Cookie 发送到服务器。</li>
+<li><strong>SameSite</strong>。如果 Cookie 使用的是实验性 SameSite 属性，则包含 Strict 或 Lax。</li>
+<li><strong>分区键</strong>。对于<a target="_blank" rel="noopener" href="https://developer.chrome.com/docs/privacy-sandbox/chips?hl=zh-cn">处于独立分区状态的 Cookie</a>，分区键是指在开始向设置 Cookie 的端点发出请求时，浏览器访问的顶级网址的网站。</li>
+<li><strong>优先级</strong>。包含 Low、Medium（默认）或 High（如果使用的是已废弃的 <a target="_blank" rel="noopener" href="https://bugs.chromium.org/p/chromium/issues/detail?id=232693">Cookie 优先级</a>属性）。</li>
+</ul>
+<p>要查看 Cookie 的值，请在表格中选中该 Cookie。如需查看未采用百分比编码的值，请勾选 check_box <strong>显示已解码的网址</strong>。</p>
+<h3 id="过滤-Cookie"><a href="#过滤-Cookie" class="headerlink" title="过滤 Cookie"></a>过滤 Cookie</h3><p>使用<strong>过滤</strong>框按<strong>名称</strong>或<strong>值</strong>过滤 Cookie。</p>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-7-3.png" srcset="/img/loading.gif" lazyload></p>
+<p>不支持按其他字段过滤。过滤条件不区分大小写。</p>
+<h3 id="添加-Cookie"><a href="#添加-Cookie" class="headerlink" title="添加 Cookie"></a>添加 Cookie</h3><p>要添加任意 Cookie，请执行以下操作：</p>
+<ol>
+<li>双击表格中的空行。</li>
+<li>输入<strong>名称</strong>和<strong>值</strong>，然后按 Enter 键。</li>
+</ol>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-7-4.gif" srcset="/img/loading.gif" lazyload></p>
+<p>开发者工具会自动填充其他必填字段。您可以按照下文所述修改它们。</p>
+<h3 id="修改-Cookie"><a href="#修改-Cookie" class="headerlink" title="修改 Cookie"></a>修改 Cookie</h3><p>除了自动更新的 <strong>Size</strong>，其他所有字段都可修改。<br>双击某个字段即可进行修改。<br><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-7-5.png" srcset="/img/loading.gif" lazyload></p>
+<p>开发者工具以红色突出显示<a target="_blank" rel="noopener" href="https://developer.chrome.com/docs/devtools/application/cookies?hl=zh-cn#fields">字段</a>值的 Cookie。</p>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-7-6.png" srcset="/img/loading.gif" lazyload></p>
+<p>如需滤除有效的 Cookie，请选中顶部操作栏中的 check_box <strong>仅显示存在问题的 Cookie</strong>。</p>
+<h3 id="删除-Cookie"><a href="#删除-Cookie" class="headerlink" title="删除 Cookie"></a>删除 Cookie</h3><p>要删除 Cookie，请选择相应 Cookie，然后点击顶部操作栏中的 delete <strong>删除所选项</strong>。</p>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-7-7.png" srcset="/img/loading.gif" lazyload></p>
+<p>点击 <strong>全部清除</strong>以删除所有 Cookie。</p>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-7-8.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="识别和检查第三方-Cookie"><a href="#识别和检查第三方-Cookie" class="headerlink" title="识别和检查第三方 Cookie"></a>识别和检查第三方 Cookie</h3><p>第三方 Cookie 是由与当前顶级网页不同的网站设置的 Cookie。第三方 Cookie 具有 SameSite&#x3D;None 属性。<br>开发者工具会在<strong>应用</strong> &gt; <strong>存储</strong> &gt; <strong>Cookie</strong> 中列出此类 Cookie，并在它们旁边显示警告警告图标。将鼠标悬停在该图标上即可查看提示，点击该图标即可转到 <strong>Issues</strong> 面板了解详情。</p>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-7-9.png" srcset="/img/loading.gif" lazyload></p>
+<p>您还可在<a target="_blank" rel="noopener" href="https://developer.chrome.com/docs/devtools/network/reference?hl=zh-cn#cookies">网络&gt; 点击请求 &gt;Cookie</a> 下找到第三方 Cookie。</p>
+<p><img src="/../../img/frontendGuide/actualCombat/browserDebug/chrome-devtools-7-10.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>网络</strong>面板会<a target="_blank" rel="noopener" href="https://developer.chrome.com/docs/devtools/network/reference?hl=zh-cn#show-blocked-cookies">突出显示存在问题的 Cookie</a>，并在受<a target="_blank" rel="noopener" href="https://developer.chrome.com/privacy-sandbox/3pcd?hl=zh-cn">第三方 Cookie 逐步淘汰</a>影响的 Cookie 旁边显示警告警告图标。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/" class="category-chain-item">前端开发手册</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/Debug-%E5%A4%A7%E4%BD%9C%E6%88%98%EF%BC%9A%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B0%83%E8%AF%95%E5%85%A8%E6%94%BB%E7%95%A5/" class="category-chain-item">Debug 大作战：浏览器调试全攻略</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B0%83%E8%AF%95-%E8%B0%B7%E6%AD%8C%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7/" class="print-no-link">#浏览器调试,谷歌开发者工具</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Application面板</div>
+      <div>http://example.com/2024/06/01/frontendGuide/browserDebug/chromeDevtools/applicationPanel/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>trade</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年6月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/06/01/frontendGuide/browserDebug/chromeDevtools/performancePanel/" title="Performance面板">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Performance面板</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/06/01/frontendGuide/browserDebug/chromeDevtools/securityPanel/" title="Security面板">
+                        <span class="hidden-mobile">Security面板</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

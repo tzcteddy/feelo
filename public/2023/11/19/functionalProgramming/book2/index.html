@@ -1,0 +1,824 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="trade">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="第二章 ⾼阶JavaScript函数式与面向对象(OOP) 面向对象的JavaScript当说到⼀个对象与另⼀个对象之间具有⼦类型或派⽣类型的关系时， 指的是它们之间存在的原型关系。有必要指出，尽管 JavaScript 是⾯向对 象的，但其并不具备像 Java 这样的语⾔中典型的继承关系。在ES6中，可以通过使⽤像关键字class 和extends 这样的语法糖 来建⽴对象之间的原型链接（尽管很">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《JavaScript函数式编程指南》第二章 ⾼阶JavaScript">
+<meta property="og:url" content="http://example.com/2023/11/19/functionalProgramming/book2/index.html">
+<meta property="og:site_name" content="知识乐章">
+<meta property="og:description" content="第二章 ⾼阶JavaScript函数式与面向对象(OOP) 面向对象的JavaScript当说到⼀个对象与另⼀个对象之间具有⼦类型或派⽣类型的关系时， 指的是它们之间存在的原型关系。有必要指出，尽管 JavaScript 是⾯向对 象的，但其并不具备像 Java 这样的语⾔中典型的继承关系。在ES6中，可以通过使⽤像关键字class 和extends 这样的语法糖 来建⽴对象之间的原型链接（尽管很">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/function2-oop1.png">
+<meta property="og:image" content="http://example.com/img/function2-oop2.png">
+<meta property="og:image" content="http://example.com/img/function2-oop3.png">
+<meta property="og:image" content="http://example.com/img/function2-fn2.png">
+<meta property="og:image" content="http://example.com/img/function2-fn1.png">
+<meta property="og:image" content="http://example.com/img/mind/function2.png">
+<meta property="article:published_time" content="2023-11-19T04:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-29T02:12:42.780Z">
+<meta property="article:author" content="trade">
+<meta property="article:tag" content="读书分享">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/function2-oop1.png">
+  
+  
+  
+  <title>《JavaScript函数式编程指南》第二章 ⾼阶JavaScript - 知识乐章</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>知识乐章</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archivesthe/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="《JavaScript函数式编程指南》第二章 ⾼阶JavaScript"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-11-19 12:00" pubdate>
+          2023年11月19日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          15k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          126 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">《JavaScript函数式编程指南》第二章 ⾼阶JavaScript</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="第二章-⾼阶JavaScript"><a href="#第二章-⾼阶JavaScript" class="headerlink" title="第二章 ⾼阶JavaScript"></a>第二章 ⾼阶JavaScript</h1><h2 id="函数式与面向对象-OOP"><a href="#函数式与面向对象-OOP" class="headerlink" title="函数式与面向对象(OOP)"></a>函数式与面向对象(OOP)</h2><blockquote>
+<p>面向对象的JavaScript<br>当说到⼀个对象与另⼀个对象之间具有⼦类型或派⽣类型的关系时， 指的是它们之间存在的原型关系。有必要指出，尽管 JavaScript 是⾯向对 象的，但其并不具备像 Java 这样的语⾔中典型的继承关系。<br>在ES6中，可以通过使⽤像关键字class 和extends 这样的语法糖 来建⽴对象之间的原型链接（尽管很多情况下这样做是不对的）。这样的 特性使得定义对象之间的继承更加简单，但却隐藏了 JavaScript 强⼤的原 型机制的真实⾏为。</p>
+</blockquote>
+<p>⾯向对象的应⽤程序⼤多是命令式的，因此在很⼤程度上依赖于使⽤基于对象的封装来保护其⾃⾝和继承的可变状态的完整性，再通过实例⽅法来暴露或修改这些状态。其结果是，对象的数据与其具体的⾏为以⼀种内聚的包裹的形式紧耦合在⼀起。⽽这就是⾯向对象程序的⽬的，也正解释了为什么对象是抽象的核⼼。</p>
+<p>再看函数式编程，它不需要对调⽤者隐藏数据，通常使⽤⼀些更 ⼩且⾮常简单的数据类型。由于⼀切都是不可变的，对象都是可以直接拿来使⽤的，⽽且是通过定义在对象作⽤域外的函数来实现的。换句话说，数据与⾏为是松耦合的。</p>
+<p><img src="/../img/function2-oop1.png" srcset="/img/loading.gif" lazyload alt="⾯向对象的程序设计通过特定的⾏为将很多数据类型逻辑地连接在⼀起，函数式编程 则关注如何在这些数据类型之上通过组合来连接各种操作。因此存在⼀个两种编程范式都可 以被有效利⽤的平衡点。"></p>
+<p>在实践中，⼀些极好的⾯向对象代码均使⽤了两种编程范式——正是在这个相交的平衡点上。要做到这⼀点，你需要把对象视为不可变的实 体或值，并将它们的功能拆分成可应⽤在该对象上的函数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"> <span class="hljs-keyword">get</span> <span class="hljs-title function_">fullname</span>() &#123;<br>    <span class="hljs-comment">// ⽐如在 ⽅法中，会推荐使⽤this来访问对象的状态</span><br>    <span class="hljs-keyword">return</span> [<span class="hljs-variable language_">this</span>.<span class="hljs-property">_firstname</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">_lastname</span>].<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27; &#x27;</span>); <br> &#125;<br><br><span class="hljs-comment">// 拆分出如下的函数 函数中this可以替换为传⼊的参数对象</span><br> <span class="hljs-keyword">var</span> <span class="hljs-title function_">fullname</span> = person =&gt; [person.<span class="hljs-property">firstname</span>, person.<span class="hljs-property">lastname</span>].<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27; &#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p><img src="/../img/function2-oop2.png" srcset="/img/loading.gif" lazyload alt="⾯向对象的关键是创建继承层次结构（如继承Person 的Student 对象）并将⽅法与 数据紧密的绑定在⼀起。函数式编程则更倾向于通过⼴义的多态函数交叉应⽤于不同的数据 类型，同时避免使⽤this"></p>
+<p>将fullname()分离⾄独⽴的函数，可以避免使⽤ this 引⽤来访问对象数据。使⽤this的缺点是它给予了超出⽅法作⽤域的实例层级的数据访问能⼒，从⽽可能导致副作⽤。<code>使⽤函数式编程，对象数据不再与代码的特定部分紧密耦合，从⽽更具重⽤性和可维护性</code>。</p>
+<p>对象类中的peopleInSameCountry和studentsInSameCountryAndSchool，使⽤this和super 将各种操作与当前对象以及⽗对象紧紧地耦合在⼀起。</p>
+<p><a target="_blank" rel="noopener" href="https://code.juejin.cn/pen/7303183148479676470">代码在线演示</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 任务1: 是找到与给定的学⽣⽣活在同⼀国家的所有朋友</span><br><span class="hljs-comment"> * 任务2: 找到与给定的学⽣⽣活在同⼀个国家且在同⼀所学校上学的所有学⽣</span><br><span class="hljs-comment"> */</span><br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 任务1: 是找到与给定的学⽣⽣活在同⼀国家的所有朋友</span><br><span class="hljs-comment"> * 任务2: 找到与给定的学⽣⽣活在同⼀个国家且在同⼀所学校上学的所有学⽣</span><br><span class="hljs-comment"> */</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Address</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">country, state, city, zip, street</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">_country</span> = country;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">_state</span> = state;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">_city</span> = city;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">_zip</span> = zip;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">_street</span> = street;<br>  &#125;<br>  <span class="hljs-keyword">get</span> <span class="hljs-title function_">street</span>() &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">_street</span>;<br>  &#125;<br>  <span class="hljs-keyword">get</span> <span class="hljs-title function_">city</span>() &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">_city</span>;<br>  &#125;<br>  <span class="hljs-keyword">get</span> <span class="hljs-title function_">state</span>() &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">_state</span>;<br>  &#125;<br>  <span class="hljs-keyword">get</span> <span class="hljs-title function_">zip</span>() &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">_zip</span>;<br>  &#125;<br>  <span class="hljs-keyword">get</span> <span class="hljs-title function_">country</span>() &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">_country</span>;<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Person</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">firstname, lastname, ssn</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">_firstname</span> = firstname;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">_lastname</span> = lastname;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">_ssn</span> = ssn;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">_address</span> = <span class="hljs-literal">null</span>;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">_birthYear</span> = <span class="hljs-literal">null</span>;<br>  &#125;<br>  <span class="hljs-keyword">get</span> <span class="hljs-title function_">ssn</span>() &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">_ssn</span>;<br>  &#125;<br>  <span class="hljs-keyword">get</span> <span class="hljs-title function_">firstname</span>() &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">_firstname</span>;<br>  &#125;<br>  <span class="hljs-keyword">get</span> <span class="hljs-title function_">lastname</span>() &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">_lastname</span>;<br>  &#125;<br>  <span class="hljs-keyword">get</span> <span class="hljs-title function_">address</span>() &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">_address</span>;<br>  &#125;<br>  <span class="hljs-keyword">get</span> <span class="hljs-title function_">birthYear</span>() &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">_birthYear</span>;<br>  &#125;<br>  <span class="hljs-comment">//使⽤setter⽅法并不代表要改变对象，⽽只是创 建含有不同属性的对象，⽽且⽆需⻓参数构造函数的⽅式。在创建并设置好对象后，它们 的状态将不会改变（本章之后的部分会解释处理⽅式）</span><br>  <span class="hljs-keyword">set</span> <span class="hljs-title function_">birthYear</span>(<span class="hljs-params">year</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">_birthYear</span> = year;<br>  &#125;<br>  <span class="hljs-comment">// 使⽤setter⽅法并不代表要改变对象，⽽只是创建含 有不同属性的对象，⽽且⽆需⻓参数构造函数的⽅式。在创建并设置好对象后，它们的状态将不会改变（本章后的部分会解释处理⽅式）</span><br>  <span class="hljs-keyword">set</span> <span class="hljs-title function_">address</span>(<span class="hljs-params">addr</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">_address</span> = addr;<br>  &#125;<br>  <span class="hljs-title function_">toString</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">`Person(<span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>._firstname&#125;</span>, <span class="hljs-subst">$&#123;<span class="hljs-variable language_">this</span>._lastname&#125;</span>)`</span>;<br>  &#125;<br>  <span class="hljs-comment">// Person class</span><br>  <span class="hljs-title function_">peopleInSameCountry</span>(<span class="hljs-params">friends</span>) &#123;<br>    <span class="hljs-keyword">var</span> result = [];<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> idx <span class="hljs-keyword">in</span> friends) &#123;<br>      <span class="hljs-keyword">var</span> friend = friends[idx];<br>      <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">address</span>.<span class="hljs-property">country</span> === friend.<span class="hljs-property">address</span>.<span class="hljs-property">country</span>) &#123;<br>        result.<span class="hljs-title function_">push</span>(friend);<br>      &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> result;<br>  &#125;;<br>&#125;<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Student</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Person</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">firstname, lastname, ssn, school</span>) &#123;<br>    <span class="hljs-variable language_">super</span>(firstname, lastname, ssn);<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">_school</span> = school;<br>  &#125;<br>  <span class="hljs-keyword">get</span> <span class="hljs-title function_">school</span>() &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">_school</span>;<br>  &#125;<br>  <span class="hljs-comment">// Student class</span><br>  <span class="hljs-comment">// 使⽤super调⽤⽗类的数据</span><br>  <span class="hljs-title function_">studentsInSameCountryAndSchool</span>(<span class="hljs-params">friends</span>) &#123;<br>    <span class="hljs-keyword">var</span> closeFriends = <span class="hljs-variable language_">super</span>.<span class="hljs-title function_">peopleInSameCountry</span>(friends);<br>    <span class="hljs-keyword">var</span> result = [];<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> idx <span class="hljs-keyword">in</span> closeFriends) &#123;<br>      <span class="hljs-keyword">var</span> friend = closeFriends[idx];<br>      <span class="hljs-keyword">if</span> (friend.<span class="hljs-property">school</span> === <span class="hljs-variable language_">this</span>.<span class="hljs-property">school</span>) &#123;<br>        result.<span class="hljs-title function_">push</span>(friend);<br>      &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> result;<br>  &#125;;<br>&#125;<br><br><br><span class="hljs-keyword">var</span> curry = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Student</span>(<span class="hljs-string">&#x27;Haskell&#x27;</span>, <span class="hljs-string">&#x27;Curry&#x27;</span>,<br> <span class="hljs-string">&#x27;111-11-1111&#x27;</span>, <span class="hljs-string">&#x27;Penn State&#x27;</span>);<br>curry.<span class="hljs-property">address</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Address</span>(<span class="hljs-string">&#x27;US&#x27;</span>);<br><span class="hljs-keyword">var</span> turing = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Student</span>(<span class="hljs-string">&#x27;Alan&#x27;</span>, <span class="hljs-string">&#x27;Turing&#x27;</span>,<span class="hljs-string">&#x27;222-22-2222&#x27;</span>, <span class="hljs-string">&#x27;Princeton&#x27;</span>);<br>turing.<span class="hljs-property">address</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Address</span>(<span class="hljs-string">&#x27;England&#x27;</span>);<br><span class="hljs-keyword">var</span> church = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Student</span>(<span class="hljs-string">&#x27;Alonzo&#x27;</span>, <span class="hljs-string">&#x27;Church&#x27;</span>,<br> <span class="hljs-string">&#x27;333-33-3333&#x27;</span>, <span class="hljs-string">&#x27;Princeton&#x27;</span>);<br>church.<span class="hljs-property">address</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Address</span>(<span class="hljs-string">&#x27;US&#x27;</span>);<br><span class="hljs-keyword">var</span> kleene = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Student</span>(<span class="hljs-string">&#x27;Stephen&#x27;</span>, <span class="hljs-string">&#x27;Kleene&#x27;</span>,<br> <span class="hljs-string">&#x27;444-44-4444&#x27;</span>, <span class="hljs-string">&#x27;Princeton&#x27;</span>);<br>kleene.<span class="hljs-property">address</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Address</span>(<span class="hljs-string">&#x27;US&#x27;</span>);<br><br><span class="hljs-comment">// Stephen-Kleene</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(church.<span class="hljs-title function_">studentsInSameCountryAndSchool</span>([curry, turing, kleene]).<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">t</span> =&gt;</span> <span class="hljs-string">`<span class="hljs-subst">$&#123;t.firstname&#125;</span>-<span class="hljs-subst">$&#123;t.lastname&#125;</span>`</span>))<br><br><br><span class="hljs-comment">// 创建selector函数，⽤来⽐较学⽣的国籍与学校</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">selector</span>(<span class="hljs-params">country, school</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params">student</span>) &#123;<br>    <span class="hljs-comment">//访问对象。 我会在本章后⾯的部分展⽰访问对象的更好⽅式</span><br>    <span class="hljs-keyword">return</span> student.<span class="hljs-property">address</span>.<span class="hljs-property">country</span> === country &amp;&amp; student.<span class="hljs-property">school</span> === school;<br>  &#125;;<br>&#125;<br><span class="hljs-comment">// 使⽤filter⽤selector过滤数组</span><br><span class="hljs-keyword">var</span> findStudentsBy = <span class="hljs-keyword">function</span> (<span class="hljs-params">friends, selector</span>) &#123;<br>  <span class="hljs-keyword">return</span> friends.<span class="hljs-title function_">filter</span>(selector);<br>&#125;;<br><br><span class="hljs-comment">// Alonzo-Church,Stephen-Kleene</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">findStudentsBy</span>([curry, turing, church, kleene], <span class="hljs-title function_">selector</span>(<span class="hljs-string">&#x27;US&#x27;</span>, <span class="hljs-string">&#x27;Princeton&#x27;</span>)).<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">t</span> =&gt;</span> <span class="hljs-string">`<span class="hljs-subst">$&#123;t.firstname&#125;</span>-<span class="hljs-subst">$&#123;t.lastname&#125;</span>`</span>));<br><br><br></code></pre></td></tr></table></figure>
+<p>⾯向对象和函数式编程⼀些重要性质的⽐较如下：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>函数式</th>
+<th>⾯向对象</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>组合单元</td>
+<td>函数</td>
+<td>对象（类）</td>
+</tr>
+<tr>
+<td>编程⻛格</td>
+<td>声明式</td>
+<td>命令式</td>
+</tr>
+<tr>
+<td>数据和⾏为</td>
+<td>独⽴且松耦合的纯函数</td>
+<td>与⽅法紧耦合的类</td>
+</tr>
+<tr>
+<td>状态管理</td>
+<td>将对象视为不可变的值</td>
+<td>主张通过实例⽅法改变对象</td>
+</tr>
+<tr>
+<td>程序流控制</td>
+<td>函数与递归</td>
+<td>循环与条件</td>
+</tr>
+<tr>
+<td>线程安全</td>
+<td>可并发编程</td>
+<td>难以实现</td>
+</tr>
+<tr>
+<td>封装性</td>
+<td>因为⼀切都是不可变的，所以没有必要</td>
+<td>因为⼀切都是不可变的</td>
+</tr>
+</tbody></table>
+<p>尽管它们之间存在差异，但有效构建应⽤程序的⽅法是混合两种 范式。⼀⽅⾯，可以使⽤与组成类型之间存在⾃然关系的富领域模型；另⼀⽅⾯，可以拥有⼀组能够应⽤于这些类型之上的纯函数。</p>
+<p>由于JavaScript 既是⾯向对象的，⼜是函数式的，因此在编写函数式代码时，需要特别注意控制状态的变化。</p>
+<h3 id="管理JavaScript对象的状态"><a href="#管理JavaScript对象的状态" class="headerlink" title="管理JavaScript对象的状态"></a>管理JavaScript对象的状态</h3><p>程序的状态可以定义为在任⼀时刻存储在所有对象之中的数据快照。</p>
+<p>可惜的是，JavaScript 是在对象状态安全⽅⾯做得最差的语⾔之 ⼀。JavaScript 的对象是⾼度动态的，其属性可以在任何时间被修改、 增加或删除。</p>
+<h3 id="将对象视为数值"><a href="#将对象视为数值" class="headerlink" title="将对象视为数值"></a>将对象视为数值</h3><h4 id="函数式编程中的数值"><a href="#函数式编程中的数值" class="headerlink" title="函数式编程中的数值"></a>函数式编程中的数值</h4><p>字符串和数字 - 是任何编程语⾔中最简单的数据类型 这样认为 WHY?<br>部分原因在于，在传统意义上，这些原始类型本 ⾝就是不可变的，⽽这给我们的内⼼带来了其他⾃定义类型所⽆法给予的平和。<br>在函数式编程中，我们将具有此种⾏为的类型称为数值。</p>
+<h4 id="JavaScript的对象也只是可在任意时间添加、删除和更改的属性包⽽已。如何解决？"><a href="#JavaScript的对象也只是可在任意时间添加、删除和更改的属性包⽽已。如何解决？" class="headerlink" title="JavaScript的对象也只是可在任意时间添加、删除和更改的属性包⽽已。如何解决？"></a>JavaScript的对象也只是可在任意时间添加、删除和更改的属性包⽽已。如何解决？</h4><p>ES6的const关键字并不能达到函数式编程所需要的不可变性的⽀持⽔平</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> gravity_ms = <span class="hljs-number">9.806</span>;<br>gravity_ms = <span class="hljs-number">20</span>; <span class="hljs-comment">// JavaScript会在运⾏时阻⽌再赋值</span><br><br><br><span class="hljs-keyword">const</span> student = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Student</span>(<span class="hljs-string">&#x27;Alonzo&#x27;</span>, <span class="hljs-string">&#x27;Church&#x27;</span>, <span class="hljs-string">&#x27;666-66-6666&#x27;</span>, <span class="hljs-string">&#x27;Princeton&#x27;</span>);<br>student.<span class="hljs-property">lastname</span> = <span class="hljs-string">&#x27;Mourning&#x27;</span>; <span class="hljs-comment">// 属性已经变了</span><br></code></pre></td></tr></table></figure>
+
+<p>在 JavaScript 中，可以使⽤函数来保障 ZIP code 的内部状态访问 权限，通过返回⼀个对象字⾯接⼝ 来公开⼀⼩部分⽅法给调⽤者，这样就可以将_code 和_location 视为伪私有变量。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">zipCode</span>(<span class="hljs-params">code, location</span>) &#123;<br> <span class="hljs-keyword">let</span> _code = code;<br> <span class="hljs-keyword">let</span> _location = location || <span class="hljs-string">&#x27;&#x27;</span>;<br> <span class="hljs-keyword">return</span> &#123;<br>  <span class="hljs-attr">code</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> _code;<br>  &#125;,<br>  <span class="hljs-attr">location</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> _location;<br>  &#125;,<br>  <span class="hljs-attr">fromString</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">str</span>) &#123;<br>    <span class="hljs-keyword">let</span> parts = str.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;-&#x27;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-title function_">zipCode</span>(parts[<span class="hljs-number">0</span>], parts[<span class="hljs-number">1</span>]);<br>  &#125;,<br>  <span class="hljs-attr">toString</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> _code + <span class="hljs-string">&#x27;-&#x27;</span> + _location;<br>  &#125;<br> &#125;;<br>&#125;<br><span class="hljs-keyword">const</span> princetonZip = <span class="hljs-title function_">zipCode</span>(<span class="hljs-string">&#x27;08544&#x27;</span>, <span class="hljs-string">&#x27;3345&#x27;</span>);<br>princetonZip.<span class="hljs-title function_">toString</span>(); <span class="hljs-comment">//&#x27;08544-3345&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>值对象是⼀种可简单应⽤于⾯向对象和函数式编程的轻量级⽅式。与关键字const组合在⼀起使⽤，我们就可以创建具有与字符串或数字类似语义的对象。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">coordinate</span>(<span class="hljs-params">lat, long</span>) &#123;<br>  <span class="hljs-keyword">let</span> _lat = lat;<br>  <span class="hljs-keyword">let</span> _long = long;<br>  <span class="hljs-keyword">return</span> &#123;<br>    <span class="hljs-attr">latitude</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>      <span class="hljs-keyword">return</span> _lat;<br>    &#125;,<br>    <span class="hljs-attr">longitude</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>      <span class="hljs-keyword">return</span> _long;<br>    &#125;,<br>    <span class="hljs-comment">// 让⽅法返回⼀个新的副本（例如 translate ）是另⼀种实现不s可变性的⽅式。</span><br>    <span class="hljs-attr">translate</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">dx, dy</span>) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-title function_">coordinate</span>(_lat + dx, _long + dy); <span class="hljs-comment">// 返回翻译过的 坐标副本</span><br>    &#125;,<br>    <span class="hljs-attr">toString</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;(&#x27;</span> + _lat + <span class="hljs-string">&#x27;,&#x27;</span> + _long + <span class="hljs-string">&#x27;)&#x27;</span>;<br>    &#125;<br> &#125;;<br>&#125;<br><span class="hljs-keyword">const</span> greenwich = <span class="hljs-title function_">coordinate</span>(<span class="hljs-number">51.4778</span>, <span class="hljs-number">0.0015</span>);<br>greenwich.<span class="hljs-title function_">toString</span>(); <span class="hljs-comment">// &#x27;(51.4778, 0.0015)&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>值对象是⼀个由函数式编程启发⽽来的⾯向对象设计模式。</p>
+<h3 id="深冻结可变部分"><a href="#深冻结可变部分" class="headerlink" title="深冻结可变部分"></a>深冻结可变部分</h3><p>JavaScript 的Object.freeze()函数可以通过writable隐藏对象元属性设置为false来阻⽌对象状态的改变。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> person = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">freeze</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Person</span>(<span class="hljs-string">&#x27;Haskell&#x27;</span>, <span class="hljs-string">&#x27;Curry&#x27;</span>, <span class="hljs-string">&#x27;444-44-4444&#x27;</span>));<br>person.<span class="hljs-property">firstname</span> = <span class="hljs-string">&#x27;Bob&#x27;</span>; <span class="hljs-comment">// 不被允许 TypeError: Cannot assign to read only property &#x27;_firstname&#x27; of #&lt;Person&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>Object.freeze()不能被⽤于冻结嵌套对象属性.</p>
+<p><img src="/../img/function2-oop3.png" srcset="/img/loading.gif" lazyload alt="只有顶层变量会被冻结，该Object.freeze机制是浅冻结"></p>
+<p>要解决浅冻结问题，需要⼿动冻结对象的嵌套结构.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> <span class="hljs-title function_">isObject</span> = (<span class="hljs-params">val</span>) =&gt; val &amp;&amp; <span class="hljs-keyword">typeof</span> val === <span class="hljs-string">&#x27;object&#x27;</span>;<br><span class="hljs-keyword">function</span> <span class="hljs-title function_">deepFreeze</span>(<span class="hljs-params">obj</span>) &#123;<br>    <span class="hljs-comment">// 遍历所有属性并递归调⽤Object.freeze()</span><br>    <span class="hljs-keyword">if</span>(<span class="hljs-title function_">isObject</span>(obj) &amp;&amp; !<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isFrozen</span>(obj)) &#123; <span class="hljs-comment">// 跳过已经冻结过的对象，冻结没有被冻 结过的对象</span><br>      <span class="hljs-comment">// 跳过所有的函数，即使从技术上说，函数也可以被修改, 但是我们更希望注意在数据的属性上</span><br>      <span class="hljs-comment">// 递归地⾃调⽤</span><br>      <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(obj).<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">name</span> =&gt;</span> <span class="hljs-title function_">deepFreeze</span>(obj[name]));<br>      <span class="hljs-comment">// 冻结根对象</span><br>      <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">freeze</span>(obj);<br> &#125;<br>  <span class="hljs-keyword">return</span> obj;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上述的⼀些技巧可以⽤来增强代码中的不可变性⽔平，但要创建 ⼀个永不改变任何状态的应⽤是不现实的。<br>在由原对象创建新 对象（如coordinate.translate() ）时，使⽤这些严格的策略能 够有效降低JavaScript应⽤的复杂性。</p>
+<h3 id="使⽤Lenses【透镜】（函数式引⽤）定位并修改对象图"><a href="#使⽤Lenses【透镜】（函数式引⽤）定位并修改对象图" class="headerlink" title="使⽤Lenses【透镜】（函数式引⽤）定位并修改对象图"></a>使⽤Lenses【透镜】（函数式引⽤）定位并修改对象图</h3><blockquote>
+<p>是函数式程序设计中⽤于访问和不可改变地操纵状态数据类型属性的解决⽅案</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// ⾃⾏实现写时复制策略，在每次⽅法调⽤时返回⼀个新的对象。 烦琐且容易出错</span><br><span class="hljs-keyword">set</span> <span class="hljs-title function_">lastname</span>(<span class="hljs-params">lastname</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Person</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">_firstname</span>, lastname, <span class="hljs-variable language_">this</span>.<span class="hljs-property">_ssn</span>); <span class="hljs-comment">// 需要将对象中所有的属性状态复制到新的实例（太糟糕了）</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://ramdajs.com/docs/">ramdajs库文档地址</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> R = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;ramda&#x27;</span>);<br><br><span class="hljs-comment">// 使⽤ R.lensProp 来创建⼀个包装了Person 的 lastname属性的 Lens</span><br><span class="hljs-keyword">var</span> person = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Person</span>(<span class="hljs-string">&#x27;Alonzo&#x27;</span>, <span class="hljs-string">&#x27;Church&#x27;</span>, <span class="hljs-string">&#x27;444-44-4444&#x27;</span>);<br><span class="hljs-keyword">var</span> lastnameLens = R.<span class="hljs-title function_">lenseProp</span>(<span class="hljs-string">&#x27;lastName&#x27;</span>);<br><br><span class="hljs-comment">// 使⽤R.view 来读取该属性的内容</span><br>R.<span class="hljs-title function_">view</span>(lastnameLens, person); <span class="hljs-comment">//-&gt; &#x27;Church&#x27;</span><br><br><span class="hljs-comment">// 调⽤R.set 时，它创建并返回⼀个全新的对象 副本，其中包含⼀个新的属性值，并保留原始实例状态</span><br><span class="hljs-keyword">var</span> newPerson = R.<span class="hljs-title function_">set</span>(lastnameLens, <span class="hljs-string">&#x27;Mourning&#x27;</span>, person);<br>newPerson.<span class="hljs-property">lastname</span>; <span class="hljs-comment">//-&gt; &#x27;Mourning&#x27;</span><br>person.<span class="hljs-property">lastname</span>; <span class="hljs-comment">//-&gt; &#x27;Church&#x27;</span><br><br><span class="hljs-comment">// 支持嵌套</span><br>person.<span class="hljs-property">address</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Address</span>(<span class="hljs-string">&#x27;US&#x27;</span>, <span class="hljs-string">&#x27;NJ&#x27;</span>, <span class="hljs-string">&#x27;Princeton&#x27;</span>, <span class="hljs-title function_">zipCode</span>(<span class="hljs-string">&#x27;08544&#x27;</span>,<span class="hljs-string">&#x27;1234&#x27;</span>), <span class="hljs-string">&#x27;Alexander St.&#x27;</span>);<br><span class="hljs-keyword">var</span> zipPath = [<span class="hljs-string">&#x27;address&#x27;</span>, <span class="hljs-string">&#x27;zip&#x27;</span>];<br><span class="hljs-keyword">var</span> zipLens = R.<span class="hljs-title function_">lens</span>(R.<span class="hljs-title function_">path</span>(zipPath), R.<span class="hljs-title function_">assocPath</span>(zipPath));<br>R.<span class="hljs-title function_">view</span>(zipLens, person); <span class="hljs-comment">//-&gt; zipCode(&#x27;08544&#x27;, &#x27;1234&#x27;)</span><br><br><br><span class="hljs-keyword">var</span> newPerson = R.<span class="hljs-title function_">set</span>(zipLens, person, <span class="hljs-title function_">zipCode</span>(<span class="hljs-string">&#x27;90210&#x27;</span>, <span class="hljs-string">&#x27;5678&#x27;</span>));<br>R.<span class="hljs-title function_">view</span>(zipLens, newPerson); <span class="hljs-comment">//-&gt; zipCode(&#x27;90210&#x27;, &#x27;5678&#x27;)</span><br>R.<span class="hljs-title function_">view</span>(zipLens, person); <span class="hljs-comment">//-&gt; zipCode(&#x27;08544&#x27;, &#x27;1234&#x27;)</span><br>newPerson !== person; <span class="hljs-comment">//-&gt; true</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>函数是函数式编程的⼯作单元与中⼼。<br>为了达到学习⽬的，我们需要区分表达式（如返回⼀个值的函数）和语句（如不返回值的函数）。<br>命令式编程和过程式程序⼤多是由⼀系列有序的语 句组成的，⽽函数式编程完全依赖于表达式，因此⽆值函数在该范式下并没有意义。</p>
+<p>JavaScript 函数有两个⽀柱性的重要特性：⼀等的和⾼阶的。</p>
+<h3 id="⼀等函数"><a href="#⼀等函数" class="headerlink" title="⼀等函数"></a>⼀等函数</h3><p>在JavaScript中，术语是⼀等的，指的在语⾔层⾯将函数视为真实的对象。</p>
+<blockquote>
+<p>一等公民的定义<br>根据维基百科，编程语言中一等公民的概念是由英国计算机学家Christopher Strachey提出来的，时间则早在上个世纪 60 年代，那个时候还没有个人电脑，没有互联网，没有浏览器，也没有 JavaScript。</p>
+</blockquote>
+<blockquote>
+<p>来自于一本书《Programming Language Pragmatics》，这本书是很多大学的程序语言设计的教材。<br>In general, a value in a programming language is said to have ﬁrst-class status if it can be passed as a parameter, returned from a subroutine, or assigned into a variable.<br>也就是说，在编程语言中，一等公民可以作为函数参数，可以作为函数返回值，也可以赋值给变量。</p>
+</blockquote>
+<blockquote>
+<p>一篇讲JavaScript历史的文章里面提到：JavaScript借鉴Scheme语言，将函数提升到”一等公民”（first class citizen）的地位。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 函数声明</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">multiplier</span>(<span class="hljs-params">a,b</span>) &#123;<br>  <span class="hljs-keyword">return</span> a * b;<br>&#125;<br><br><span class="hljs-comment">// 作为匿名函数或lambda表达式给变量赋值</span><br><span class="hljs-keyword">var</span> square = <span class="hljs-keyword">function</span> (<span class="hljs-params">x</span>) &#123; <span class="hljs-comment">// 匿名函数</span><br>  <span class="hljs-keyword">return</span> x * x;<br>&#125;<br><br><span class="hljs-keyword">var</span> <span class="hljs-title function_">square</span> = x =&gt; x * x; <span class="hljs-comment">// lambda表达式</span><br><br><span class="hljs-comment">// 作为成员⽅法给对象的属性赋值</span><br><span class="hljs-keyword">var</span> obj = &#123;<br>  <span class="hljs-attr">method</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">x</span>) &#123; <span class="hljs-keyword">return</span> x * x; &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>函数还可以通过构造函数来实例化，构造函数以函数形参，函数体为参 数，并需要使⽤new 关键字，如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> multiplier = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Function</span>(<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;return a * b&#x27;</span>);<br><span class="hljs-title function_">multiplier</span>(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>); <span class="hljs-comment">//-&gt; 6</span><br></code></pre></td></tr></table></figure>
+
+<p>在 JavaScript 中，任何函数都是 Function 类型的⼀个实例<br>函数的 length 属性可以⽤来获取形参的数量<br>apply()和call()⽅法可以⽤来调⽤函数并加⼊上下⽂</p>
+<h3 id="⾼阶函数"><a href="#⾼阶函数" class="headerlink" title="⾼阶函数"></a>⾼阶函数</h3><p>匿名函数表达式的右侧是⼀个具有空 name 属性的函数对象。可 以通过将匿名函数作为参数的⽅式来扩展或者定制化当前函数的⾏ 为。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">people.<span class="hljs-title function_">sort</span>(<span class="hljs-function">(<span class="hljs-params">p1, p2</span>) =&gt;</span> p1.<span class="hljs-title function_">getAge</span>() - p2.<span class="hljs-title function_">getAge</span>());<br></code></pre></td></tr></table></figure>
+<p>像sort() 这样可以接收其他函数作为参数的JavaScript函数，均属于⼀种函数类型——⾼阶函数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">applyOperation</span>(<span class="hljs-params">a, b, opt</span>) &#123; <span class="hljs-comment">// opt()函数可以作为参数传⼊其他函数中</span><br> <span class="hljs-keyword">return</span> <span class="hljs-title function_">opt</span>(a,b);<br>&#125;<br><span class="hljs-keyword">var</span> <span class="hljs-title function_">multiplier</span> = (<span class="hljs-params">a, b</span>) =&gt; a * b;<br><span class="hljs-title function_">applyOperation</span>(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, multiplier); <span class="hljs-comment">// -&gt; 6</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">a</span>) &#123;<br> <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params">b</span>) &#123; <span class="hljs-comment">// ⼀个返回其他函数的函数</span><br>    <span class="hljs-keyword">return</span> a + b;<br> &#125;<br>&#125;<br><span class="hljs-title function_">add</span>(<span class="hljs-number">3</span>)(<span class="hljs-number">3</span>); <span class="hljs-comment">//-&gt; 6</span><br></code></pre></td></tr></table></figure>
+
+<p>因为函数的⼀等性和⾼阶性，JavaScript函数具有值的⾏为。 <code>函数就是⼀个基于输⼊的且尚未求值的不可变的值。</code></p>
+<p>通过组合⼀些⼩的⾼阶函数来创建有意义的表达式，可以简化很多烦琐的程序。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 要打印住在美国的⼈员名单</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">printPeopleInTheUs</span>(<span class="hljs-params">people</span>) &#123;<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; people.<span class="hljs-property">length</span>; i++) &#123;<br>    <span class="hljs-keyword">var</span> thisPerson = people[i];<br>    <span class="hljs-keyword">if</span>(thisPerson.<span class="hljs-property">address</span>.<span class="hljs-property">country</span> === <span class="hljs-string">&#x27;US&#x27;</span>) &#123;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(thisPerson); <span class="hljs-comment">// &lt;---隐式调⽤对象的toString⽅法</span><br>    &#125;<br>  &#125;<br>&#125;<br><span class="hljs-title function_">printPeopleInTheUs</span>([p1, p2, p3]); <span class="hljs-comment">// &lt;--- p1、p2和p3 是Person的实例</span><br><br><span class="hljs-comment">// ⽀持打印⽣活在其他国家的⼈</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">printPeople</span>(<span class="hljs-params">people, action</span>) &#123;<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; people.<span class="hljs-property">length</span>; i++) &#123;<br>    action (people[i]);<br>  &#125;<br>&#125;<br><span class="hljs-keyword">var</span> action = <span class="hljs-keyword">function</span> (<span class="hljs-params">person</span>) &#123;<br>  <span class="hljs-keyword">if</span>(person.<span class="hljs-property">address</span>.<span class="hljs-property">country</span> === <span class="hljs-string">&#x27;US&#x27;</span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(person);<br>  &#125;<br>&#125;<br><span class="hljs-title function_">printPeople</span>(people,action); <br><br><span class="hljs-comment">// 基于函数的⾼阶特性将printPeople重构 数据 + 条件 + 动作分离</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">printPeople</span>(<span class="hljs-params">people, selector, printer</span>) &#123;<br> people.<span class="hljs-title function_">forEach</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">person</span>) &#123;<br>  <span class="hljs-keyword">if</span>(<span class="hljs-title function_">selector</span>(person)) &#123;<br>    <span class="hljs-title function_">printer</span>(person);<br>  &#125;<br> &#125;);<br>&#125;<br><span class="hljs-keyword">var</span> <span class="hljs-title function_">inUs</span> = person =&gt; person.<span class="hljs-property">address</span>.<span class="hljs-property">country</span> === <span class="hljs-string">&#x27;US&#x27;</span>;<br><span class="hljs-title function_">printPeople</span>(people, inUs, <span class="hljs-variable language_">console</span>.<span class="hljs-property">log</span>);<br><br><span class="hljs-comment">// 以使⽤ Lens 来创建可以访问对象属性的函数 -- 代码⽐之前的更加函数式</span><br><span class="hljs-keyword">var</span> countryPath = [<span class="hljs-string">&#x27;address&#x27;</span>, <span class="hljs-string">&#x27;country&#x27;</span>];<br><span class="hljs-keyword">var</span> countryL = R.<span class="hljs-title function_">lens</span>(R.<span class="hljs-title function_">path</span>(countryPath), R.<span class="hljs-title function_">assocPath</span>(countryPath));<br><span class="hljs-keyword">var</span> inCountry = R.<span class="hljs-title function_">curry</span>(<span class="hljs-function">(<span class="hljs-params">country, person</span>) =&gt;</span> R.<span class="hljs-title function_">equals</span>(R.<span class="hljs-title function_">view</span>(countryL, person), country));<br>people.<span class="hljs-title function_">filter</span>(<span class="hljs-title function_">inCountry</span>(<span class="hljs-string">&#x27;US&#x27;</span>)).<span class="hljs-title function_">map</span>(<span class="hljs-variable language_">console</span>.<span class="hljs-property">log</span>); <br></code></pre></td></tr></table></figure>
+<h3 id="函数调⽤的类型"><a href="#函数调⽤的类型" class="headerlink" title="函数调⽤的类型"></a>函数调⽤的类型</h3><p>JavaScript 给予了我们完全的⾃由来指定调⽤函数的运⾏上下⽂，也就是函数体中 this 的值。<br>不同的⽅式来调⽤： </p>
+<ul>
+<li>作为全局函数 – 其中this 的引⽤可以是global 对象或是undefined （在严格模式中）<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">doWork</span>(<span class="hljs-params"></span>) &#123;<br> <span class="hljs-variable language_">this</span>.<span class="hljs-property">myVar</span> = <span class="hljs-string">&#x27;Some value&#x27;</span>; <span class="hljs-comment">// 在全局上下⽂调⽤doWork()会造成this引⽤到全局对象上</span><br>&#125;<br><span class="hljs-title function_">doWork</span>(); <span class="hljs-comment">// 在全局上下⽂调⽤doWork()会造成this引⽤到全局对象上</span><br></code></pre></td></tr></table></figure></li>
+<li>作为⽅法 – 其中 this 的引⽤是⽅法的所有者 OOP<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> obj = &#123;<br>  <span class="hljs-attr">prop</span>: <span class="hljs-string">&#x27;Some property&#x27;</span>, <br>  <span class="hljs-attr">getProp</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">prop</span>&#125; <span class="hljs-comment">// 调⽤对象中的⽅法时，this指向该对象</span><br>&#125;;<br>obj.<span class="hljs-title function_">getProp</span>(); <span class="hljs-comment">// 调⽤对象中的⽅法时，this指向该对象</span><br></code></pre></td></tr></table></figure></li>
+<li>作为构造函数与 new⼀起使⽤ – 这种⽅式会返回新创建对象的引⽤<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">MyType</span>(<span class="hljs-params">arg</span>) &#123;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">prop</span> = arg; <span class="hljs-comment">// 使⽤new关键字会把this引⽤到新创建的对象上 </span><br>&#125;<br><span class="hljs-keyword">var</span> someVal = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyType</span>(<span class="hljs-string">&#x27;some argument&#x27;</span>); <span class="hljs-comment">// 使⽤new关键字会把this引⽤到新创建的对象上</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>在函数式代码中很少会使⽤this（事实上，应不 惜⼀切代价来避免使⽤它）。但在⼀些库和⼯具中，它被⼤量使⽤， 以在⼀些特殊情形下改变语⾔环境来实现⼀些难以置信的功能。这些 往往会涉及 apply ⽅法以及 call ⽅法。</p>
+<h3 id="函数⽅法"><a href="#函数⽅法" class="headerlink" title="函数⽅法"></a>函数⽅法</h3><p>JavaScript ⽀持通过使⽤函数原型链上的函数⽅法（类似元函数）call 和 apply 来调⽤函数本⾝。</p>
+<h2 id="作用域与闭包"><a href="#作用域与闭包" class="headerlink" title="作用域与闭包"></a>作用域与闭包</h2><h3 id="作用域分类"><a href="#作用域分类" class="headerlink" title="作用域分类"></a>作用域分类</h3><ul>
+<li><p>全局作⽤域<br>任何对象和在脚本最外层声明的（不在任何函数中的）变量都是全局作⽤域的⼀部分，并且可以被所有JavaScript代码访问。<br>在函数式编程时，我们应该不惜⼀切代价地避免使⽤全局变量。</p>
+</li>
+<li><p>函数作⽤域</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> x = <span class="hljs-string">&#x27;Some value&#x27;</span>;<br><span class="hljs-keyword">function</span> <span class="hljs-title function_">parentFunction</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">function</span> <span class="hljs-title function_">innerFunction</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(x);<br>  &#125;<br>  <span class="hljs-keyword">return</span> innerFunction;<br>&#125;<br><span class="hljs-keyword">var</span> inner = <span class="hljs-title function_">parentFunction</span>();<br><span class="hljs-title function_">inner</span>();<br></code></pre></td></tr></table></figure></li>
+</ul>
+<p><img src="/../img/function2-fn2.png" srcset="/img/loading.gif" lazyload alt="JavaScript 的名称解析顺序，在最近的作⽤域查找到变量，并逐层向外扩展。 它⾸先检查函数（局部）作⽤域，然后移动到（倘若存在的）⽗作⽤域，最终移动⾄ 全局作⽤域。如果⽆法找到变量x ，该函数将返回 undefined"></p>
+<ul>
+<li><p>伪块作⽤域<br>标准 ES5 JavaScript 并不⽀持块级作⽤域。</p>
+<ul>
+<li>比如包裹在括号{} 中的，⾪属于各种控制结构，如 for 、while 、if 和switch 语句。</li>
+<li>传递到 catch 块的错误变量 - 块级作用域</li>
+<li>语句 with 与块作⽤域类似，但它已不被建议使⽤，并且在严格模式下被 禁⽌。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">doWork</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">if</span> (!myVar) &#123;<br>    <span class="hljs-keyword">var</span> myVar = <span class="hljs-number">10</span>;<br>  &#125;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(myVar); <span class="hljs-comment">//-&gt; 10</span><br>&#125;<br><span class="hljs-title function_">doWork</span>();<br></code></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];<br><span class="hljs-keyword">function</span> <span class="hljs-title function_">processArr</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">function</span> <span class="hljs-title function_">multipleBy10</span>(<span class="hljs-params">val</span>) &#123;<br>    i = <span class="hljs-number">10</span>;<br>    <span class="hljs-keyword">return</span> val * i;<br>  &#125;<br>  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; arr.<span class="hljs-property">length</span>; i++) &#123;<br>    arr[i] = <span class="hljs-title function_">multipleBy10</span>(arr[i]);<br>  &#125;<br>  <span class="hljs-keyword">return</span> arr;<br>&#125;<br><span class="hljs-title function_">processArr</span>(); <span class="hljs-comment">//-&gt; [10, 2, 3, 4]</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>推荐ES6使⽤let ⽽不是var 来声明作⽤域变量</p>
+</li>
+</ul>
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> outerVar = <span class="hljs-string">&#x27;Outer&#x27;</span>; <span class="language-xml">&lt;---声明全局变量outerVar</span><br><span class="language-xml">function makeInner(params) &#123;</span><br><span class="language-xml">  var innerVar = &#x27;Inner&#x27;; // 调⽤makeInner会得到inner函数</span><br><span class="language-xml">  function inner() &#123;</span><br><span class="language-xml">    // 声明inner：innerVar和outerVar在inner闭包内</span><br><span class="language-xml">    console.log(`I can see: $&#123;outerVar&#125;, $&#123;innerVar&#125;, and $&#123;params&#125;`);</span><br><span class="language-xml">  &#125;</span><br><span class="language-xml"> return inner;</span><br><span class="language-xml">&#125;</span><br><span class="language-xml">var inner = makeInner(&#x27;Params&#x27;); // 声明局部变量makeInner</span><br><span class="language-xml">inner(); // 函数inner⽣命周期⽐外部函数还⻓</span><br><span class="language-xml"></span><br><span class="language-xml">// --&gt; &#x27;I can see: Outer, Inner, and Params&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/../img/function2-fn1.png" srcset="/img/loading.gif" lazyload alt="作用域示意"></p>
+<h6 id="闭包包含了在外部（全局）作⽤域中声明的变量、在⽗函数内部作⽤域中声明的变量、⽗函数的参数以及在函数声明之后声明的变量。函数体中的代码可以访问这些作⽤域中-定义的变量和对象。⽽所有函数都共享全局作⽤域"><a href="#闭包包含了在外部（全局）作⽤域中声明的变量、在⽗函数内部作⽤域中声明的变量、⽗函数的参数以及在函数声明之后声明的变量。函数体中的代码可以访问这些作⽤域中-定义的变量和对象。⽽所有函数都共享全局作⽤域" class="headerlink" title="闭包包含了在外部（全局）作⽤域中声明的变量、在⽗函数内部作⽤域中声明的变量、⽗函数的参数以及在函数声明之后声明的变量。函数体中的代码可以访问这些作⽤域中 定义的变量和对象。⽽所有函数都共享全局作⽤域"></a>闭包包含了在外部（全局）作⽤域中声明的变量、在⽗函数内部作⽤域中声明的变量、⽗函数的参数以及在函数声明之后声明的变量。函数体中的代码可以访问这些作⽤域中 定义的变量和对象。⽽所有函数都共享全局作⽤域</h6><p>从makeInner 返回的函数会在其声明时记住其作⽤域内的所有变量， 并防⽌它们被回收。由于全局作⽤域内也是闭包的⼀部分，因此返回 的函数也能够访问 outerVar 。</p>
+<p>闭包是⼀种能够在函数声明过程中将环境信息与所属函数绑定在⼀起的数据结构。它是基于函数声明的⽂本位置的，因此也被称为围 绕函数定义的静态作⽤域或词法作⽤域。<br>⽀配函数闭包⾏为的规则与 JavaScript 的作⽤域规则密切相关。<br>从本质上讲，闭包就是函数继承⽽来的作⽤域，这类似于对象⽅法是如何访问 其继承的实例变量的，它们都具有其⽗类型的引⽤。</p>
+<h4 id="闭包的实际应⽤"><a href="#闭包的实际应⽤" class="headerlink" title="闭包的实际应⽤"></a>闭包的实际应⽤</h4><ul>
+<li>模拟私有变量<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">MyModule</span> = (<span class="hljs-keyword">function</span> <span class="hljs-title function_">MyModule</span>(<span class="hljs-params"><span class="hljs-keyword">export</span></span>) &#123; <span class="hljs-comment">// &lt;---给IIFE⼀个名字，这样 有⽤的信息更⽅便栈追踪</span><br>  <span class="hljs-keyword">let</span> _myPrivateVar = ...;  <span class="hljs-comment">// &lt;---⽆法从外部访问到这个私有变量，但对内部 的两个⽅法可⻅</span><br>      <span class="hljs-keyword">export</span>.<span class="hljs-property">method1</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;  <span class="hljs-comment">//&lt;---需要暴露的⽅法，这⾥给予了伪命名空 间// do work</span><br>  &#125;;<br>  <span class="hljs-keyword">export</span>.<span class="hljs-property">method2</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123; <span class="hljs-comment">//&lt;---需要暴露的⽅法，这⾥给予了伪命名 空间</span><br>  <span class="hljs-comment">// do work</span><br>  &#125;;<br>&#125;(<span class="hljs-title class_">MyModule</span> || &#123;&#125;)); <span class="hljs-comment">// &lt;---⼀个单例对象，⽤来私有的封装所有的状态和⽅法。可以 通过MyModule.method1()调⽤到method1()</span><br></code></pre></td></tr></table></figure>
+闭包还可以⽤来管理的全局命名空间，以免在全局范围内共享数 据。⼀些库和模块还会使⽤闭包来隐藏整个模块的私有⽅法和数据。 这被称为模块模式 ，它采⽤了⽴即调⽤函数表达式（IIFE） ，在封 装内部变量的同时，允许对外公开必要的功能集合，从⽽有效减少了全局引⽤。</li>
+<li>异步服务端调⽤<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title function_">getJSON</span>(<span class="hljs-string">&#x27;/students&#x27;</span>,<span class="hljs-function">(<span class="hljs-params">students</span>) =&gt;</span> &#123;<br>  <span class="hljs-title function_">getJSON</span>(<span class="hljs-string">&#x27;/students/grades&#x27;</span>, <br>    <span class="hljs-function"><span class="hljs-params">grades</span> =&gt;</span> <span class="hljs-title function_">processGrades</span>(grades), <span class="hljs-comment">// 处理两个返回结果</span><br>    <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(error.<span class="hljs-property">message</span>)); <span class="hljs-comment">// 处理获取评分等级 时发⽣的错误</span><br>&#125;,<br><span class="hljs-comment">// 处理获取学⽣时发⽣的错误</span><br><span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(error.<span class="hljs-property">message</span>) )<br></code></pre></td></tr></table></figure></li>
+<li>模拟块作⽤域变量<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">outputNumbers</span>(<span class="hljs-params">count</span>)&#123;<br>  (<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;<br>    <span class="hljs-comment">//块级作用域</span><br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; count; i++)&#123;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(i); <span class="hljs-comment">// 0, 1, ... count - 1</span><br>    &#125;<br>  &#125;)();<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(i); <span class="hljs-comment">// error</span><br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>JavaScript 是⼀种⽤途⼴泛的、具有强⼤⾯向对象和函数式编程特性的语⾔。 </li>
+<li>使⽤不可变的实现⽅式可以使函数式与⾯向对象编程很好地结合在⼀起。</li>
+<li>⼀等⾼阶的函数使得 JavaScript 成了函数式编程的中坚⼒量。</li>
+<li>闭包具有很多实际⽤途，如信息隐藏、模块化开发，并能够将参数化的⾏为跨数据类型地应⽤于粗粒度的函数之上。</li>
+</ul>
+<h2 id="附件"><a href="#附件" class="headerlink" title="附件"></a>附件</h2><p><img src="/../img/mind/function2.png" srcset="/img/loading.gif" lazyload alt="总结脑图"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E6%8C%87%E5%8D%97/" class="category-chain-item">函数式编程指南</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AF%BB%E4%B9%A6%E5%88%86%E4%BA%AB/" class="print-no-link">#读书分享</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>《JavaScript函数式编程指南》第二章 ⾼阶JavaScript</div>
+      <div>http://example.com/2023/11/19/functionalProgramming/book2/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>trade</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年11月19日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/11/27/functionalProgramming/book3/" title="《JavaScript函数式编程指南》第三章 轻数据结构，重操作">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">《JavaScript函数式编程指南》第三章 轻数据结构，重操作</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/11/11/functionalProgramming/book1/" title="《JavaScript函数式编程指南》第一章 走进函数式">
+                        <span class="hidden-mobile">《JavaScript函数式编程指南》第一章 走进函数式</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

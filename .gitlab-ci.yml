@@ -1,0 +1,45 @@
+stages:
+    - install
+    - build
+    - deploy
+
+cache: # 缓存
+  paths:
+    - node_modules
+
+install-job:
+    stage: install
+    only:
+        - master
+    script:
+        - echo "开始install🔥🔥🔥"
+        - npm config set registry https://registry.npmmirror.com
+        - npm install
+        - echo "完成install🔥🔥🔥"
+    tags:
+        - blog-rpi
+
+build-job:
+    stage: build
+    only:
+        - master
+    script:
+        - echo "开始代码打包💪💪💪"
+        - npm run build
+        - echo "完成代码打包💪💪💪"
+    tags:
+        - blog-rpi
+    artifacts: 
+        paths:
+            - public/
+
+deploy-job:
+    stage: deploy
+    only:
+        - master
+    script:
+        - echo "开始部署✨✨✨"
+        - cp -rf ${CI_PROJECT_DIR}/public/* /home/gitlab-runner/www/blog/
+        - echo "部署完成✨✨✨"
+    tags:
+        - blog-rpi

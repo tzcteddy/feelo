@@ -1,0 +1,196 @@
+---
+title: 模版语法详解
+date: 2024-06-06 12:00:00
+post: comments
+enable: true
+categories:
+  - [前端开发手册, Vue3 奇妙之旅：轻松掌握新语法]
+tags:
+  - vue
+  - vue3
+---
+
+## 1. 基本模版语法
+
+### 1.1 插值
+
+插值（Interpolation）是 Vue 模版语法中最基础的部分。通过插值语法，可以在模版中展示数据。
+
+```html
+<div>{{ message }}</div>
+```
+
+在上面的例子中，`{{ message }}` 会被替换为 Vue 实例中 `message` 属性的值。
+
+### 1.2 指令
+
+指令（Directives）是带有 `v-` 前缀的特殊属性，用于在模版中绑定行为。常用指令包括 `v-bind`、`v-model` 和 `v-for`。
+
+#### 1.2.1 v-bind
+
+`v-bind` 指令用于绑定 HTML 属性。
+
+```html
+<a v-bind:href="url">点击这里</a>
+```
+
+#### 1.2.2 v-model
+
+`v-model` 指令用于创建双向数据绑定。
+
+```html
+<input v-model="message" placeholder="输入一些文字">
+```
+
+#### 1.2.3 v-for
+
+`v-for` 指令用于渲染一个列表。
+
+```html
+<ul>
+  <li v-for="item in items" :key="item.id">{{ item.text }}</li>
+</ul>
+```
+
+### 1.3 条件渲染
+
+条件渲染使用 `v-if` 和 `v-show` 指令。
+
+```html
+<p v-if="seen">现在你看到我了</p>
+<p v-show="seen">你还能看到我吗？</p>
+```
+
+`v-if` 完全销毁和重建元素，而 `v-show` 仅仅是切换元素的可见性。
+
+## 2. 模版语法进阶
+
+### 2.1 计算属性和监听器
+
+计算属性（Computed Properties）和监听器（Watchers）是 Vue 的强大功能，用于处理复杂逻辑和异步操作。
+
+#### 2.1.1 计算属性
+
+计算属性是基于它们的依赖进行缓存的。
+
+```js
+computed: {
+  reversedMessage() {
+    return this.message.split('').reverse().join('')
+  }
+}
+```
+
+```html
+<p>{{ reversedMessage }}</p>
+```
+
+#### 2.1.2 监听器
+
+监听器用于在数据变化时执行异步操作或开销较大的操作。
+
+```js
+watch: {
+  message(newVal, oldVal) {
+    this.logMessage(newVal);
+  }
+}
+```
+
+### 2.2 模版引用
+
+模版引用（Template Refs）允许我们直接访问 DOM 元素或子组件实例。
+
+```html
+<input ref="input" v-model="message">
+```
+
+```js
+mounted() {
+  this.$refs.input.focus();
+}
+```
+
+### 2.3 插槽
+
+插槽（Slots）用于构建可复用的组件，允许在组件使用时传递内容。
+
+```html
+<template>
+  <div>
+    <slot></slot>
+  </div>
+</template>
+```
+
+使用插槽：
+
+```html
+<custom-component>
+  <p>这是插入的内容</p>
+</custom-component>
+```
+
+### 2.4 动态组件
+
+动态组件（Dynamic Components）允许我们在同一个挂载点动态切换不同的组件。
+
+```html
+<component :is="currentComponent"></component>
+```
+
+```js
+data() {
+  return {
+    currentComponent: 'componentA'
+  }
+}
+```
+
+## 3. 模版事件处理
+
+### 3.1 事件绑定
+
+使用 `v-on` 指令绑定事件。
+
+```html
+<button v-on:click="doSomething">点击我</button>
+```
+
+### 3.2 事件修饰符
+
+事件修饰符用于修改事件行为。
+
+```html
+<form v-on:submit.prevent="onSubmit">...</form>
+```
+
+常用修饰符包括 `.stop`、`.prevent`、`.capture`、`.self`、`.once` 等。
+
+## 4. 模版中的条件与循环
+
+### 4.1 条件渲染
+
+通过 `v-if`、`v-else-if` 和 `v-else` 实现复杂的条件渲染。
+
+```html
+<div v-if="type === 'A'">A</div>
+<div v-else-if="type === 'B'">B</div>
+<div v-else>C</div>
+```
+
+### 4.2 列表渲染
+
+通过 `v-for` 渲染列表，并使用 `key` 提高渲染效率。
+
+```html
+<ul>
+  <li v-for="item in items" :key="item.id">{{ item.text }}</li>
+</ul>
+```
+
+## 5. 模版语法总结
+
+Vue 3 的模版语法提供了强大的功能和灵活性，使得我们可以轻松构建复杂的用户界面。通过合理使用插值、指令、计算属性、监听器、插槽和动态组件，我们可以实现高效、可维护的前端代码。
+
+Vue 3 的模版语法不仅易于上手，而且功能强大，适用于各种复杂场景。希望这篇文章能帮助你更好地理解和使用 Vue 3 的模版语法，在实际开发中游刃有余。
